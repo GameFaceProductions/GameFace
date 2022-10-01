@@ -13,31 +13,24 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "post_comment")
+public class PostComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, length = 100)
-    private String title;
-
-    @Column(nullable = false, length = 1024)
-    private String content;
+    private long id;
 
     @ManyToOne
     @JsonIgnoreProperties({"posts"})
     private User author;
 
-    @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("author")
-    private Collection<PostComments> postComments;
-
-    @OneToMany(mappedBy = "posts")
-    @JsonIgnoreProperties("author")
-    private Collection<PostComments> posts;
-
+    @ManyToOne
+    @JsonIgnoreProperties({"posts"})
+    private Post posts;
 
     @Column(nullable = false)
     private LocalDate createdAt;
+
+    @Column(nullable = false)
+    private String content;
+
 }

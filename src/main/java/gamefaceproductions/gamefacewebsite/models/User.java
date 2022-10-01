@@ -16,26 +16,32 @@ import java.util.Collection;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "users_blog")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 50)
     private String userName;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String gamerTag;
+
+    @Column(nullable = false, unique = true, length = 25)
+    private String region;
+
+    @Column(nullable = false, unique = true, length = 10)
+    private String blocked;
 
     @Email
     @NotEmpty
     @Column(nullable = false, length = 100)
     private String email;
 
-    @ToString.Exclude
-    @Column(nullable = false, length = 100)
-    private String password;
-
     @Column(nullable = false)
     private LocalDate createdAt;
+
 
     @NotNull
     @Enumerated(EnumType.STRING)
