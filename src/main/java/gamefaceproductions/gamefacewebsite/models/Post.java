@@ -1,4 +1,4 @@
-package gamefaceproductions.gamefacewebsite.data;
+package gamefaceproductions.gamefacewebsite.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
