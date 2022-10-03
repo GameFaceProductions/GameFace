@@ -26,11 +26,11 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties("author")
     private User author;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("author")
+    @JsonIgnoreProperties("posts")
     private Collection<PostComments> postComments;
 
     @OneToMany(mappedBy = "posts")
@@ -38,7 +38,7 @@ public class Post {
     private Collection<PostComments> posts;
 
     @OneToMany(mappedBy = "posts")
-    @JsonIgnoreProperties("posts")
+    @JsonIgnoreProperties("likes")
     private Collection<PostLikes> likes;
 
     @Column(nullable = false)
