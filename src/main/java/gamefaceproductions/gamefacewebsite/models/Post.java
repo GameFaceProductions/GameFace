@@ -37,6 +37,9 @@ public class Post {
     @JsonIgnoreProperties("author")
     private Collection<PostComments> posts;
 
+    @OneToMany(mappedBy = "posts")
+    @JsonIgnoreProperties("posts")
+    private Collection<PostLikes> likes;
 
     @Column(nullable = false)
     private LocalDate createdAt;
