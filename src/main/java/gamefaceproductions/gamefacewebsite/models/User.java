@@ -49,11 +49,11 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("author")
+    @JsonIgnoreProperties("posts")
     private Collection<Post> posts;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties("likes")
     private Collection<PostLikes> likes;
 
     @ManyToMany(cascade = CascadeType.MERGE)

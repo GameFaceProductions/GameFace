@@ -19,11 +19,11 @@ public class MediaComments {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gameMedia"})
+    @JsonIgnoreProperties("author")
     private User author;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gameMedia"})
+    @JsonIgnoreProperties("gameMedia")
     private GameMedia gameMedia;
 
     @Column(nullable = false)

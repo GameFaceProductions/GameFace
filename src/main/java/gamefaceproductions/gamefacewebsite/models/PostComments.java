@@ -20,11 +20,11 @@ public class PostComments {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties("author")
     private User author;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties("posts")
     private Post posts;
 
     @Column(nullable = false)

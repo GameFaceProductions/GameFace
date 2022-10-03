@@ -19,11 +19,11 @@ public class PostLikes {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties("user")
     private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties("posts")
     private Post posts;
 
     @Column(nullable = false, length = 100)
