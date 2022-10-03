@@ -9,8 +9,8 @@ import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -53,8 +53,8 @@ public class UsersController {
     }
     //
     @GetMapping("/me")
-    private Optional<User> fetchMe(OAuth2Authentication auth) {
-        String userName = auth.getName();
+    private Optional<User> fetchMe() {
+        String userName = "Scrimm";
         User user = usersRepository.findByUserName(userName);
         return Optional.of(user);
     }
