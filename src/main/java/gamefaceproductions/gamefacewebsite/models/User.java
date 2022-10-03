@@ -29,10 +29,10 @@ public class User {
     @Column(nullable = false, unique = true, length = 50)
     private String gamerTag;
 
-    @Column(nullable = false, unique = true, length = 25)
+    @Column(nullable = false, length = 25)
     private String region;
 
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, length = 10)
     private String blocked;
 
     @Email
