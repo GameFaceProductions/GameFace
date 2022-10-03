@@ -51,4 +51,8 @@ public class User {
     @OneToMany(mappedBy = "author")
     @JsonIgnoreProperties("author")
     private Collection<Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private Collection<PostLikes> likes;
 }
