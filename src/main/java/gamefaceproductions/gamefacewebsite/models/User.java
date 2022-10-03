@@ -43,7 +43,6 @@ public class User {
     @Column(nullable = false)
     private LocalDate createdAt;
 
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column
