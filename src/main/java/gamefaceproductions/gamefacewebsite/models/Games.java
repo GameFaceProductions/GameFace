@@ -20,5 +20,5 @@ public class Games {
     private Long id;
 
     @Column(nullable = false)
-    private String games;
+    private String game;
 }
