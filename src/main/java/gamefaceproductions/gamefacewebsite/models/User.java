@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -55,4 +56,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties("user")
     private Collection<PostLikes> likes;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_friends",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns={@JoinColumn(name="friend_id")})
+    private List<User> userFriends;
+
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
+    private List<User> FriendsList;
 }
