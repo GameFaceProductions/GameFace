@@ -32,5 +32,4 @@ public class PostComments {
 
     @Column(nullable = false)
     private String content;
-
 }
