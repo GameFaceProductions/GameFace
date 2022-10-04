@@ -22,7 +22,7 @@ public class PostLikes {
     @JsonIgnoreProperties({"userFriends", "likes"})
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"title", "author", "postComments", "liked", "createdAt", "posts"})
     private Post posts;
 

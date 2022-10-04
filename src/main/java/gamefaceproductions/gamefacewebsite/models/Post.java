@@ -29,7 +29,7 @@ public class Post {
     @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes"})
     private User author;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts"})
     private Collection<PostComments> postComments;
 
@@ -37,7 +37,7 @@ public class Post {
 //    @JsonIgnoreProperties({"postComments", "posts"})
 //    private Collection<PostComments> posts;
 
-    @OneToMany(mappedBy = "posts")
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"posts", "user"})
     private Collection<PostLikes> likes;
 

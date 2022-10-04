@@ -23,7 +23,7 @@ public class PostComments {
     @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts"})
     private User author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"content", "posts" })
     private Post posts;
 

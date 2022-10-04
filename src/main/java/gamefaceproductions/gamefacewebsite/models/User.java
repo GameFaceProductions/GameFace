@@ -48,11 +48,11 @@ public class User {
     @Column
     private UserRole role;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
     private Collection<Post> posts;
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"user", "posts"})
     private Collection<PostLikes> likes;
     
