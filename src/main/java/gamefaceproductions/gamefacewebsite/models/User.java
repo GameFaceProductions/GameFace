@@ -49,19 +49,21 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("posts")
+    @JsonIgnoreProperties({"author", "postComments", "likes", "createdAt", "content", "title"})
     private Collection<Post> posts;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties("likes")
+    @JsonIgnoreProperties("user")
     private Collection<PostLikes> likes;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns={@JoinColumn(name="friend_id")})
+    @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends"})
     private List<User> userFriends;
 
     @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
-    private List<User> FriendsList;
+    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList"})
+    private List<User> friendsList;
 }

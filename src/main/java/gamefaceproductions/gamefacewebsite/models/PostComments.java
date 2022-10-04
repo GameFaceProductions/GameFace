@@ -20,7 +20,7 @@ public class PostComments {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties("author")
+    @JsonIgnoreProperties({"author","likes", "posts", "userFriends", "friendsList", "users", "user"})
     private User author;
 
     @ManyToOne
