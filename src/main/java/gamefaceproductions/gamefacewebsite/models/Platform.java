@@ -33,6 +33,6 @@ public class Platform {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    @JsonIgnoreProperties("platform")
+    @JsonIgnoreProperties({"platform","posts","likes","userFriends"})
     private Collection<User> users;
 }
