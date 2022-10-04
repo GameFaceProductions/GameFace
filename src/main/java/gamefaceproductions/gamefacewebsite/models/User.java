@@ -49,7 +49,7 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties({"posts", "likes", "createdAt"})
+    @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
     private Collection<Post> posts;
 
     @OneToMany(mappedBy = "user")
@@ -60,10 +60,10 @@ public class User {
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns={@JoinColumn(name="friend_id")})
-    @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends"})
+    @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "posts"})
     private List<User> userFriends;
 
     @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
-    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList"})
+    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList", "posts"})
     private List<User> friendsList;
 }

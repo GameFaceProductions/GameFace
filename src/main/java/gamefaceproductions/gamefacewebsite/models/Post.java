@@ -30,11 +30,11 @@ public class Post {
     private User author;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts", "author"})
     private Collection<PostComments> postComments;
 
     @OneToMany(mappedBy = "posts")
-    @JsonIgnoreProperties({"author", "postComments"})
+    @JsonIgnoreProperties({"author", "postComments", "posts"})
     private Collection<PostComments> posts;
 
     @OneToMany(mappedBy = "posts")

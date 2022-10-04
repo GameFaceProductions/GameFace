@@ -24,7 +24,7 @@ public class PostComments {
     private User author;
 
     @ManyToOne
-    @JsonIgnoreProperties({"content", "author" })
+    @JsonIgnoreProperties({"content", "author", "posts" })
     private Post posts;
 
     @Column(nullable = false)
