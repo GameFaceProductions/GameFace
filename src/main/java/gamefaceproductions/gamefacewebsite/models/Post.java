@@ -34,7 +34,7 @@ public class Post {
     private Collection<PostComments> postComments;
 
     @OneToMany(mappedBy = "posts")
-    @JsonIgnoreProperties({"author", "createdAt", "content", "postComments"})
+    @JsonIgnoreProperties({"author", "postComments"})
     private Collection<PostComments> posts;
 
     @OneToMany(mappedBy = "posts")
