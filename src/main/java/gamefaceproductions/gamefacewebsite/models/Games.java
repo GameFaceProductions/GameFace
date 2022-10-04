@@ -33,6 +33,6 @@ public class Games {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    @JsonIgnoreProperties("games")
+    @JsonIgnoreProperties({"games", "posts", "likes", "userFriends"})
     private Collection<User> users;
 }
