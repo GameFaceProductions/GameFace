@@ -21,4 +21,18 @@ public class Games {
 
     @Column(nullable = false)
     private String game;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.REFRESH},
+            targetEntity = User.class)
+    @JoinTable(
+            name="user_games",
+            joinColumns = {@JoinColumn(name = "games_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="users_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties("games")
+    private Collection<User> users;
 }

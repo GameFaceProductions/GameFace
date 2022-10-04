@@ -51,11 +51,12 @@ public class User {
     @OneToMany(mappedBy = "author")
     @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
     private Collection<Post> posts;
-
+    
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user", "posts"})
     private Collection<PostLikes> likes;
-
+    
+    
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},
@@ -66,4 +67,21 @@ public class User {
 //    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
 //    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList", "posts"})
 //    private List<User> friendsList;
+
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.REFRESH},
+            targetEntity = Games.class)
+    @JoinTable(
+            name="users_games",
+            joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="games_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties("users")
+    private Collection<Games> games;
+
+
 }
