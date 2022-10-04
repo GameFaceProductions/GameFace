@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,10 +29,10 @@ public class User {
     @Column(nullable = false, unique = true, length = 50)
     private String gamerTag;
 
-    @Column(nullable = false, unique = true, length = 25)
+    @Column(nullable = false, length = 25)
     private String region;
 
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, length = 10)
     private String blocked;
 
     @Email
@@ -42,15 +43,31 @@ public class User {
     @Column(nullable = false)
     private LocalDate createdAt;
 
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("author")
+    @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
     private Collection<Post> posts;
+    
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user", "posts"})
+    private Collection<PostLikes> likes;
+    
+    
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_friends",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns={@JoinColumn(name="friend_id")})
+    @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "posts"})
+    private List<User> userFriends;
+
+//    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
+//    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList", "posts"})
+//    private List<User> friendsList;
+
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -65,4 +82,6 @@ public class User {
     )
     @JsonIgnoreProperties("users")
     private Collection<Games> games;
+
+
 }

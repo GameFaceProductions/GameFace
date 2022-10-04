@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,19 +12,19 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name = "post_comment")
-public class PostComments {
+@Table(name = "media_comment")
+public class MediaComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "gameMedia"})
     private User author;
 
     @ManyToOne
-    @JsonIgnoreProperties({"content", "posts" })
-    private Post posts;
+    @JsonIgnoreProperties({"content", "gameMedia" })
+    private GameMedia gameMedia;
 
     @Column(nullable = false)
     private LocalDate createdAt;

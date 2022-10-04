@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -203,14 +203,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(AccessDeniedException ex,
-                                                                      WebRequest request) {
-        ApiError apiError = new ApiError(UNAUTHORIZED);
-        apiError.setMessage(ex.getMessage());
-        apiError.setDebugMessage(ex.getMessage());
-        return buildResponseEntity(apiError);
-    }
+//    @ExceptionHandler(AccessDeniedException.class)
+//    protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(AccessDeniedException ex,
+//                                                                      WebRequest request) {
+//        ApiError apiError = new ApiError(UNAUTHORIZED);
+//        apiError.setMessage(ex.getMessage());
+//        apiError.setDebugMessage(ex.getMessage());
+//        return buildResponseEntity(apiError);
+//    }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
