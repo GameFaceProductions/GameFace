@@ -13,8 +13,8 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "game_media")
+public class GameMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,20 +26,20 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes"})
+    @JsonIgnoreProperties({"gameMedia"})
     private User author;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts"})
-    private Collection<PostComments> postComments;
+    @JsonIgnoreProperties("author")
+    private Collection<MediaComments> clipComments;
 
-//    @OneToMany(mappedBy = "posts")
-//    @JsonIgnoreProperties({"postComments", "posts"})
-//    private Collection<PostComments> posts;
+    @OneToMany(mappedBy = "gameMedia")
+    @JsonIgnoreProperties("author")
+    private Collection<MediaComments> clips;
 
-    @OneToMany(mappedBy = "posts")
-    @JsonIgnoreProperties({"posts", "user"})
-    private Collection<PostLikes> likes;
+    @OneToMany(mappedBy = "gameMedia")
+    @JsonIgnoreProperties("gameMedia")
+    private Collection<MediaLikes> likes;
 
     @Column(nullable = false)
     private LocalDate createdAt;
