@@ -2,6 +2,7 @@ package gamefaceproductions.gamefacewebsite.controller;
 
 import gamefaceproductions.gamefacewebsite.misc.FieldHelper;
 import gamefaceproductions.gamefacewebsite.models.*;
+import gamefaceproductions.gamefacewebsite.repository.PostLikesRepository;
 import gamefaceproductions.gamefacewebsite.repository.PostsRepository;
 import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 
@@ -35,7 +36,9 @@ import static gamefaceproductions.gamefacewebsite.models.UserRole.ADMIN;
 public class PostsController {
     private PostsRepository postRepository;
     private UsersRepository userRepository;
-//    private final CategoriesRepository categoryRepository;
+    private PostLikesRepository postLikesRepository;
+
+//Might not need if using Google login services:
 //    private final EmailService emailService;
 //
 //
@@ -93,12 +96,18 @@ public class PostsController {
         Optional<Post> optionalPost = postRepository.findById(id);
         if(optionalPost.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post id " + id + " not found");
-        }else {
+        }else{
             Collection<PostComments> postComments = fetchPostById(id).get().getPostComments();
             postRepository.findById(id).get().getPostComments().removeAll(postComments);
-//            Collection<PostLikes> postLikes = fetchPostById(id).get().getPostLikes();
-            postRepository.deleteById(id);
         }
+
+//        List<PostLikes> likedPosts = postLikesRepository.findAll();
+//        if(likedPosts.isEmpty()){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Likes " + id + " not found");
+//        }else {
+//            postLikesRepository.deleteAllByPostId();
+//        }
+
 //        //grab the original post form the optional and check the logged-in user:
 //        Post originalPost = optionalPost.get();
 //
@@ -107,11 +116,9 @@ public class PostsController {
 //        if(loggedInUser.getRole() != UserRole.ADMIN && originalPost.getAuthor().getId() != loggedInUser.getId()) {
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized Action!");
 //        }
-
         postRepository.deleteById(id);
 
     }
-
 
 //    @PutMapping("/{id}")
 ////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
