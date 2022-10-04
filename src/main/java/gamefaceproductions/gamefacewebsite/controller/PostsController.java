@@ -1,9 +1,7 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
 import gamefaceproductions.gamefacewebsite.misc.FieldHelper;
-import gamefaceproductions.gamefacewebsite.models.Post;
-import gamefaceproductions.gamefacewebsite.models.User;
-import gamefaceproductions.gamefacewebsite.models.UserRole;
+import gamefaceproductions.gamefacewebsite.models.*;
 import gamefaceproductions.gamefacewebsite.repository.PostsRepository;
 import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 
@@ -23,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 //
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +33,8 @@ import static gamefaceproductions.gamefacewebsite.models.UserRole.ADMIN;
 @RestController
 @RequestMapping(value = "/api/posts", produces = "application/json")
 public class PostsController {
-    private final PostsRepository postRepository;
-    private final UsersRepository userRepository;
+    private PostsRepository postRepository;
+    private UsersRepository userRepository;
 //    private final CategoriesRepository categoryRepository;
 //    private final EmailService emailService;
 //
@@ -84,28 +83,36 @@ public class PostsController {
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }
 //
-//    @DeleteMapping("/{id}")
-////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-//    public void deletePostById(@PathVariable long id, OAuth2Authentication auth) {
-//        String userName = auth.getName();
+    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    //
+    public void deletePostById(@PathVariable long id) {
+//        String userName = "valeriar";
 //        User loggedInUser = userRepository.findByUserName(userName);
-//
-//        Optional<Post> optionalPost = postRepository.findById(id);
-//        if(optionalPost.isEmpty()){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post id " + id + " not found");
-//        }
+
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if(optionalPost.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post id " + id + " not found");
+        }else {
+            Collection<PostComments> postComments = fetchPostById(id).get().getPostComments();
+            postRepository.findById(id).get().getPostComments().removeAll(postComments);
+//            Collection<PostLikes> postLikes = fetchPostById(id).get().getPostLikes();
+            postRepository.deleteById(id);
+        }
 //        //grab the original post form the optional and check the logged-in user:
 //        Post originalPost = optionalPost.get();
 //
-//        // admin can delete anyone's post. author of the post can delete only their posts
+//        // admin can delete anyone's post. author of the post can delete only their posts:
+//        // Comment out for now until security/auth is set up:
 //        if(loggedInUser.getRole() != UserRole.ADMIN && originalPost.getAuthor().getId() != loggedInUser.getId()) {
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized Action!");
 //        }
-//
-//        postRepository.deleteById(id);
-//    }
-//
-//
+
+        postRepository.deleteById(id);
+
+    }
+
+
 //    @PutMapping("/{id}")
 ////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
 //    public void updatePost(@RequestBody Post updatedPost, @PathVariable long id, OAuth2Authentication auth) {
