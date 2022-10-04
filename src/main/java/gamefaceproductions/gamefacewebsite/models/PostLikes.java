@@ -23,10 +23,10 @@ public class PostLikes {
     private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties({"title", "author", "postComments", "posts", "likes", "createdAt"})
+    @JsonIgnoreProperties({"title", "author", "postComments", "liked", "createdAt", "posts"})
     private Post posts;
 
     @Column(nullable = false, length = 100)
-    @JsonIgnoreProperties("likes")
+    @JsonIgnoreProperties("posts")
     private Boolean liked;
 }
