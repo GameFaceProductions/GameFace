@@ -1,13 +1,16 @@
-import Home from "./views/Home.js";
-import PostIndex, {postSetup} from "./views/PostIndex.js";
+import AccountDetails from "./views/AccountDetails.js";
+import HomePage, {postSetup} from "./views/HomePage.js";
 import About from "./views/About.js";
 import Error404 from "./views/Error404.js";
 import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
 import LoginEvent from "./auth.js";
 import Register, {RegisterEvent} from "./views/Register.js"
-import prepareUserHTML, {prepareUserJS} from "./views/User.js";
+import prepareUserHTML, {prepareUserJS} from "./views/ProfilePage.js";
 import Logout, {LogoutEvent} from "./views/Logout.js";
+import GameInfo from "./views/GameInfo";
+import SearchGames from "./views/SearchGames";
+import SearchUser from "./views/SearchUser";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -17,10 +20,10 @@ import Logout, {LogoutEvent} from "./views/Logout.js";
 export default function router(URI) {
     const routes = {
         '/': {
-            returnView: Home,
+            returnView: AccountDetails,
             state: {},
-            uri: '/',
-            title: 'Home',
+            uri: '/account',
+            title: 'AccountDetails',
         },
         '/login': {
             returnView: Login,
@@ -43,22 +46,22 @@ export default function router(URI) {
             title: 'Register',
             viewEvent: RegisterEvent
         },
-        '/me':{
+        '/profile':{
             returnView: prepareUserHTML,
             state: {
-                me:'/api/users/me'
+                me:'/api/users/profile'
             },
-            uri: '/me',
+            uri: '/profile',
             title: 'User Info',
             viewEvent: prepareUserJS
         },
-        '/posts': {
-            returnView: PostIndex,
+        '/home': {
+            returnView: HomePage,
             state: {
-                posts: '/api/posts'
+                posts: '/api/home'
             },
-            uri: '/posts',
-            title: 'All Posts',
+            uri: '/home',
+            title: 'Home Page',
             viewEvent: postSetup
         },
         '/about': {
@@ -78,7 +81,25 @@ export default function router(URI) {
             state: {},
             uri: location.pathname,
             title: 'Loading...',
-        }
+        },
+        '/game': {
+            returnView: GameInfo,
+            state: {},
+            uri: '/game',
+            title: 'Game Details'
+        },
+        '/gamesearch': {
+            returnView: SearchGames,
+            state: {},
+            uri: '/searchGame',
+            title: 'Game Search'
+        },
+        '/usersearch': {
+            returnView: SearchUser,
+            state: {},
+            uri: '/searchUser',
+            title: 'User Search'
+        },
     };
 
     return routes[URI];
