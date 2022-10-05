@@ -24,7 +24,7 @@ public class PostComments {
     private User author;
 
     //removed the (cascade = CascadeType.ALL, fetch = FetchType.LAZY) from manytoone
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties({"content", "posts" })
     private Post posts;
 

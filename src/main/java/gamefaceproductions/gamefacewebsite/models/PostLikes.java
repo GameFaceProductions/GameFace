@@ -18,11 +18,11 @@ public class PostLikes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnoreProperties({"userFriends", "likes"})
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnoreProperties({"title", "author", "postComments", "liked", "createdAt", "posts"})
     private Post posts;
 
