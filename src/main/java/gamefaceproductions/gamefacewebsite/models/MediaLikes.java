@@ -22,7 +22,7 @@ public class MediaLikes {
     private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties({"title", "author", "postComments", "liked", "createdAt", "gameMedia"})
+    @JsonIgnoreProperties({"title", "author", "mediaComments", "posts", "liked", "createdAt", "gameMedia"})
     private GameMedia gameMedia;
 
     @Column(nullable = false, length = 100)
