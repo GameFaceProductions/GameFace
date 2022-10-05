@@ -1,28 +1,25 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
 import gamefaceproductions.gamefacewebsite.misc.FieldHelper;
-import gamefaceproductions.gamefacewebsite.models.Post;
-import gamefaceproductions.gamefacewebsite.models.User;
-import gamefaceproductions.gamefacewebsite.models.UserRole;
+import gamefaceproductions.gamefacewebsite.models.*;
+import gamefaceproductions.gamefacewebsite.repository.PostLikesRepository;
 import gamefaceproductions.gamefacewebsite.repository.PostsRepository;
 import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 
-//Not sure yet what Categories repo would be in our application:
-//import docrob.venusrestblog.repository.CategoriesRepository;
+//import gamefaceproductions.gamefacewebsite.services.EmailService;
 
-//Using Google login verification, not sure if email is needed:
-//import docrob.venusrestblog.services.EmailService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
-//Not sure if Auth is needed if using Google Login:
+
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 //
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,16 +31,15 @@ import static gamefaceproductions.gamefacewebsite.models.UserRole.ADMIN;
 @RestController
 @RequestMapping(value = "/api/posts", produces = "application/json")
 public class PostsController {
-    private final PostsRepository postRepository;
-    private final UsersRepository userRepository;
-//    private final CategoriesRepository categoryRepository;
+    private PostsRepository postRepository;
+    private UsersRepository userRepository;
+    private PostLikesRepository postLikesRepository;
+
+//Might not need if using Google login services:
 //    private final EmailService emailService;
-//
-//
-    @GetMapping("")
+    @GetMapping("/")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Post> fetchPosts() {
-
         return postRepository.findAll();
     }
 
@@ -54,10 +50,10 @@ public class PostsController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post id " + id + " not found");
         }
         return optionalPost;
-//        return postRepository.findById(id);
+
     }
 //
-    @PostMapping("")
+    @PostMapping("/")
 //    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     public void createPost(@RequestBody Post newPost) {
         if (newPost.getTitle() == null || newPost.getTitle().length() < 1) {
@@ -67,45 +63,23 @@ public class PostsController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be blank!");
         }
         System.out.println(newPost);
-//        // assign  nextId to the new post
-//        // make a fake author for the post
+
         String userName = "Scrimm";
+
         User author = userRepository.findByUserName(userName);
         newPost.setAuthor(author);
-////        newPost.setCategories(new ArrayList<>());
-//
-//        // use first 2 categories for the post by default
-////        Category cat1 = categoryRepository.findById(2L).get();
-////        Category cat2 = categoryRepository.findById(1L).get();
-//
-////        newPost.getCategories().add(cat1);
-////        newPost.getCategories().add(cat2);
         postRepository.save(newPost);
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }
 //
-//    @DeleteMapping("/{id}")
-////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-//    public void deletePostById(@PathVariable long id, OAuth2Authentication auth) {
-//        String userName = auth.getName();
-//        User loggedInUser = userRepository.findByUserName(userName);
-//
-//        Optional<Post> optionalPost = postRepository.findById(id);
-//        if(optionalPost.isEmpty()){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post id " + id + " not found");
-//        }
-//        //grab the original post form the optional and check the logged-in user:
-//        Post originalPost = optionalPost.get();
-//
-//        // admin can delete anyone's post. author of the post can delete only their posts
-//        if(loggedInUser.getRole() != UserRole.ADMIN && originalPost.getAuthor().getId() != loggedInUser.getId()) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized Action!");
-//        }
-//
-//        postRepository.deleteById(id);
-//    }
-//
-//
+    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    public void deletePostById(@PathVariable long id) {
+        postRepository.deleteById(id);
+    }
+
+
+
 //    @PutMapping("/{id}")
 ////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
 //    public void updatePost(@RequestBody Post updatedPost, @PathVariable long id, OAuth2Authentication auth) {

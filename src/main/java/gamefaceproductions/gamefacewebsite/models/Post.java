@@ -26,18 +26,18 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes", "games", "platforms"})
     private User author;
 
-    @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts"})
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts", "games", "platforms"})
     private Collection<PostComments> postComments;
 
 //    @OneToMany(mappedBy = "posts")
 //    @JsonIgnoreProperties({"postComments", "posts"})
 //    private Collection<PostComments> posts;
 
-    @OneToMany(mappedBy = "posts")
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"posts", "user"})
     private Collection<PostLikes> likes;
 

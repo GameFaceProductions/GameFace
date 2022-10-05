@@ -13,18 +13,19 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name = "post_comment")
+@Table(name = "post_comments")
 public class PostComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts", "games", "platforms"})
     private User author;
 
+    //removed the (cascade = CascadeType.ALL, fetch = FetchType.LAZY) from manytoone
     @ManyToOne
-    @JsonIgnoreProperties({"content", "posts" })
+    @JsonIgnoreProperties({"content", "posts"})
     private Post posts;
 
     @Column(nullable = false)

@@ -21,4 +21,18 @@ public class Platform {
 
     @Column(nullable = false)
     private String platform;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.REFRESH},
+            targetEntity = User.class)
+    @JoinTable(
+            name="user_platforms",
+            joinColumns = {@JoinColumn(name = "platform_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="user_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties({"platform","posts","likes","userFriends"})
+    private Collection<User> users;
 }

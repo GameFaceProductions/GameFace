@@ -87,7 +87,7 @@ As a USER I can block other users<br>
 # Visitor Page Features
 Can only see landing page (register option)<br>
 
-# Home Page Features
+# AccountDetails Page Features
 One randomly selected feature highlight (screenshot / clip )<br>
 Feed section showing ALL users posts with like and comment<br>
 Profile overview in top left that goes to profile<br>
@@ -109,7 +109,7 @@ Friends list<br>
 Add / edit backdrop button <br>
 DM (talkJS, if too difficult basic inbox dm)<br>
 Search button (users, games)<br>
-Home button top left links to home page<br>
+AccountDetails button top left links to home page<br>
 Avatar button top right links to profile page<br>
 
 # Search Games Features
