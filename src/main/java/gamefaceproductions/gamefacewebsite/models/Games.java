@@ -28,8 +28,8 @@ public class Games {
             targetEntity = User.class)
     @JoinTable(
             name="user_games",
-            joinColumns = {@JoinColumn(name = "games_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name="users_id", nullable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "game_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="user_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )

@@ -13,7 +13,7 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name = "post_comment")
+@Table(name = "post_comments")
 public class PostComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class PostComments {
 
     //removed the (cascade = CascadeType.ALL, fetch = FetchType.LAZY) from manytoone
     @ManyToOne
-    @JsonIgnoreProperties({"content", "posts" })
+    @JsonIgnoreProperties({"content", "posts"})
     private Post posts;
 
     @Column(nullable = false)

@@ -29,7 +29,7 @@ public class Platform {
     @JoinTable(
             name="user_platforms",
             joinColumns = {@JoinColumn(name = "platform_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name="users_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="user_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )

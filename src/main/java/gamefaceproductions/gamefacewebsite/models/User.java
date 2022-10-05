@@ -74,9 +74,9 @@ public class User {
             cascade = {CascadeType.DETACH, CascadeType.REFRESH},
             targetEntity = Games.class)
     @JoinTable(
-            name="users_games",
+            name="user_games",
             joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name="games_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="game_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
@@ -88,7 +88,7 @@ public class User {
             cascade = {CascadeType.DETACH, CascadeType.REFRESH},
             targetEntity = Platform.class)
     @JoinTable(
-            name="users_platform",
+            name="user_platforms",
             joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name="platform_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),

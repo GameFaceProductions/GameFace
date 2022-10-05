@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
-@Table(name = "media_comment")
+@Table(name = "media_comments")
 public class MediaComments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
