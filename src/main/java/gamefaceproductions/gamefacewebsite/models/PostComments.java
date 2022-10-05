@@ -19,11 +19,12 @@ public class PostComments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts"})
     private User author;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //removed the (cascade = CascadeType.ALL, fetch = FetchType.LAZY) from manytoone
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"content", "posts" })
     private Post posts;
 

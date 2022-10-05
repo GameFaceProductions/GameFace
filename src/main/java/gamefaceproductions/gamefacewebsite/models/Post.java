@@ -37,7 +37,7 @@ public class Post {
 //    @JsonIgnoreProperties({"postComments", "posts"})
 //    private Collection<PostComments> posts;
 
-    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"posts", "user"})
     private Collection<PostLikes> likes;
 
