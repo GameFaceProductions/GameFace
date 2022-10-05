@@ -33,7 +33,7 @@ public class User {
     private String region;
 
     @Column(nullable = false, length = 10)
-    private String blocked;
+    private Boolean blocked;
 
     @Email
     @NotEmpty
