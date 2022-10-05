@@ -6,7 +6,7 @@ import createView from "../createView.js";
 let posts;
 const catList = ["Tech", "Testing", "Coding", "Nature", "Gaming"];
 
-export default function PostIndex(props) {
+export default function HomePage(props) {
     const postsHTML = generatePostsHTML(props.posts);
     const catHTML = generateCategoriesHTML();
     // save this for loading edits later
