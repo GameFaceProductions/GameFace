@@ -64,10 +64,12 @@ public class PostsController {
         }
         System.out.println(newPost);
 
-        String userName = "Scrimm";
+        //  String userName = auth.getName();
 
-        User author = userRepository.findByUserName(userName);
-        newPost.setAuthor(author);
+//        String userName = "Lunalon";
+//
+//        User author = userRepository.findByUserName(userName);
+//        newPost.setAuthor(author);
         postRepository.save(newPost);
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }
@@ -80,44 +82,24 @@ public class PostsController {
 
 
 
-//    @PutMapping("/{id}")
+    @PutMapping("/{id}")
 ////    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-//    public void updatePost(@RequestBody Post updatedPost, @PathVariable long id, OAuth2Authentication auth) {
-//        Optional<Post> optionalPost = postRepository.findById(id);
-//        if(optionalPost.isEmpty()){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post " + id + " not found");
-//        }
-//        Post originalPost = optionalPost.get();
-//
-//        String userName = auth.getName();
-//        User loggedInUser = userRepository.findByUserName(userName);
-//        // admin can update anyone's post. Author of the post can update only their posts:
-//        if(loggedInUser.getRole() != UserRole.ADMIN && originalPost.getAuthor().getId() != loggedInUser.getId()) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized Action!");
-//        }
-//
-//        //in case id is not in the request body (i.e., updatedPost), set it
-//        //with the path variable id
-//
-//        updatedPost.setId(id);
+    public void updatePost(@RequestBody Post updatedPost, @PathVariable long id) {
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if(optionalPost.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post " + id + " not found");
+        }
+
+        Post originalPost = optionalPost.get();
+
+        //Add in auth user role once auth and login is setup.
+
+        updatedPost.setId(id);
 //
 //        //copy any new field values FROM updatedPost TO originalPost
-//        BeanUtils.copyProperties(updatedPost, originalPost, FieldHelper.getNullPropertyNames(updatedPost));
+        BeanUtils.copyProperties(updatedPost, originalPost, FieldHelper.getNullPropertyNames(updatedPost));
 //
-//        postRepository.save(updatedPost);
+        postRepository.save(originalPost);
 //
-////        Post post = findPostById(id);
-////        if(post == null) {
-////            System.out.println("Post not found");
-////        } else {
-////            if(updatedPost.getTitle() != null) {
-////                post.setTitle(updatedPost.getTitle());
-////            }
-////            if(updatedPost.getContent() != null) {
-////                post.setContent(updatedPost.getContent());
-////            }
-////            return;
-////        }
-////        throw new RuntimeException("Post not found");
-//    }
+    }
 }
