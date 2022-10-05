@@ -26,19 +26,19 @@ public class GameMedia {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gameMedia"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "gameMedia", "userFriends", "friendsList", "likes", "games", "platforms"})
     private User author;
 
-    @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties("author")
-    private Collection<MediaComments> clipComments;
+    @OneToMany(mappedBy = "gameMedia", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "gameMedia", "games", "platforms"})
+    private Collection<MediaComments> mediaComments;
 
-    @OneToMany(mappedBy = "gameMedia")
-    @JsonIgnoreProperties("author")
-    private Collection<MediaComments> clips;
+//    @OneToMany(mappedBy = "gameMedia")
+//    @JsonIgnoreProperties("author")
+//    private Collection<MediaComments> clips;
 
-    @OneToMany(mappedBy = "gameMedia")
-    @JsonIgnoreProperties("gameMedia")
+    @OneToMany(mappedBy = "gameMedia",  cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"gameMedia", "user"})
     private Collection<MediaLikes> likes;
 
     @Column(nullable = false)

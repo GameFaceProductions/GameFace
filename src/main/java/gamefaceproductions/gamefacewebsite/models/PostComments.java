@@ -20,7 +20,7 @@ public class PostComments {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "posts", "games", "platforms"})
     private User author;
 
     //removed the (cascade = CascadeType.ALL, fetch = FetchType.LAZY) from manytoone

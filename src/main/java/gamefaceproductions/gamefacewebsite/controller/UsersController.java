@@ -1,5 +1,6 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.models.UserRole;
 import gamefaceproductions.gamefacewebsite.dto.UserFetchDto;
@@ -37,7 +38,7 @@ public class UsersController {
             UserFetchDto userDTO = new UserFetchDto();
             userDTO.setId(user.getId());
             userDTO.setUserName(user.getUserName());
-//            userDTO.setEmail(user.getEmail());
+            userDTO.setEmail(user.getEmail());
             userDTOs.add(userDTO);
         }
         return userDTOs;
