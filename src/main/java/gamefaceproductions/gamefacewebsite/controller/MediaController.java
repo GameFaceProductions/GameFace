@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class MediaController {
 //    private final EmailService emailService;
 //
 //
-    @GetMapping("")
+    @GetMapping("/all")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<GameMedia> fetchMedia() {
 
@@ -43,7 +45,7 @@ public class MediaController {
 //        return postRepository.findById(id);
     }
 //
-    @PostMapping("")
+    @PostMapping("/create")
 //    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     public void createGameMedia(@RequestBody GameMedia newGameMedia) {
         if (newGameMedia.getTitle() == null || newGameMedia.getTitle().length() < 1) {
@@ -55,9 +57,11 @@ public class MediaController {
         System.out.println(newGameMedia);
 //        // assign  nextId to the new gameMedia
 //        // make a fake author for the new gameMedia
-        String userName = "Scrimm";
-        User author = userRepository.findByUserName(userName);
-        newGameMedia.setAuthor(author);
+//        String userName = "Scrimm";
+//        User author = userRepository.findByUserName(userName);
+//        newGameMedia.setAuthor(author);
+        LocalDate date = LocalDate.now();
+        newGameMedia.setCreatedAt(date);
         gameMediaRepository.save(newGameMedia);
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }
