@@ -28,7 +28,7 @@ public class MediaController {
 //    private final EmailService emailService;
 //
 //
-    @GetMapping("/all")
+    @GetMapping("/")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<GameMedia> fetchMedia() {
 
