@@ -1,13 +1,16 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
+import gamefaceproductions.gamefacewebsite.models.Platform;
 import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.repository.FriendsRepository;
+import gamefaceproductions.gamefacewebsite.repository.PlatformRepository;
 import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.Column;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,21 +36,7 @@ public class FriendsController {
     }
 
     @DeleteMapping("/{id}")
-    private void deleteFriend(@PathVariable long id) {
-        friendsRepository.deleteUserById(id);
+    public void removeFriend(@PathVariable User id) {
+        System.out.println(friendsRepository.findAll());
     }
-//    public void deleteUserFriendsById(@PathVariable long id, @PathVariable long deleteId) {
-//        Optional<User> optionalUser = friendsRepository.findById(id);
-//        if (optionalUser.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User " + id + " not found");
-//        }
-//        for (int i = 0; i < optionalUser.get().getUserFriends().size(); i++) {
-//            if (optionalUser.get().getUserFriends().get(i).getId().equals(deleteId)) {
-////                Optional<User> userToDelete = usersRepository.findById(deleteId);
-////                User delete = userToDelete.get();
-////                optionalUser.get().getUserFriends().remove(delete);
-//            }
-//        }
-//                friendsRepository.
-//    }
 }
