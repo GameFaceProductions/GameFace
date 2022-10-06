@@ -37,7 +37,7 @@ public class PostsController {
 
 //Might not need if using Google login services:
 //    private final EmailService emailService;
-    @GetMapping("/")
+    @GetMapping("")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Post> fetchPosts() {
         return postRepository.findAll();
@@ -53,7 +53,7 @@ public class PostsController {
 
     }
 //
-    @PostMapping("/")
+    @PostMapping("")
 //    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     public void createPost(@RequestBody Post newPost) {
         if (newPost.getTitle() == null || newPost.getTitle().length() < 1) {
