@@ -1,5 +1,8 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
+import gamefaceproductions.gamefacewebsite.dto.UserAuthInfoDTO;
+import gamefaceproductions.gamefacewebsite.services.AuthBuddy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestBody;
 import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.models.UserRole;
@@ -25,6 +28,8 @@ import java.util.Optional;
 @RequestMapping(value = "/api/users", produces = "application/json")
 public class UsersController {
     private UsersRepository usersRepository;
+    private AuthBuddy authBuddy;
+
     // Using Google login, need to verify if email and password encoder is needed:
 //    private PasswordEncoder passwordEncoder;
 //
@@ -51,6 +56,20 @@ public class UsersController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User " + id + " not found");
         }
         return optionalUser;
+    }
+
+    @GetMapping("/authinfo")
+    private UserAuthInfoDTO getUserAuthInfo(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+
+        // use email to lookup the user's info
+        UserAuthInfoDTO userDTO = new UserAuthInfoDTO();
+        userDTO.setEmail(loggedInUser.getEmail());
+        userDTO.setRole(loggedInUser.getRole());
+        userDTO.setUserName(loggedInUser.getUserName());
+        userDTO.setProfilePic("");
+
+        return userDTO;
     }
     //
     @GetMapping("/me")
