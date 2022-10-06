@@ -1,3 +1,3 @@
-export default function SearchGames(props) {
-}
-
+// export default function SearchGames(props) {
+// }
+//
