@@ -1,3 +1,3 @@
-// const POST_API_BASE_URL = "http://localhost:8080/api/posts";
-// const USER_API_BASE_URL = "http://localhost:8080/api/users";
-// let BACKEND_HOST = "";
+const POST_API_BASE_URL = "http://localhost:8080/api/posts";
+const USER_API_BASE_URL = "http://localhost:8080/api/users";
+const BACKEND_HOST = "";

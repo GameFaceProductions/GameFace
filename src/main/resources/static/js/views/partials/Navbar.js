@@ -10,6 +10,7 @@ export default function Navbar(props) {
 
     if (isLoggedIn()) {
         let user = getUser();
+        // const user = {userName: "matt"}
         navbar += `
         <a href="/me" data-link>About ME</a>
         <a href="/logout" data-link>Logout</a>
