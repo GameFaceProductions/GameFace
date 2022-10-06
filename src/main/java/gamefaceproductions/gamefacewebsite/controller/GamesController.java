@@ -1,16 +1,15 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
 import gamefaceproductions.gamefacewebsite.models.Games;
+import gamefaceproductions.gamefacewebsite.models.Post;
 import gamefaceproductions.gamefacewebsite.repository.GamesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -18,17 +17,23 @@ import java.util.List;
 public class GamesController {
     private GamesRepository gamesRepository;
 
-    @GetMapping("/games")
+    @GetMapping("")
     private List<Games> fetchAllGames() {
         return gamesRepository.findAll();
     }
 
-//    @GetMapping("/search")
-//    private Games fetchGameByGameName(@RequestParam String gameName) {
-//        Games game = gamesRepository.findById(gameName);
-//        if(game == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game " + gameName + " not found");
-//        }
-//        return game;
-//    }
+    @GetMapping("/{id}")
+    public Optional<Games> fetchGameById(long id) {
+        Optional<Games> optionalGames = gamesRepository.findById(id);
+        if (optionalGames.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game id " + id + " not found");
+        }
+        return optionalGames;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteGameById(@PathVariable long id) {
+        gamesRepository.deleteById(id);
+    }
+
 }
