@@ -1,3 +1,3 @@
-export default function GameInfo(props) {
-
-}
+// export default function GameInfo(props) {
+//
+// }

@@ -8,9 +8,9 @@ import Login, {LoginEvent} from "./views/Login.js";
 import Register, {RegisterEvent} from "./views/Register.js"
 import prepareUserHTML, {prepareUserJS} from "./views/ProfilePage.js";
 import Logout, {LogoutEvent} from "./views/Logout.js";
-import GameInfo from "./views/GameInfo";
-import SearchGames from "./views/SearchGames";
-import SearchUser from "./views/SearchUser";
+// import GameInfo from "./views/GameInfo";
+// import SearchGames from "./views/SearchGames";
+// import SearchUser from "./views/SearchUser";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -82,24 +82,24 @@ export default function router(URI) {
             uri: location.pathname,
             title: 'Loading...',
         },
-        '/game': {
-            returnView: GameInfo,
-            state: {},
-            uri: '/game',
-            title: 'Game Details'
-        },
-        '/gamesearch': {
-            returnView: SearchGames,
-            state: {},
-            uri: '/searchGame',
-            title: 'Game Search'
-        },
-        '/usersearch': {
-            returnView: SearchUser,
-            state: {},
-            uri: '/searchUser',
-            title: 'User Search'
-        },
+        // '/game': {
+        //     returnView: GameInfo,
+        //     state: {},
+        //     uri: '/game',
+        //     title: 'Game Details'
+        // },
+        // '/gamesearch': {
+        //     returnView: SearchGames,
+        //     state: {},
+        //     uri: '/searchGame',
+        //     title: 'Game Search'
+        // },
+        // '/usersearch': {
+        //     returnView: SearchUser,
+        //     state: {},
+        //     uri: '/searchUser',
+        //     title: 'User Search'
+        // },
     };
 
     return routes[URI];
