@@ -1,11 +1,12 @@
 export default function About(props) {
     return `
         <header>
-            <h1>About Page</h1>
+            <h1>About Us</h1>
         </header>
         <main>
             <div>
-                <p>About page is here.</p>  
+                <input type="button" onclick="location.href='/login';" value="Login" />
+                <input type="button" onclick="location.href='/register';" value="Register" />
             </div>
         </main>
     `;
