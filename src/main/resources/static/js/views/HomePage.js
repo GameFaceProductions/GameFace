@@ -226,7 +226,7 @@ function deletePost(postId) {
                 console.log(response.statusText);
                 return;
             }
-            createView("/posts");
+            createView("/");
         })
 }
 

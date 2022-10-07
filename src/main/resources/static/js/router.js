@@ -25,7 +25,7 @@ export default function router(URI) {
             state: {
                 posts: '/api/posts'
             },
-            uri: '/posts',
+            uri: '/',
             title: 'Home',
             viewEvent: postSetup
         },
