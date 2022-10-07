@@ -10,7 +10,7 @@ export default function prepareUserHTML(props) {
     <div class="row">
     <h1 class="text-center">User Info</h1>
             <hr>
-            <h5 id="username" class="text-center text-nowrap col-sm-12 col-xl-4">Username: ${me.userName}</h5>
+            <h5 id="username" class="text-center text-nowrap col-sm-12 col-xl-4">Username: ${me.user}</h5>
             <h5 id="email" class="text-center text-nowrap col-sm-12 col-xl-4">Email: ${me.email}</h5>
             <h5 id="role" class="text-center text-nowrap col-sm-12 col-xl-4">Role: ${me.role} </h5>
             <hr>

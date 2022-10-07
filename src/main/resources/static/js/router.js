@@ -21,6 +21,24 @@ import DoLogin, {DoLoginEvents} from "./views/DoLogin.js";
 export default function router(URI) {
     const routes = {
         '/': {
+            returnView: HomePage,
+            state: {
+                posts: '/api/posts'
+            },
+            uri: '/posts',
+            title: 'Home',
+            viewEvent: postSetup
+        },
+        // '/home': {
+        //     returnView: HomePage,
+        //     state: {
+        //         posts: '/api/home'
+        //     },
+        //     uri: '/home',
+        //     title: 'Home Page',
+        //     viewEvent: postSetup
+        // },
+        '/account': {
             returnView: AccountDetails,
             state: {},
             uri: '/account',
@@ -54,23 +72,14 @@ export default function router(URI) {
             title: 'Register',
             viewEvent: RegisterEvent
         },
-        '/profile':{
+        '/me':{
             returnView: prepareUserHTML,
             state: {
-                me:'/api/users/profile'
+                me:'/api/users/me'
             },
-            uri: '/profile',
+            uri: '/me',
             title: 'User Info',
             viewEvent: prepareUserJS
-        },
-        '/home': {
-            returnView: HomePage,
-            state: {
-                posts: '/api/home'
-            },
-            uri: '/home',
-            title: 'Home Page',
-            viewEvent: postSetup
         },
         '/about': {
             returnView: About,
