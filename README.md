@@ -17,7 +17,7 @@ As a VISITOR I can view the landing page that has a link to register and login (
 # Login Story
 As a USER I can login and be directed to the home page
 
-# Profile Page Story
+# ProfilePage Page Story
 As a USER I can change my password on profile page.<br>
 As a USER I can customize my profile.<br> 
 As a USER I can add an avatar.<br>
@@ -87,16 +87,16 @@ As a USER I can block other users<br>
 # Visitor Page Features
 Can only see landing page (register option)<br>
 
-# AccountDetails Page Features
+# ProfilePage Page Features
 One randomly selected feature highlight (screenshot / clip )<br>
 Feed section showing ALL users posts with like and comment<br>
-Profile overview in top left that goes to profile<br>
+ProfilePage overview in top left that goes to profile<br>
 Dev list game recommendations<br>
 Avatar profile link in top right navbar<br>
 Search button (users, games)<br>
 Logo in top left that goes to about page<br>
 
-# Profile Page Features
+# ProfilePage Page Features
 Favorite games list with add games button (link to the search games view for adding games based on search)<br>
 Edit / change account information button (goes to account details view)<br>
 Add, edit, delete posts <br>
@@ -109,7 +109,7 @@ Friends list<br>
 Add / edit backdrop button <br>
 DM (talkJS, if too difficult basic inbox dm)<br>
 Search button (users, games)<br>
-AccountDetails button top left links to home page<br>
+ProfilePage button top left links to home page<br>
 Avatar button top right links to profile page<br>
 
 # Search Games Features
@@ -119,7 +119,7 @@ Add games that are searched for (on the game info view)<br>
 Type users name and get back result of user profiles<br>
 Link to that users profile <br>
 
-# On Another User’s Profile Features
+# On Another User’s ProfilePage Features
 Like, comment on posts<br>
 Follow users<br>
 Report<br>

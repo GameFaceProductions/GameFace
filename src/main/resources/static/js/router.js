@@ -1,4 +1,4 @@
-import AccountDetails from "./views/AccountDetails.js";
+import ProfilePage from "./views/ProfilePage.js";
 import HomePage, {postSetup} from "./views/HomePage.js";
 import About from "./views/About.js";
 import Error404 from "./views/Error404.js";
@@ -6,7 +6,7 @@ import Loading from "./views/Loading.js";
 import Login, {LoginEvent} from "./views/Login.js";
 // import LoginEvent from "./auth.js";
 import Register, {RegisterEvent} from "./views/Register.js"
-import prepareUserHTML, {prepareUserJS} from "./views/ProfilePage.js";
+import prepareUserHTML, {prepareUserJS} from "./views/AccountDetails.js";
 import Logout, {LogoutEvent} from "./views/Logout.js";
 import DoLogin, {DoLoginEvents} from "./views/DoLogin.js";
 // import GameInfo from "./views/GameInfo.js";
@@ -38,11 +38,11 @@ export default function router(URI) {
         //     title: 'Home Page',
         //     viewEvent: postSetup
         // },
-        '/account': {
-            returnView: AccountDetails,
+        '/profile': {
+            returnView: ProfilePage,
             state: {},
-            uri: '/account',
-            title: 'AccountDetails',
+            uri: '/profile',
+            title: 'ProfilePage',
         },
         '/login': {
             returnView: Login,

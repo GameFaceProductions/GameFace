@@ -10,8 +10,8 @@ export default function Navbar(props) {
         navbar += `
         <a href="/" data-link>About Us</a>
         <a href="/home" data-link>Posts</a>
-        <a href="/me" data-link>Profile</a>
-        <a href="/account" data-link>Account Details</a>
+        <a href="/profile" data-link>Profile</a>
+        <a href="/me" data-link>Account Details</a>
         <a href="/logout" data-link>Logout</a>
         <text class="float-end">Logged in as: ${user.userName}</text>`
     } else {
