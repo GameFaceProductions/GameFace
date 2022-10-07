@@ -226,7 +226,7 @@ function deletePost(postId) {
                 console.log(response.statusText);
                 return;
             }
-            createView("/");
+            createView("/home");
         })
 }
 
@@ -271,7 +271,7 @@ function savePost(postId){
                 return;
             }
             // location.reload();
-            createView('/');
+            createView('/home');
         })
 }
 

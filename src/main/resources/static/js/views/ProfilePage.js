@@ -67,7 +67,7 @@ function doSavePasswordHandler() {
         const url = `${USER_API_BASE_URL}/${me.id}/updatePassword?oldPassword=${oldPassword}&newPassword=${newPassword}`
         fetch(url, request)
             .then(function (response) {
-                CreateView("/");
+                CreateView("/me");
             });
     });
 }

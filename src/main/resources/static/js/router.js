@@ -20,12 +20,12 @@ import DoLogin, {DoLoginEvents} from "./views/DoLogin.js";
  */
 export default function router(URI) {
     const routes = {
-        '/': {
+        '/home': {
             returnView: HomePage,
             state: {
                 posts: '/api/posts'
             },
-            uri: '/',
+            uri: '/home',
             title: 'Home',
             viewEvent: postSetup
         },
@@ -81,10 +81,10 @@ export default function router(URI) {
             title: 'User Info',
             viewEvent: prepareUserJS
         },
-        '/about': {
+        '/': {
             returnView: About,
             state: {},
-            uri: '/about',
+            uri: '/',
             title: 'About',
         },
         '/error': {
