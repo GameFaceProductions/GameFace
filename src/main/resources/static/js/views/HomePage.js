@@ -244,8 +244,6 @@ function savePost(postId){
     const titleField = document.querySelector("#title");
     const contentField = document.querySelector("#content");
 
-
-
     if(!validateFields()){
         return;
     }
@@ -272,7 +270,8 @@ function savePost(postId){
                 console.log(response.statusText);
                 return;
             }
-            createView("/posts");
+            // location.reload();
+            createView('/');
         })
 }
 
