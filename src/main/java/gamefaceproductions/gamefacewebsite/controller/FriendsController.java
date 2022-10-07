@@ -5,7 +5,12 @@ import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.repository.FriendsRepository;
 import gamefaceproductions.gamefacewebsite.repository.PlatformRepository;
 import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
+import gamefaceproductions.gamefacewebsite.services.AuthBuddy;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +26,7 @@ import java.util.Optional;
 public class FriendsController {
     private FriendsRepository friendsRepository;
     private UsersRepository usersRepository;
+    private AuthBuddy authBuddy;
 
     @GetMapping("")
     private List<User> fetchAllUserFriends() {
@@ -36,13 +42,15 @@ public class FriendsController {
         return optionalUser;
     }
 
-//    BLOCKED THIS SHIZ IS HARD. Maybe need to make user_id and friend_id sever as composite key so
+    //    BLOCKED THIS SHIZ IS HARD. Maybe need to make user_id and friend_id sever as composite key so
 //    friends can be deleted based on the unique friendship (unidirectional) which preserves friends
 //    so if user1 removes user2, user2 can still consider user1 a friend on their end... Or bidirectional if easier.
 //    Just need a good way to target each ROW in the user_friends table to correctly delete based on user_id's.
     @DeleteMapping("/{id}")
-    public void removeFriend(@PathVariable Long id) {
+    public void removeFriend(@PathVariable long id, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         System.out.println(friendsRepository.findAll().get(1).getUserFriends());
-        friendsRepository.deleteById(id);
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+        friendsRepository.deleteFriendFromUser(loggedInUser.getId(), id);
+        friendsRepository.deleteFriendFromUser(id, loggedInUser.getId());
     }
 }
