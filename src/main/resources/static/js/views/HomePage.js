@@ -58,7 +58,14 @@ function generateAddPostHTML() {
                     <div class="valid-feedback">
                         Content is ok!
                     </div>
-                </div>  
+                </div>
+                  <div class="valid-feedback">
+                        Content is ok!
+                    </div>  
+                    <div class="valid-feedback">
+                         <label for="date">Posted:</label>
+                        <input type="date" id="date" name="trip-start" />
+                    </div> 
                 <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Save Post</button>
             </form>`;
 
@@ -73,6 +80,7 @@ function generatePostsHTML(posts) {
             <th scope="col">Title</th>
             <th scope="col">Content</th>
             <th scope="col">Author</th>
+            <th scope="col">Posted:</th>
         </tr>
         </thead>
         <tbody>
@@ -82,16 +90,19 @@ function generatePostsHTML(posts) {
 
         let authorName = "";
         if (post.user) {
-            authorName = post.user.userName;
+            authorName = post.user;
         }
+
+
         postsHTML += `<tr>
             <td>${post.title}</td>
             <td>${post.content}</td>
             <td>${authorName}</td>
+<!--            <td><p id="time">${post.createdAt}</p></td>-->
             `;
 
         //only admins and author of post can edit/delete it
-        if (loggedInUser.role === 'ADMIN' || loggedInUser.role === authorName) {
+        if (loggedInUser.role === 'ADMIN' || loggedInUser.user === post.user) {
             postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
             <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
         } else {
@@ -233,12 +244,14 @@ function savePost(postId){
     const titleField = document.querySelector("#title");
     const contentField = document.querySelector("#content");
 
+
+
     if(!validateFields()){
         return;
     }
     const post = {
         title: titleField.value,
-        content: contentField.value
+        content: contentField.value,
     }
     // make the request
     const request = {
@@ -262,3 +275,5 @@ function savePost(postId){
             createView("/posts");
         })
 }
+
+//

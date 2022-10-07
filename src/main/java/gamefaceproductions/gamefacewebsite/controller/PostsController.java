@@ -9,8 +9,10 @@ import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 //import gamefaceproductions.gamefacewebsite.services.EmailService;
 
 
+import gamefaceproductions.gamefacewebsite.services.AuthBuddy;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 
@@ -19,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 //
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,7 @@ public class PostsController {
     private PostsRepository postRepository;
     private UsersRepository userRepository;
     private PostLikesRepository postLikesRepository;
+    private AuthBuddy authBuddy;
 
 //Might not need if using Google login services:
 //    private final EmailService emailService;
@@ -55,7 +59,9 @@ public class PostsController {
 //
     @PostMapping("")
 //    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    public void createPost(@RequestBody Post newPost) {
+    public void createPost(@RequestBody Post newPost, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+
         if (newPost.getTitle() == null || newPost.getTitle().length() < 1) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title cannot be blank!");
         }
@@ -64,12 +70,16 @@ public class PostsController {
         }
         System.out.println(newPost);
 
+        newPost.setAuthor(loggedInUser);
+        newPost.setCreatedAt(LocalDate.now());
+
         //  String userName = auth.getName();
 
 //        String userName = "Lunalon";
 //
 //        User author = userRepository.findByUserName(userName);
 //        newPost.setAuthor(author);
+//        newPost.setCreatedAt(LocalDate.now());
         postRepository.save(newPost);
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }
