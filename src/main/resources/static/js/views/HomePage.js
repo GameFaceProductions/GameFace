@@ -98,10 +98,11 @@ function generatePostsHTML(posts) {
             <td><p id="time">${post.createdAt}</p></td>
             `;
 
-    console.log(loggedInUser.role);
-    console.log(loggedInUser.userName);
     //only admins and author of post can edit/delete it
-    if (loggedInUser.role === "ADMIN" || loggedInUser.user === post.user) {
+    if (
+      loggedInUser.role === "ADMIN" ||
+      loggedInUser.user.userName === post.author.userName
+    ) {
       postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
             <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
     } else {
