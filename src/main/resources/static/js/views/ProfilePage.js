@@ -37,9 +37,9 @@ function generateUserPosts(posts) {
 
             userPosts += `
                 <div class="postCard">
+                    <div><a>${post.author.userName}</a></div>
                     <div>${post.title}</div>
                     <div>${post.content}</div>
-                    <div>${post.author.userName}</div>
                     <div><p id="time">${post.createdAt}</p></div>
                 </div>
                 `;
