@@ -1,0 +1,11 @@
+.searchCards{
+    width: 20em;
+}
+#userListContainer {
+    margin-top: 2em;
+}
+#searchUserInput{
+    width: 25%;
+    margin-right: auto;
+    margin-left: auto;
+}
