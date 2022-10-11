@@ -22,8 +22,10 @@ export default function searchUsersHTML(props) {
 
 export function searchUsersJS() {
   let submitBtn = document.getElementById("searchUserSubmitBtn");
+  let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
-  submitBtn.addEventListener("click", showSearchedUsers);
+  showSearchedUsers();
+  searchUsersInput.addEventListener("keyup", showSearchedUsers);
   //
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
