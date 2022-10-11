@@ -101,7 +101,7 @@ function generatePostsHTML(posts) {
     //only admins and author of post can edit/delete it
     if (
       loggedInUser.role === "ADMIN" ||
-      loggedInUser.user.userName === post.author.userName
+      loggedInUser.userName === post.author.userName
     ) {
       postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
             <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
