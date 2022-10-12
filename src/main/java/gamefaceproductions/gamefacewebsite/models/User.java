@@ -35,6 +35,12 @@ public class User {
     @Column(nullable = false, length = 10)
     private Boolean blocked;
 
+    @Column()
+    private String backdrop_url;
+
+    @Column()
+    private String avatar_url;
+
     @Email
     @NotEmpty
     @Column(nullable = false, length = 100)

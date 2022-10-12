@@ -1,0 +1,195 @@
+/*.post-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.post-card {*/
+/*    margin: 10px auto;*/
+/*    width: 50rem;*/
+/*    padding: 1rem 1.5rem;*/
+/*    border: 2px solid var(--stroke-color);*/
+/*    border-radius: 0.5rem;*/
+/*    box-shadow: 4px 4px 20px 0px #07617c4b;*/
+/*    background-color: white;*/
+/*}*/
+
+/*.post-header {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin-bottom: 1.5rem;*/
+/*}*/
+
+/*.profile-picture {*/
+/*    height: 4rem;*/
+/*    width: 4rem;*/
+/*    border-radius: 50%;*/
+/*    margin-right: 0.6rem;*/
+/*    border: 2px solid;*/
+/*    flex: 1;*/
+/*}*/
+
+/*h2 {*/
+/*    font-weight: 800;*/
+/*    font-size: 1.3rem;*/
+/*    color: rgba(0, 0, 0, 0.863);*/
+/*}*/
+
+/*.post-user {*/
+/*    flex: 3;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*.profile-container {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.cover-photo {*/
+/*    width: 100vw;*/
+/*    margin-left: 0;*/
+/*}*/
+
+/*.post-content {*/
+/*    font-weight: 600;*/
+/*    line-height: 2;*/
+/*    margin-bottom: 0.5rem;*/
+/*}*/
+
+/*.post-time {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+/* Main content elements' styles */
+
+/* Left column*/
+.profile-header {
+    margin-top: 35px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.profile-element {
+    color: #657786;
+    display: block;
+    font-size: 14px;
+    margin-top: 12px;
+}
+.bio {
+    color: #000;
+}
+
+.profile-website {
+    color: #1DA1F2 !important;
+    cursor: pointer;
+}
+
+.profile-website:hover {
+    text-decoration: underline !important;
+}
+
+.tweet-to-btn {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    width:100%;
+}
+/* END: Left column*/
+
+/* Main column*/
+.main-content {
+}
+
+.tweet-list {
+    list-style: none;
+    margin: 8px 4px 0;
+    padding: 0;
+}
+.post-card {
+    background-color: #fff;
+    border-bottom: 1px solid #e6ecf0;
+    min-height: 52px;
+    padding: 9px 12px;
+}
+
+.post-content {
+    margin-left: 58px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
+}
+.post-picture {
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    float: left;
+    margin-top: 3px;
+    margin-left: -58px;
+}
+
+.post-footer-btn {
+    margin-right: 30px;
+}
+.post-footer-btn i, .post-footer-btn span {
+    color: #657786;
+    font-size: 16px;
+}
+.post-footer-btn span {
+    margin-left: 8px;
+}
+/* END Main column*/
+
+/* Right column*/
+.pic-col {
+    margin: 2px;
+    padding: 2px;
+}
+
+.right-col {
+    padding-left: 0;
+}
+.content-panel {
+    margin: 10px 0 0;
+    background-color: #fff;
+    line-height: 16px;
+    padding: 15px;
+}
+
+.content-panel h4 {
+    display: inline-block;
+}
+
+.content-panel small {
+    font-size: 66%;
+    margin-left: 6px;
+}
+
+.content-panel li {
+    min-height: 70px;
+}
+
+.btn-follow {
+    border-color: #1DA1F2;
+    color: #1DA1F2;
+    background-color: #fff;
+    border: 1px solid #1da1f2;
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    box-shadow: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    min-width: 89px;
+}
+
+.btn-follow:hover {
+    background-color: #E8F5FD;
+}
+
+.main {
+    background-color: #e1e2e3;
+}

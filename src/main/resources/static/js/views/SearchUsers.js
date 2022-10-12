@@ -4,27 +4,27 @@ let user;
 export default function searchUsersHTML(props) {
   user = props.users;
   console.log(user);
+
   return `
 <!-- html here -->
-    <div class="container mt-1">
+    <div class="container px-1 mt-1 text-center">
     <form>
-      <div class="text-center">
         <label for="searchUserInput" class="form-label">Search Users</label>
-        <input type="search" class="form-control" placeholder="Search User" id="searchUserInput">
+        <input type="search" class="form-control text-center" placeholder="Username" id="searchUserInput">
       <button type="submit" id="searchUserSubmitBtn" class="btn btn-dark mt-1">Search</button>
-      <div>
-    </form>
-      <div id="userListContainer" class="row">
+    </form>   
+      <div id="userListContainer" class="row g-2">
       </div>
-    </div>
-    `;
+    </div>`;
 }
 
 export function searchUsersJS() {
   let submitBtn = document.getElementById("searchUserSubmitBtn");
+  let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
-  submitBtn.addEventListener("click", showSearchedUsers);
-  //
+  showSearchedUsers();
+  searchUsersInput.addEventListener("keyup", showSearchedUsers);
+
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
 
@@ -35,8 +35,6 @@ export function searchUsersJS() {
         console.log(user.userName);
         if (user.userName.includes(searchUserInput.value)) {
           html += makeUserCard(user);
-        } else {
-          console.log(user.userName + " does not match search.");
         }
       });
       return html;
@@ -44,16 +42,18 @@ export function searchUsersJS() {
 
     function makeUserCard(user) {
       return `
-    <div class="searchCards card col-md-3 m-1 p-2">
+    <div class="col-md-3">
+    <div class="searchCards card">
       <div class="card-body">
-        <h5 class="card-title searchUsersTitle text-center">${user.userName}</h5>
+        <h5 class="card-title searchUsersTitle">${user.userName}</h5>
         <p class="card-text"></p>
       </div>
       <div id="searchUsersFoot">
         <button class="delBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
         </div>
     </div>
-`;
+    </div>
+ `;
     }
   }
 }

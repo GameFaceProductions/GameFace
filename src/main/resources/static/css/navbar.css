@@ -1,0 +1,40 @@
+/*General styling:*/
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding:0;
+    background: black;
+    color: ghostwhite;
+    font-family: "Source Code Pro", sans-serif;
+}
+
+nav{
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+h1{
+    margin: 25px;
+}
+
+.nav-text{
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.navbar a{
+    margin: 5px;
+}
+
+small{
+    margin: 10px;
+}
