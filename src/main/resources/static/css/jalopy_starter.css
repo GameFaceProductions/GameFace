@@ -8,15 +8,17 @@ body{
     position: relative;
     min-height: 100vh;
 }
-/*Bootstrap Grid*/
-/* row color */
-div.row {
-    border: 1px dashed blue;
-}
-/*cell color*/
-div.row > div {
-    border: 1px solid red;
-}
-div.tall-row {
-    height: 300px;
-}
+
+
+/*!*Bootstrap Grid*!*/
+/*!* row color *!*/
+/*div.row {*/
+/*    border: 1px dashed blue;*/
+/*}*/
+/*!*cell color*!*/
+/*div.row > div {*/
+/*    border: 1px solid red;*/
+/*}*/
+/*div.tall-row {*/
+/*    height: 300px;*/
+/*}*/
