@@ -40,7 +40,8 @@ public class AuthBuddy {
             System.out.println("User not found: " + email);
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
-//        user.setProfilePic(fields[1]);
+        user.setAvatar_url(fields[1]);
+        usersRepository.save(user);
         return user;
     }
 
