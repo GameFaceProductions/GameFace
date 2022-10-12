@@ -267,12 +267,13 @@ body{
 ::-webkit-scrollbar-thumb {
     border-radius: .6em;
     background: linear-gradient(to left, #B6FFE4, #B6FFCD);
+}
 
 
 /*hover might be too much on everything*/
 /*::-webkit-scrollbar-thumb:hover {*/
 /*    border-radius: .6em;*/
-/*    background: linear-gradient(to left, #B6FFE4, #B6FFCD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+/*    background: linear-gradient(to left, #03a9f4, #B6FFCD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
 /*}*/
 
 
