@@ -10,13 +10,36 @@ body{
     background: black;
     /*background: linear-gradient(to right, #111111, #232526);*/
     color: ghostwhite;
+    font-family: "Source Code Pro", sans-serif;
 }
+
+
+/*Styling for statement cards:*/
+.statement{
+    background: #000000;  /* fallback for old browsers */
+    background: linear-gradient(to bottom, #434343, #000000);
+    border-radius: 0.8em;
+    padding: 10px;
+    margin:10px;
+    text-align: center;
+    /*border: 1px #C5FCEE solid;*/
+    /*border: 1px #EEE9F6 solid;*/
+}
+
+.logo img{
+    width: 50%;
+    height: 50%;
+
+
+}
+
+
 
 /*Styling for developer cards:*/
 
 .developer-container{
-    margin:0;
-    padding:0;
+    margin:20px;
+    padding:20px;
 }
 
 .developer-cards{
@@ -24,11 +47,13 @@ body{
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    min-height: 100vh;
+    padding: 10px;
+    margin:20px;
+    /*min-height: 100vh;*/
 }
 
 .card{
-    margin: 3em 1em 1em 1em;
+    margin: 3em 2em 2em 2em;
     max-width: 35em;
     background: rgba(171, 171, 171, 0.1);
     padding: 2em;
@@ -165,13 +190,13 @@ body{
     }
 }
 
-/*Styling for login/register buttons:*/
+/*Styling for login/register page buttons:*/
 .buttons button{
     position: relative;
     height: 60px;
     width: 200px;
-    margin: 0 35px;
-    border-radius: 50px;
+    margin: 20px 20px;
+    border-radius: 0.8em;
     outline: none;
     background: rgba(171, 171, 171, 0.2);
     color: #ffffff;
@@ -200,7 +225,7 @@ body{
     top:-5px;
     bottom:-5px;
     left:-5px;
-    border-radius: 50px;
+    border-radius: 0.8em;
     /*filter: blur(50px);*/
     opacity: 0;
     transition: opacity 0.5s;
@@ -225,6 +250,34 @@ body{
         background-position: 400%;
     }
 }
+
+/*Customization for scrollbar cause why not:*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: black;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: .6em;
+    background: linear-gradient(to left, #B6FFE4, #B6FFCD);
+
+
+/*hover might be too much on everything*/
+/*::-webkit-scrollbar-thumb:hover {*/
+/*    border-radius: .6em;*/
+/*    background: linear-gradient(to left, #B6FFE4, #B6FFCD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+/*}*/
+
+
+
+
 
 
 
