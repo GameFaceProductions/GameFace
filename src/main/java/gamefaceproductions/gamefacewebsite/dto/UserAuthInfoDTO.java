@@ -13,5 +13,5 @@ public class UserAuthInfoDTO {
     private String userName;
     private String email;
     private UserRole role;
-    private String profilePic;
+    private String avatar_url;
 }

@@ -4,6 +4,7 @@ let user;
 export default function searchUsersHTML(props) {
   user = props.users;
   console.log(user);
+
   return `
 <!-- html here -->
     <div class="container mt-1">
@@ -16,8 +17,7 @@ export default function searchUsersHTML(props) {
     </form>
       <div id="userListContainer" class="row">
       </div>
-    </div>
-    `;
+    </div>`;
 }
 
 export function searchUsersJS() {

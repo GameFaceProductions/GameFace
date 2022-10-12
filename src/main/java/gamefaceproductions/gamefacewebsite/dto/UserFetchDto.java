@@ -14,4 +14,7 @@ public class UserFetchDto {
     private Long id;
     private String userName;
     private String email;
+    private String gamer_tag;
+    private String avatar_url;
+    private String backdrop_url;
 }
