@@ -9,21 +9,63 @@ export default function ProfilePage(props) {
     posts = props.posts;
     console.log(user)
 
-
     return `
-        <header>
-            <h1>Profile Page</h1>
-        </header>
-        <main>
-            <div class="cover-image"></div>
-            <div>
-            ${user.userName}
+<div class="main">
+<div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
+                <img src="https://picsum.photos/300/300" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
             </div>
-            <div>
-            ${postHTML}
+            <div class="ms-3" style="margin-top: 130px">
+                <h5>${user.userName}</h5>
+                <p>Region</p>
             </div>
-        </main>
-    `;
+        </div>
+        <div class="p-4 text-black" style="background-color: white">
+            <div class="d-flex justify-content-end text-center py-1">
+                <div class="px-3">
+                    <p class="small text-muted mb-0">Following</p>
+                </div>
+                <div>
+                    <p class="small text-muted mb-0">Followers</p>
+                </div>
+            </div>
+        </div>
+  <div class="container main-content">
+    <div class="row">
+      <div class="col profile-col">
+        <!-- Left column -->
+        <div class="profile-header">
+          <!-- Header information -->
+          <h3 class="bio"><a>Bio<a></h3>
+          <h2 class="profile-element"><a>@${user.userName}</a></h2>
+          <p class="profile-element profile-website">Web Developer</p>
+          <button class="btn btn-search-bar tweet-to-btn">Chat with ${user.userName}</button>
+        </div>
+      </div>
+      <!-- End; Left column -->
+      <!-- Center content column -->
+      <div class="col-6">
+        <ol class="tweet-list">
+          ${postHTML}
+          </ol>
+        <!-- End: tweet list -->
+      </div>
+      <!-- End: Center content column -->
+      <div class="col right-col">
+        <div class="content-panel">
+          <div class="panel-header">
+            <h4>Favorite Games</h4>
+          </div>
+                </div>
+              </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
+
 }
 
 function generateUserPosts(posts) {
@@ -36,14 +78,30 @@ function generateUserPosts(posts) {
         if (post.author.userName === currentUser) {
 
             userPosts += `
-                <div class="postCard">
-                    <div><a>${post.author.userName}</a></div>
-                    <div>${post.title}</div>
-                    <div>${post.content}</div>
-                    <div><p id="time">${post.createdAt}</p></div>
-                </div>
+                <li class="post-card">
+                    <div class="post-content">
+                        <div class="post-header">
+                            <span class="fullname"><strong>${post.author.userName}</strong></span>
+                            <span class="username">@${post.author.userName}</span>
+                            <span class="post-time">- ${post.createdAt}</span>
+                        </div>
+                        <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+                        <div class="post-text">
+                        <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+                        </div>
+                        <div class="post-footer">
+                            <a class="post-footer-btn">
+                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+                            </a>
+                            <a class="post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
                 `;
         }
     }
+
     return userPosts
 }
