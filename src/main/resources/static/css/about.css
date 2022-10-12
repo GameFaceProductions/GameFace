@@ -6,7 +6,8 @@
 
 body{
     margin: 0;
-    background: #111111;
+    padding:0;
+    background: black;
     /*background: linear-gradient(to right, #111111, #232526);*/
     color: ghostwhite;
 }
@@ -33,10 +34,10 @@ body{
     padding: 2em;
     text-align: center;
     border-radius: 0.8em;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.5em rgba(171, 171, 171, 1.5);
     position: relative;
-    backdrop-filter: blur(4px);
-    border: 1px black solid;
+    /*backdrop-filter: blur(4px);*/
+    border: 1px #ED90CC solid;
 }
 
 .card::before{
@@ -117,7 +118,8 @@ body{
 }
 
 .card:hover button{
-    background: #fff;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
     color: #111;
 }
 
@@ -134,8 +136,8 @@ body{
 .card:nth-child(2)::before{
     background: linear-gradient(
     0deg,
-    #ffc15d,
-    #ff4e57
+    #ab2fbf,
+    #f9e44f
     );
 }
 
@@ -165,11 +167,11 @@ body{
 
 /*Styling for login/register buttons:*/
 .buttons button{
+    position: relative;
     height: 60px;
     width: 200px;
     margin: 0 35px;
     border-radius: 50px;
-    border: none;
     outline: none;
     background: rgba(171, 171, 171, 0.2);
     color: #ffffff;
@@ -177,6 +179,7 @@ body{
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
+    border: 1px #ED90CC solid;
 }
 
 .buttons button:first-child:hover{
@@ -189,6 +192,39 @@ body{
     background-size: 400%;
 }
 
+.buttons button:first-child:before,
+.buttons button:last-child:before{
+    content: '';
+    position: absolute;
+    background: inherit;
+    top:-5px;
+    bottom:-5px;
+    left:-5px;
+    border-radius: 50px;
+    /*filter: blur(50px);*/
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.buttons button:first-child:hover:before,
+.buttons button:last-child:hover:before{
+    opacity: 1;
+    z-index: -1;
+}
+
+.buttons button:hover{
+    z-index: 1;
+    animation: glow 8s linear infinite;
+}
+
+@keyframes glow {
+    0%{
+        background-position: 0;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
 
 
 

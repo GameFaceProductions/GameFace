@@ -27,12 +27,15 @@ export default function About(props) {
                 <p>Connect with gamers from all places and levels to create a unique gaming experience and take your skills and brand to the next level!</p>
             </div>
             <br>
+              <div class="header-cards">
+                        <h4 style="text-align: center">Meet our developers:</h4>
+                    </div>
             <div class="developer-container">
-                <h4 style="text-align: center">Meet our developers:</h4>
+<!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="card">
                         <div class="profile-img">
-                            <img src="" alt="dev"/>
+                            <img src="https://avatars.githubusercontent.com/u/101914667?v=4" alt="dev"/>
                         </div>
                         <h2>Scrimm</h2>
                         <small>Team Lead</small>
@@ -42,7 +45,7 @@ export default function About(props) {
                     </div>
                     <div class="card">
                         <div class="profile-img">
-                            <img src="" alt="dev"/>
+                            <img src="https://avatars.githubusercontent.com/u/106278680?v=4" alt="dev"/>
                         </div>
                         <h2>Pinky</h2>
                         <small>Drip Coordinator</small>
@@ -52,7 +55,7 @@ export default function About(props) {
                     </div>
                      <div class="card">
                         <div class="profile-img">
-                            <img src="" alt="dev"/>
+                            <img src="https://avatars.githubusercontent.com/u/101299129?v=4" alt="dev"/>
                         </div>
                         <h2>B0derChola</h2>
                         <small>Developer</small>
@@ -62,10 +65,10 @@ export default function About(props) {
                     </div>
                     <div class="card">
                         <div class="profile-img">
-                            <img src="" alt="dev"/>
+                            <img src="https://avatars.githubusercontent.com/u/106278622?v=4" alt="dev"/>
                         </div>
                         <h2>Mattdog00</h2>
-                        <small>Developer</small>
+                        <small>Backend GOAT</small>
                         <h3>About Me</h3>
                         <p>Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
