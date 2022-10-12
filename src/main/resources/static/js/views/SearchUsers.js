@@ -25,7 +25,6 @@ export function searchUsersJS() {
   showSearchedUsers();
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
 
-  //
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
 
@@ -43,7 +42,7 @@ export function searchUsersJS() {
 
     function makeUserCard(user) {
       return `
-<div class="col-md-3">
+    <div class="col-md-3">
     <div class="searchCards card">
       <div class="card-body">
         <h5 class="card-title searchUsersTitle">${user.userName}</h5>
@@ -54,7 +53,7 @@ export function searchUsersJS() {
         </div>
     </div>
     </div>
-`;
+ `;
     }
   }
 }
