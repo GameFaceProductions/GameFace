@@ -20,6 +20,16 @@ h1{
     margin: 25px;
 }
 
+.nav-text{
+    background-color: #FAACA8;
+    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
 .navbar a{
     margin: 5px;
 }
