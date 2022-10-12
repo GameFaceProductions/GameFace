@@ -13,11 +13,21 @@ body{
     font-family: "Source Code Pro", sans-serif;
 }
 
+/*logo image alignment*/
+
+.image img{
+    /*height: 500px;*/
+    /*width: 500px;*/
+    display: block;
+    margin: auto;
+
+}
+
 
 /*Styling for statement cards:*/
-.statement{
+.statement-container{
     background: #000000;  /* fallback for old browsers */
-    background: linear-gradient(to bottom, #434343, #000000);
+    background: linear-gradient(to bottom, rgba(67, 67, 67, 0.78), #000000);
     border-radius: 0.8em;
     padding: 10px;
     margin:10px;
@@ -26,18 +36,13 @@ body{
     /*border: 1px #EEE9F6 solid;*/
 }
 
-.logo img{
-    width: 50%;
-    height: 50%;
 
-
-}
 
 
 
 /*Styling for developer cards:*/
 
-.developer-container{
+.developer .container{
     margin:20px;
     padding:20px;
 }
@@ -52,7 +57,7 @@ body{
     /*min-height: 100vh;*/
 }
 
-.card{
+.dev-card{
     margin: 3em 2em 2em 2em;
     max-width: 35em;
     background: rgba(171, 171, 171, 0.1);
