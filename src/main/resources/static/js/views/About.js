@@ -35,7 +35,7 @@ export default function About(props) {
                             <img src="https://avatars.githubusercontent.com/u/101914667?v=4" alt="dev"/>
                         </div>
                         <h2>Scrimm</h2>
-                        <small>Team Lead</small>
+                        <small>Developer</small>
                         <h3>About Me</h3>
                         <p>Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
@@ -45,7 +45,7 @@ export default function About(props) {
                             <img src="https://avatars.githubusercontent.com/u/106278680?v=4" alt="dev"/>
                         </div>
                         <h2>Pinky</h2>
-                        <small>Drip Coordinator</small>
+                        <small>Developer</small>
                         <h3>About Me</h3>
                         <p>Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/brekken-jackson/';">Connect!</button>
@@ -65,7 +65,7 @@ export default function About(props) {
                             <img src="https://avatars.githubusercontent.com/u/106278622?v=4" alt="dev"/>
                         </div>
                         <h2>Mattdog00</h2>
-                        <small>Backend GOAT</small>
+                        <small>Developer</small>
                         <h3>About Me</h3>
                         <p>Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
