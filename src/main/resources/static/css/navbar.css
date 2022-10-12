@@ -1,0 +1,14 @@
+/*General styling:*/
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding:0;
+    background: black;
+    /*background: linear-gradient(to right, #111111, #232526);*/
+    color: ghostwhite;
+    font-family: "Source Code Pro", sans-serif;
+}
