@@ -70,7 +70,7 @@ body{
     border: 1px #ED90CC solid;
 }
 
-.card::before{
+.dev-card::before{
     content: '';
     position: absolute;
     top: 0;
@@ -109,17 +109,17 @@ body{
     border-radius: inherit;
 }
 
-.card h2{
+.dev-card h2{
     margin: 1em 0 0 0;
 }
 
-.card h3{
+.dev-card h3{
     color: #fff;
     margin: 2em 0 0.5em 0;
     font-weight: 400;
 }
 
-.card p{
+.dev-card p{
     color: #81848f;
     font-size: 0.9em;
     line-height: 27px;
@@ -127,16 +127,16 @@ body{
     margin: 02em auto 2em auto;
 }
 
-.card small{
+.dev-card small{
     color: #646771;
 }
 
-.card p,
-.card small{
+.dev-card p,
+.dev-card small{
     transition: 0.2s;
 }
 
-.card button{
+.dev-card button{
     background: rgba(171, 171, 171, 0.2);
     border: none;
     border-radius: 3em;
@@ -147,23 +147,23 @@ body{
     transition: 0.1s;
 }
 
-.card:hover button{
+.dev-card:hover button{
     background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
     background-size: 400%;
     color: #111;
 }
 
-.card:hover p,
-.card:hover small{
+.dev-card:hover p,
+.dev-card:hover small{
     color: #fff;
 }
 
-.card:hover:before{
+.dev-card:hover:before{
     animation: fill 1s ease-in-out forwards;
 }
 
-.card:nth-child(2) .profile-img,
-.card:nth-child(2)::before{
+.dev-card:nth-child(2) .profile-img,
+.dev-card:nth-child(2)::before{
     background: linear-gradient(
     0deg,
     #ab2fbf,
@@ -171,8 +171,8 @@ body{
     );
 }
 
-.card:nth-child(3) .profile-img,
-.card:nth-child(3)::before{
+.dev-card:nth-child(3) .profile-img,
+.dev-card:nth-child(3)::before{
     background: linear-gradient(
             0deg,
             #ab2fbf,
