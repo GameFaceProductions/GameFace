@@ -1,0 +1,29 @@
+/*General styling:*/
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding:0;
+    background: black;
+    color: ghostwhite;
+    font-family: "Source Code Pro", sans-serif;
+}
+
+nav{
+    margin-bottom: 15px;
+}
+
+h1{
+    margin: 25px;
+}
+
+.navbar a{
+    margin: 5px;
+}
+
+small{
+    margin: 10px;
+}

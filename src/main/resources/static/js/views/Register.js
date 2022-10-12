@@ -16,17 +16,24 @@ export default function Register(props) {
                 <title>Register</title>
             </head>
             <body>
-                <h1>Register</h1>
+                <h1 style="text-align: center">Register</h1>
                 <div class="container">
                     <div id="hgj" class="row">
                         <form id="register-form">
-                            <label for="username">Username</label>
-                            <input class="col-12" id="username" name="username" type="text"/>
-                            <label for="email">Email</label>
-                            <input class="col-12" id="email" name="email" type="email">
-                            <label for="password">Password</label>
-                            <input class="col-12" id="password" name="password" type="password"/>
-                            <button id="register-btn" type="button">Register</button>
+                            <div class="card border-dark mb-3">
+                                <div class="card-header">Register</div>
+                                <div class="card-body">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="email@example.com" aria-label="Email" aria-describedby="basic-addon2">
+        
+                                    <label for="password">Password</label>
+                                    <input type="text" class="form-control" id="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon3">
+                                    <button type="button" id="register-btn" class="btn btn-outline-dark">Register</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
