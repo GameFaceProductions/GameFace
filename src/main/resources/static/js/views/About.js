@@ -27,21 +27,58 @@ export default function About(props) {
                 <p>Connect with gamers from all places and levels to create a unique gaming experience and take your skills and brand to the next level!</p>
             </div>
             <br>
-            <br>
-            <div class="developers" style="text-align: center">
+            <div class="developer-container">
                 <h4 style="text-align: center">Meet our developers:</h4>
-                <div class="developer-card">
-                    <p>Scrimm</p>
-                    <p>Pinky</p>
-                    <p>B0rderHoppinChola</p>
-                    <p>Mattdog00</p>
+                <div class="developer-cards" style="text-align: center">
+                    <div class="card">
+                        <div class="profile-img">
+                            <img src="" alt="dev"/>
+                        </div>
+                        <h2>Scrimm</h2>
+                        <small>Team Lead</small>
+                        <h3>About Me</h3>
+                        <p>Lorem ipsum blah blah</p>
+                        <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
+                    </div>
+                    <div class="card">
+                        <div class="profile-img">
+                            <img src="" alt="dev"/>
+                        </div>
+                        <h2>Pinky</h2>
+                        <small>Drip Coordinator</small>
+                        <h3>About Me</h3>
+                        <p>Lorem ipsum blah blah</p>
+                        <button onclick="window.location.href='https://www.linkedin.com/in/brekken-jackson/';">Connect!</button>
+                    </div>
+                     <div class="card">
+                        <div class="profile-img">
+                            <img src="" alt="dev"/>
+                        </div>
+                        <h2>B0derChola</h2>
+                        <small>Developer</small>
+                        <h3>About Me</h3>
+                        <p>Lorem ipsum blah blah</p>
+                        <button onclick="window.location.href='https://www.linkedin.com/in/valeriareveles/';">Connect!</button>
+                    </div>
+                    <div class="card">
+                        <div class="profile-img">
+                            <img src="" alt="dev"/>
+                        </div>
+                        <h2>Mattdog00</h2>
+                        <small>Developer</small>
+                        <h3>About Me</h3>
+                        <p>Lorem ipsum blah blah</p>
+                        <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="about-buttons" style="text-align: center">
-                <input type="button" onclick="location.href='/login';" value="Login" />
-                <input type="button" onclick="location.href='/register';" value="Register" />
+            <div class="buttons" style="text-align: center">
+                <button onclick="window.location.href='/login';">Login</button>
+                <button onclick="window.location.href='/register';">Register</button>
             </div>
+<!--                <input type="button" onclick="location.href='/login';" value="Login" />-->
+<!--                <input type="button" onclick="location.href='/register';" value="Register" />-->
+        
         </main>
     `;
 }

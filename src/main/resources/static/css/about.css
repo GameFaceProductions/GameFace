@@ -1,0 +1,198 @@
+/*General styling:*/
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    background: #111111;
+    /*background: linear-gradient(to right, #111111, #232526);*/
+    color: ghostwhite;
+}
+
+/*Styling for developer cards:*/
+
+.developer-container{
+    margin:0;
+    padding:0;
+}
+
+.developer-cards{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.card{
+    margin: 3em 1em 1em 1em;
+    max-width: 35em;
+    background: rgba(171, 171, 171, 0.1);
+    padding: 2em;
+    text-align: center;
+    border-radius: 0.8em;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    position: relative;
+    backdrop-filter: blur(4px);
+    border: 1px black solid;
+}
+
+.card::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        0deg,
+        #00CACE,
+        #ED90CC
+    );
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.profile-img{
+    width: 6em;
+    height: 6em;
+    margin: -4em auto 0 auto;
+    border-radius: 50%;
+    background: linear-gradient(
+        0deg,
+        #00CACE,
+        #ED90CC
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 0.5em #26293e;
+}
+
+.profile-img img{
+    width: 90%;
+    height: 90%;
+    border-radius: inherit;
+}
+
+.card h2{
+    margin: 1em 0 0 0;
+}
+
+.card h3{
+    color: #fff;
+    margin: 2em 0 0.5em 0;
+    font-weight: 400;
+}
+
+.card p{
+    color: #81848f;
+    font-size: 0.9em;
+    line-height: 27px;
+    max-width: 20em;
+    margin: 02em auto 2em auto;
+}
+
+.card small{
+    color: #646771;
+}
+
+.card p,
+.card small{
+    transition: 0.2s;
+}
+
+.card button{
+    background: rgba(171, 171, 171, 0.2);
+    border: none;
+    border-radius: 3em;
+    padding: 0.8em 2em;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.1s;
+}
+
+.card:hover button{
+    background: #fff;
+    color: #111;
+}
+
+.card:hover p,
+.card:hover small{
+    color: #fff;
+}
+
+.card:hover:before{
+    animation: fill 1s ease-in-out forwards;
+}
+
+.card:nth-child(2) .profile-img,
+.card:nth-child(2)::before{
+    background: linear-gradient(
+    0deg,
+    #ffc15d,
+    #ff4e57
+    );
+}
+
+.card:nth-child(3) .profile-img,
+.card:nth-child(3)::before{
+    background: linear-gradient(
+            0deg,
+            #ab2fbf,
+            #f9e44f
+    );
+}
+
+@keyframes fill {
+    40% {
+        width: 100%;
+        height: 0.5em;
+    }
+    50% {
+        width: 100%;
+        height: 0.5em;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/*Styling for login/register buttons:*/
+.buttons button{
+    height: 60px;
+    width: 200px;
+    margin: 0 35px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: rgba(171, 171, 171, 0.2);
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.buttons button:first-child:hover{
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+}
+
+.buttons button:last-child:hover{
+    background: linear-gradient(90deg, #fa7199, #f5ce62, #e43603, #fa7199);
+    background-size: 400%;
+}
+
+
+
+
+
+
+
+
