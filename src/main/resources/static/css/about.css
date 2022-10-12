@@ -1,0 +1,288 @@
+/*General styling:*/
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding:0;
+    background: black;
+    /*background: linear-gradient(to right, #111111, #232526);*/
+    color: ghostwhite;
+    font-family: "Source Code Pro", sans-serif;
+}
+
+
+/*Styling for statement cards:*/
+.statement{
+    background: #000000;  /* fallback for old browsers */
+    background: linear-gradient(to bottom, #434343, #000000);
+    border-radius: 0.8em;
+    padding: 10px;
+    margin:10px;
+    text-align: center;
+    /*border: 1px #C5FCEE solid;*/
+    /*border: 1px #EEE9F6 solid;*/
+}
+
+.logo img{
+    width: 50%;
+    height: 50%;
+
+
+}
+
+
+
+/*Styling for developer cards:*/
+
+.developer-container{
+    margin:20px;
+    padding:20px;
+}
+
+.developer-cards{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin:20px;
+    /*min-height: 100vh;*/
+}
+
+.card{
+    margin: 3em 2em 2em 2em;
+    max-width: 35em;
+    background: rgba(171, 171, 171, 0.1);
+    padding: 2em;
+    text-align: center;
+    border-radius: 0.8em;
+    box-shadow: 0 0 0.5em rgba(171, 171, 171, 1.5);
+    position: relative;
+    /*backdrop-filter: blur(4px);*/
+    border: 1px #ED90CC solid;
+}
+
+.card::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        0deg,
+        #00CACE,
+        #ED90CC
+    );
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.profile-img{
+    width: 6em;
+    height: 6em;
+    margin: -4em auto 0 auto;
+    border-radius: 50%;
+    background: linear-gradient(
+        0deg,
+        #00CACE,
+        #ED90CC
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 0.5em #26293e;
+}
+
+.profile-img img{
+    width: 90%;
+    height: 90%;
+    border-radius: inherit;
+}
+
+.card h2{
+    margin: 1em 0 0 0;
+}
+
+.card h3{
+    color: #fff;
+    margin: 2em 0 0.5em 0;
+    font-weight: 400;
+}
+
+.card p{
+    color: #81848f;
+    font-size: 0.9em;
+    line-height: 27px;
+    max-width: 20em;
+    margin: 02em auto 2em auto;
+}
+
+.card small{
+    color: #646771;
+}
+
+.card p,
+.card small{
+    transition: 0.2s;
+}
+
+.card button{
+    background: rgba(171, 171, 171, 0.2);
+    border: none;
+    border-radius: 3em;
+    padding: 0.8em 2em;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.1s;
+}
+
+.card:hover button{
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    color: #111;
+}
+
+.card:hover p,
+.card:hover small{
+    color: #fff;
+}
+
+.card:hover:before{
+    animation: fill 1s ease-in-out forwards;
+}
+
+.card:nth-child(2) .profile-img,
+.card:nth-child(2)::before{
+    background: linear-gradient(
+    0deg,
+    #ab2fbf,
+    #f9e44f
+    );
+}
+
+.card:nth-child(3) .profile-img,
+.card:nth-child(3)::before{
+    background: linear-gradient(
+            0deg,
+            #ab2fbf,
+            #f9e44f
+    );
+}
+
+@keyframes fill {
+    40% {
+        width: 100%;
+        height: 0.5em;
+    }
+    50% {
+        width: 100%;
+        height: 0.5em;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/*Styling for login/register page buttons:*/
+.buttons button{
+    position: relative;
+    height: 60px;
+    width: 200px;
+    margin: 20px 20px;
+    border-radius: 0.8em;
+    outline: none;
+    background: rgba(171, 171, 171, 0.2);
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px #ED90CC solid;
+}
+
+.buttons button:first-child:hover{
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+}
+
+.buttons button:last-child:hover{
+    background: linear-gradient(90deg, #fa7199, #f5ce62, #e43603, #fa7199);
+    background-size: 400%;
+}
+
+.buttons button:first-child:before,
+.buttons button:last-child:before{
+    content: '';
+    position: absolute;
+    background: inherit;
+    top:-5px;
+    bottom:-5px;
+    left:-5px;
+    border-radius: 0.8em;
+    /*filter: blur(50px);*/
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.buttons button:first-child:hover:before,
+.buttons button:last-child:hover:before{
+    opacity: 1;
+    z-index: -1;
+}
+
+.buttons button:hover{
+    z-index: 1;
+    animation: glow 8s linear infinite;
+}
+
+@keyframes glow {
+    0%{
+        background-position: 0;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/*Customization for scrollbar cause why not:*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: black;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: .6em;
+    background: linear-gradient(to left, #B6FFE4, #B6FFCD);
+}
+
+
+/*hover might be too much on everything*/
+/*::-webkit-scrollbar-thumb:hover {*/
+/*    border-radius: .6em;*/
+/*    background: linear-gradient(to left, #03a9f4, #B6FFCD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
