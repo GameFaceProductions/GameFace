@@ -14,6 +14,7 @@ body{
 
 nav{
     margin-bottom: 15px;
+    font-size: 1.3rem;
 }
 
 h1{
@@ -21,8 +22,8 @@ h1{
 }
 
 .nav-text{
-    background-color: #FAACA8;
-    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: 100%;
     background-repeat: repeat;
     -webkit-background-clip: text;
