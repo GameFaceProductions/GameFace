@@ -8,6 +8,8 @@ body{
     position: relative;
     min-height: 100vh;
 }
+
+
 /*Bootstrap Grid*/
 /*cell color*/
 div.row > div {
