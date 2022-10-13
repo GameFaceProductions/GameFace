@@ -5,15 +5,15 @@
 /*    align-items: center;*/
 /*}*/
 
-/*.post-card {*/
-/*    margin: 10px auto;*/
-/*    width: 50rem;*/
-/*    padding: 1rem 1.5rem;*/
-/*    border: 2px solid var(--stroke-color);*/
-/*    border-radius: 0.5rem;*/
-/*    box-shadow: 4px 4px 20px 0px #07617c4b;*/
-/*    background-color: white;*/
-/*}*/
+.post-card {
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--stroke-color);
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 20px 0px #07617c4b;
+    background-color: white;
+    min-height: 52px;
+    margin-bottom: 1rem;
+}
 
 /*.post-header {*/
 /*    display: flex;*/
@@ -90,7 +90,7 @@
     text-decoration: underline !important;
 }
 
-.tweet-to-btn {
+.chat-to-btn {
     margin-top: 16px;
     margin-bottom: 16px;
     width:100%;
@@ -101,17 +101,17 @@
 .main-content {
 }
 
-.tweet-list {
+.post-list {
     list-style: none;
     margin: 8px 4px 0;
     padding: 0;
 }
-.post-card {
-    background-color: #fff;
-    border-bottom: 1px solid #e6ecf0;
-    min-height: 52px;
-    padding: 9px 12px;
-}
+/*.post-card {*/
+/*    background-color: #fff;*/
+/*    border-bottom: 1px solid #e6ecf0;*/
+/*    min-height: 52px;*/
+/*    padding: 12px 12px;*/
+/*}*/
 
 .post-content {
     margin-left: 58px;
@@ -172,7 +172,7 @@
 .btn-follow {
     border-color: #1DA1F2;
     color: #1DA1F2;
-    background-color: #fff;
+    background-color: white;
     border: 1px solid #1da1f2;
     display: block;
     font-size: 12px;
@@ -187,9 +187,17 @@
 }
 
 .btn-follow:hover {
-    background-color: #E8F5FD;
+    background-color: black;
 }
 
 .main {
     background-color: #e1e2e3;
+}
+
+.post-content {
+    color: black;
+}
+
+.panel-header {
+    color: black;
 }

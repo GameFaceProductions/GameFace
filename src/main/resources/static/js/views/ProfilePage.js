@@ -7,65 +7,67 @@ export default function ProfilePage(props) {
     let user = getUser();
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
-    console.log(user)
 
     return `
-<div class="main">
-<div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
-            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
-                <img src="https://picsum.photos/300/300" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
-                <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
-            </div>
-            <div class="ms-3" style="margin-top: 130px">
-                <h5>${user.userName}</h5>
-                <p>Region</p>
-            </div>
-        </div>
-        <div class="p-4 text-black" style="background-color: white">
-            <div class="d-flex justify-content-end text-center py-1">
-                <div class="px-3">
-                    <p class="small text-muted mb-0">Following</p>
+            <div class="main">
+                <!-- This is the div for the cover photo -->
+                <div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
+                    <!-- End of the cover photo/ Start of the profile picture -->
+                    <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
+                        <img src="https://picsum.photos/300/300" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                        <!-- End of the profile pic/ start of the account details button -->
+                        <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                    </div>
+                    <div class="ms-3" style="margin-top: 130px">
+                        <h5>${user.userName}</h5>
+                        <p>Region</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="small text-muted mb-0">Followers</p>
+                <!-- Start of followers/following div -->
+                <div class="p-4 text-black" style="background-color: white">
+                    <div class="d-flex justify-content-end text-center py-1">
+                        <div class="px-3">
+                            <p>12</p>
+                            <p class="small text-muted mb-0">Following</p>
+                        </div>
+                        <div>
+                            <p>12</p>
+                            <p class="small text-muted mb-0">Followers</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-  <div class="container main-content">
-    <div class="row">
-      <div class="col profile-col">
-        <!-- Left column -->
-        <div class="profile-header">
-          <!-- Header information -->
-          <h3 class="bio"><a>Bio<a></h3>
-          <h2 class="profile-element"><a>@${user.userName}</a></h2>
-          <p class="profile-element profile-website">Web Developer</p>
-          <button class="btn btn-search-bar tweet-to-btn">Chat with ${user.userName}</button>
-        </div>
-      </div>
-      <!-- End; Left column -->
-      <!-- Center content column -->
-      <div class="col-6">
-        <ol class="tweet-list">
-          ${postHTML}
-          </ol>
-        <!-- End: tweet list -->
-      </div>
-      <!-- End: Center content column -->
-      <div class="col right-col">
-        <div class="content-panel">
-          <div class="panel-header">
-            <h4>Favorite Games</h4>
-          </div>
+                <!-- End of follower/following div -->
+                <div class="container main-content">
+                    <div class="row">
+                      <div class="col profile-col">
+                        <!-- Left column -->
+                        <div class="profile-header">
+                          <!-- Bio -->
+                          <h3 class="bio"><a>Bio<a></h3>
+                          <h2 class="profile-element"><a>@${user.userName}</a></h2>
+                          <p class="profile-element profile-website">Web Developer</p>
+                          <button class="btn btn-outline-dark" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+                        </div>
+                      </div>
+                      <!-- End of the left column -->
+                      <!-- The posts/middle-col start here -->
+                      <div class="col-6">
+                        <ol class="post-list">
+                          ${postHTML}
+                        </ol>
+                      </div>
+                      <!-- The right column will start here -->
+                      <div class="col right-col">
+                        <div class="content-panel">
+                          <div class="panel-header">
+                            <h4>Favorite Games</h4>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End of the right column -->
+                    </div>
                 </div>
-              </li>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>`
-
+          </div>`
 }
 
 function generateUserPosts(posts) {
@@ -85,9 +87,9 @@ function generateUserPosts(posts) {
                             <span class="username">@${post.author.userName}</span>
                             <span class="post-time">- ${post.createdAt}</span>
                         </div>
-                        <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+                            <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
                         <div class="post-text">
-                        <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+                            <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
                         </div>
                         <div class="post-footer">
                             <a class="post-footer-btn">
@@ -102,6 +104,6 @@ function generateUserPosts(posts) {
                 `;
         }
     }
-
     return userPosts
 }
+
