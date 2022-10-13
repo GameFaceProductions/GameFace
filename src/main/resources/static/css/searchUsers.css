@@ -1,27 +1,53 @@
-.searchCards{
+.searchCards {
     color: #00CACE;
     border: solid #ab2fbf .1rem;
+    box-shadow: 0 0 0.5em rgba(171, 171, 171, 1.5);
+    background: rgba(159, 160, 160, 0.18);
+    height: 15rem;
 }
+
+.userAvatar {
+    margin-top: .3rem;
+    width: 6rem;
+    position: relative;
+    bottom: 4rem;
+}
+
+.searchUsersTitle {
+    position: relative;
+    bottom: 3.5rem;
+}
+
+.userBackdrop {
+    height: 65%
+}
+
+.addUserBtn {
+    color: whitesmoke;
+    background-color: #00CACE;
+    border: solid #ab2fbf .1rem;
+    margin-top: .5rem;
+}
+
+.searchUsers {
+    color: whitesmoke;
+    background-color: #00CACE;
+}
+
+.searchUsersLabel {
+    color: #00CACE;
+}
+
 #userListContainer {
     margin-top: 2rem;
 }
-.delUserBtn{
-    color: whitesmoke;
-    background-color: #00CACE;
-    border: solid #ab2fbf .1rem;
-}
-.searchUsers{
-    color: whitesmoke;
-    background-color: #00CACE;
-}
-.searchUsersLabel{
-    color: #00CACE;
-}
-#searchUserInput{
+
+#searchUserInput {
     width: 25%;
     margin-right: auto;
     margin-left: auto;
 }
+
 #searchUserSubmitBtn {
     margin-top: 1rem;
     border: solid #ab2fbf .1rem;
