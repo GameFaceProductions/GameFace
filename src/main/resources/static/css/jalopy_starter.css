@@ -1,20 +1,21 @@
 .jalopy-nav {
     margin-right: 1em;
 }
-body{
-    background-color: ghostwhite;
-}
+/*Already a body element in about css*/
+/*body{*/
+/*    background-color: ghostwhite;*/
+/*}*/
+
 .jalopy-container {
     position: relative;
     min-height: 100vh;
 }
-
-
 /*Bootstrap Grid*/
 /*cell color*/
 div.row > div {
     border: 1px solid red;
 }
+
 div.tall-row {
     height: 300px;
 }

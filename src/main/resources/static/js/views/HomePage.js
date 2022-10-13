@@ -5,8 +5,8 @@ let posts;
 let loggedInUser;
 
 export default function HomePage(props) {
-  loggedInUser = getUser();
 
+  loggedInUser = getUser();
   const postsHTML = generatePostsHTML(props.posts);
   posts = props.posts;
   console.log(props);
@@ -14,75 +14,34 @@ export default function HomePage(props) {
   const addPostHTML = generateAddPostHTML();
 
   return `
-        <header>
-            <h1>Posts Page</h1>
-        </header>
-        <main>
-              <h3>Lists of posts</h3>
-            <div>
-                ${postsHTML}   
-            </div>
+    <header style="text-align: center">
+      <h1>Whats New:</h1>
+    </header>
+    <div class="container main-posts">
+        <h3 style="text-align: center">News Feed:</h3>
+        <div class="row">
+          <div class="col add-post">
             ${addPostHTML}
-        </main>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col home-post">
+                <ol class="tweet-list">
+                    ${postsHTML}  
+                </ol>
+            </div>
+        </div>
+        
+      </li>
+    </div>
     `;
+
 }
 
-function generateAddPostHTML() {
-  let addHTML = ``;
-
-  if (!isLoggedIn()) {
-    return addHTML;
-  }
-
-  addHTML = `<h3>Add a post</h3>
-            <form>
-                <div>
-                    <label for="title">Title</label><br>
-                    <input id="title" name="title" class="form-control" type="text" placeholder="Enter title">
-                    <div class="invalid-feedback">
-                        Title cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Your title is ok!
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="content">Content</label><br>
-                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="Enter content"></textarea>
-                    <div class="invalid-feedback">
-                        Content cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Content is ok!
-                    </div>
-                </div>
-                  <div class="valid-feedback">
-                        Content is ok!
-                    </div>  
-                    <div class="valid-feedback">
-                         <label for="date">Posted:</label>
-                        <input type="date" id="date" name="trip-start" />
-                    </div> 
-                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Save Post</button>
-            </form>`;
-
-  return addHTML;
-}
 
 function generatePostsHTML(posts) {
-  let postsHTML = `
-        <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Content</th>
-            <th scope="col">Author</th>
-            <th scope="col">Posted:</th>
-        </tr>
-        </thead>
-        <tbody>
-    `;
+  let postsHTML = ``
+
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
 
@@ -91,27 +50,60 @@ function generatePostsHTML(posts) {
       authorName = post.author.userName;
     }
 
-    postsHTML += `<tr>
-            <td>${post.title}</td>
-            <td>${post.content}</td>
-            <td>${post.author.userName}</td>
-            <td><p id="time">${post.createdAt}</p></td>
-            `;
+    postsHTML += `
+        <li class="home-card">
+            <div class="post-content">
+                <div class="post-header">
+                    <span class="fullname"><strong>${post.author.userName}</strong></span>
+                    <span class="username"><strong>${post.author.userName}</strong></span>
+                    <span class="username"><strong>${post.createdAt}</strong></span>
+                </div>
+                <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+                <div class="post-text">
+                    <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+                </div>
+                <div class="post-footer">
+                    <a class="post-footer-btn">
+                        <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+                    </a>
+                    <a class="post-footer-btn">
+                        <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+                    </a>`;
 
-    //only admins and author of post can edit/delete it
-    if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
-    ) {
-      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
-            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
-    } else {
-      postsHTML += `<td></td><td></td>`;
+    if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+                            <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
-    postsHTML += `</tr>`;
+    postsHTML += `</div></div></li>`;
+
   }
-  postsHTML += `</tbody></table>`;
   return postsHTML;
+}
+
+
+function generateAddPostHTML() {
+  let addHTML = ``;
+
+  if (!isLoggedIn()) {
+    return addHTML;
+  }
+
+  addHTML = `<div class="add-form">
+            <form>
+                <div>
+                    <label for="content">Share Your Thoughts!</label><br>
+                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
+                    <div class="invalid-feedback">
+                        Content cannot be blank.
+                    </div>
+                    <div class="valid-feedback">
+                        Content is ok!
+                    </div>
+                </div>
+                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+            </form></div>`;
+
+  return addHTML;
 }
 
 export function postSetup() {
@@ -123,25 +115,14 @@ export function postSetup() {
 }
 
 function setupValidationHandlers() {
-  let input = document.querySelector("#title");
-  input.addEventListener("keyup", validateFields);
-  input = document.querySelector("#content");
+  let input = document.querySelector("#content");
   input.addEventListener("keyup", validateFields);
 }
 
 function validateFields() {
   let isValid = true;
-  let input = document.querySelector("#title");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
 
-  input = document.querySelector("#content");
+ let input = document.querySelector("#content");
   if (input.value.trim().length < 1) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
@@ -174,10 +155,8 @@ function loadPostIntoForm(postId) {
     console.log("did not find post for id " + postId);
     return;
   }
-  // load the post data into the form
-  const titleField = document.querySelector("#title");
+
   const contentField = document.querySelector("#content");
-  titleField.value = post.title;
   contentField.value = post.content;
   validateFields();
   const saveButton = document.querySelector("#savePost");
@@ -232,15 +211,14 @@ function setupSaveHandler() {
 }
 
 function savePost(postId) {
-  const titleField = document.querySelector("#title");
+
   const contentField = document.querySelector("#content");
 
   if (!validateFields()) {
     return;
   }
   const post = {
-    title: titleField.value,
-    content: contentField.value,
+    content: contentField.value
   };
   // make the request
   const request = {

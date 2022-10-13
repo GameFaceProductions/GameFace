@@ -18,7 +18,7 @@ export default function Navbar(props) {
         <text class="float-end">Logged in as: ${user.userName}</text>`;
   } else {
     navbar += `
-       <i onclick="window.location.href='/';"  class="bi bi-info-circle-fill"><small class="nav-text">About Us</small></i> 
+       <i onclick="window.location.href='/';"  class="bi bi-info-circle-fill no-italic"><small class="nav-text">About Us</small></i> 
         `;
   }
   navbar += `</div></nav>`;
