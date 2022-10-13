@@ -80,4 +80,6 @@ export function searchUsersJS() {
  `;
     }
   }
+
+  //  function and POST for adding a user as a friend:
 }
