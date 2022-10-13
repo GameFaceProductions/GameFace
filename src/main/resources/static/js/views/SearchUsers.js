@@ -9,9 +9,9 @@ export default function searchUsersHTML(props) {
 <!-- html here -->
     <div class="container px-1 mt-1 text-center">
     <form>
-        <label for="searchUserInput" class="form-label">Search Users</label>
+        <label for="searchUserInput" class="searchUsersLabel form-label">Search Users</label>
         <input type="search" class="form-control text-center" placeholder="Username" id="searchUserInput">
-      <button type="submit" id="searchUserSubmitBtn" class="btn btn-dark mt-1">Search</button>
+      <button type="submit" id="searchUserSubmitBtn" class="searchUsers searchUsersBtn btn btn-dark mt-1">Search</button>
     </form>   
       <div id="userListContainer" class="row g-2">
       </div>
@@ -49,7 +49,7 @@ export function searchUsersJS() {
         <p class="card-text"></p>
       </div>
       <div id="searchUsersFoot">
-        <button class="delBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
+        <button class="delUserBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
         </div>
     </div>
     </div>

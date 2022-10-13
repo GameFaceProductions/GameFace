@@ -1,10 +1,28 @@
 .searchCards{
+    color: #00CACE;
+    border: solid #ab2fbf .1rem;
 }
 #userListContainer {
-    margin-top: 2em;
+    margin-top: 2rem;
+}
+.delUserBtn{
+    color: whitesmoke;
+    background-color: #00CACE;
+    border: solid #ab2fbf .1rem;
+}
+.searchUsers{
+    color: whitesmoke;
+    background-color: #00CACE;
+}
+.searchUsersLabel{
+    color: #00CACE;
 }
 #searchUserInput{
     width: 25%;
     margin-right: auto;
     margin-left: auto;
+}
+#searchUserSubmitBtn {
+    margin-top: 1rem;
+    border: solid #ab2fbf .1rem;
 }
