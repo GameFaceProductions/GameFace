@@ -155,7 +155,7 @@ body{
 }
 
 .dev-card:hover:before{
-    animation: fill .5s ease-in-out forwards;
+    animation: fill .8s ease-in-out forwards;
 }
 
 .dev-card:nth-child(2) .profile-img,
@@ -260,8 +260,7 @@ body{
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: black;
-
+    background: #292E49;
 }
 
 /* Handle */
@@ -271,11 +270,13 @@ body{
 }
 
 
-/*hover might be too much on everything*/
-/*::-webkit-scrollbar-thumb:hover {*/
-/*    border-radius: .6em;*/
-/*    background: linear-gradient(to left, #03a9f4, #B6FFCD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-/*}*/
+
+::-webkit-scrollbar-thumb:hover {
+    border-radius: .6em;
+    background-color: #FBDA61;
+    background-image: linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);
+
+}
 
 
 
