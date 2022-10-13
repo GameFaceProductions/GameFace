@@ -1,12 +1,14 @@
 import {getUser} from "../auth.js";
 
 let posts;
+let user;
 
 export default function ProfilePage(props) {
 
     let user = getUser();
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
+    console.log(user)
 
     return `
             <div class="main">
@@ -14,7 +16,7 @@ export default function ProfilePage(props) {
                 <div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
-                        <img src="https://picsum.photos/300/300" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                        <img src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
                         <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
@@ -87,7 +89,7 @@ function generateUserPosts(posts) {
                             <span class="username">@${post.author.userName}</span>
                             <span class="post-time">- ${post.createdAt}</span>
                         </div>
-                            <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+                            <a><img class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
                         <div class="post-text">
                             <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
                         </div>
