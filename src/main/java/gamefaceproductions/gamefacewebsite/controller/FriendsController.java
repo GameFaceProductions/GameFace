@@ -42,6 +42,12 @@ public class FriendsController {
         return optionalUser;
     }
 
+    @PostMapping("/{id}")
+    public void addFriend(@PathVariable long id, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+        friendsRepository.addFriendFromUser(loggedInUser.getId(), id);
+        friendsRepository.addFriendFromUser(id, loggedInUser.getId());
+    }
     //    BLOCKED THIS SHIZ IS HARD. Maybe need to make user_id and friend_id sever as composite key so
 //    friends can be deleted based on the unique friendship (unidirectional) which preserves friends
 //    so if user1 removes user2, user2 can still consider user1 a friend on their end... Or bidirectional if easier.

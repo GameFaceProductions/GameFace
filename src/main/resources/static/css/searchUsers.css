@@ -3,19 +3,20 @@
     border: solid #ab2fbf .1rem;
     box-shadow: 0 0 0.5em rgba(171, 171, 171, 1.5);
     background: rgba(159, 160, 160, 0.18);
-    height: 15rem;
+    height: 17rem;
 }
 
 .userAvatar {
     margin-top: .3rem;
     width: 6rem;
     position: relative;
-    bottom: 4rem;
+    top: 5.2rem;
+    border: solid #ab2fbf .1rem ;
 }
 
-.searchUsersTitle {
+.searchUsersUsername {
     position: relative;
-    bottom: 3.5rem;
+    top: 5.8rem;
 }
 
 .userBackdrop {
@@ -36,6 +37,11 @@
 
 .searchUsersLabel {
     color: #00CACE;
+}
+
+.card-body{
+    padding: 0;
+    margin-bottom: 4rem;
 }
 
 #userListContainer {
