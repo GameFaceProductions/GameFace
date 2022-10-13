@@ -90,6 +90,7 @@
     text-decoration: underline !important;
 }
 
+
 .chat-to-btn {
     margin-top: 16px;
     margin-bottom: 16px;
@@ -106,6 +107,7 @@
     margin: 8px 4px 0;
     padding: 0;
 }
+
 /*.post-card {*/
 /*    background-color: #fff;*/
 /*    border-bottom: 1px solid #e6ecf0;*/
@@ -187,7 +189,7 @@
 }
 
 .btn-follow:hover {
-    background-color: black;
+    background-color: #E8F5FD;
 }
 
 .main {
