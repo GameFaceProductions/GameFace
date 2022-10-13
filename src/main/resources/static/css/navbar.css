@@ -35,6 +35,10 @@ h1{
     margin: 5px;
 }
 
+.no-italic{
+    font-style: normal;
+}
+
 small{
     margin: 10px;
 }
