@@ -20,9 +20,7 @@ body{
     /*width: 500px;*/
     display: block;
     margin: auto;
-
 }
-
 
 /*Styling for statement cards:*/
 .statement-container{
@@ -35,8 +33,6 @@ body{
     /*border: 1px #C5FCEE solid;*/
     /*border: 1px #EEE9F6 solid;*/
 }
-
-
 
 
 
@@ -159,7 +155,7 @@ body{
 }
 
 .dev-card:hover:before{
-    animation: fill 1s ease-in-out forwards;
+    animation: fill .5s ease-in-out forwards;
 }
 
 .dev-card:nth-child(2) .profile-img,
