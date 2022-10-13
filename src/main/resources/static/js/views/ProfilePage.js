@@ -1,23 +1,16 @@
 import {getUser} from "../auth.js";
 
 let posts;
-let users;
+let user;
 
 export default function ProfilePage(props) {
 
     let user = getUser();
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
-    users = props.users
-    console.log(props);
-    console.log(posts);
-    console.log(user);
-    console.log(users);
+    console.log(user)
 
-    for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
-
-        return `
+    return `
             <div class="main">
                 <!-- This is the div for the cover photo -->
                 <div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
@@ -77,7 +70,6 @@ export default function ProfilePage(props) {
                     </div>
                 </div>
           </div>`
-    }
 }
 
 function generateUserPosts(posts) {
