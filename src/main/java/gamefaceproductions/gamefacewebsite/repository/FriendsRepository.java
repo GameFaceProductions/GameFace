@@ -10,4 +10,8 @@ public interface FriendsRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "delete from user_friends WHERE user_id = :userId AND friend_id = :friendId", nativeQuery = true)
     void deleteFriendFromUser(@Param("userId") Long userID, @Param("friendId") Long friendId);
+
+    @Modifying
+    @Query(value = "insert into user_friends (user_id, friend_id) VALUES (:userId, :friendId)", nativeQuery = true)
+    void addFriendFromUser(@Param("userId") Long userID, @Param("friendId") Long friendId);
 }

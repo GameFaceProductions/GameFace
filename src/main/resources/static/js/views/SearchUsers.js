@@ -1,30 +1,33 @@
 import CreateView from "../createView.js";
+import { getHeaders, getUser } from "../auth.js";
+import createView from "../createView.js";
 
 let user;
 export default function searchUsersHTML(props) {
   user = props.users;
   console.log(user);
+  // FILE STACK PICKER https://cdn.filestackcontent.com/
 
-  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
-  const options = {
-    onFileSelected: (file) => {
-      // If you throw any error in this function it will reject the file selection.
-      // The error message will be displayed to the user as an alert.
-      if (file.size > 1000 * 1000) {
-        throw new Error("File too big, select something smaller than 1MB");
-      }
-    },
-    maxFiles: 1,
-    onUploadDone: function (res) {
-      const url = res.filesUploaded[0].url;
-      console.log(url);
-      console.log(res);
-    },
-    supportEmail: "gamefaceproductions210@gmail.com",
-    hideModalWhenUploading: true,
-  };
-
-  client.picker(options).open();
+  // const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  // const options = {
+  //   onFileSelected: (file) => {
+  //     // If you throw any error in this function it will reject the file selection.
+  //     // The error message will be displayed to the user as an alert.
+  //     if (file.size > 1000 * 1000) {
+  //       throw new Error("File too big, select something smaller than 1MB");
+  //     }
+  //   },
+  //   maxFiles: 1,
+  //   onUploadDone: function (res) {
+  //     const url = res.filesUploaded[0].url;
+  //     console.log(url);
+  //     console.log(res);
+  //   },
+  //   supportEmail: "gamefaceproductions210@gmail.com",
+  //   hideModalWhenUploading: true,
+  // };
+  //
+  // client.picker(options).open();
 
   return `
 <!-- html here -->
@@ -63,14 +66,13 @@ export function searchUsersJS() {
 
     function makeUserCard(user) {
       let url = user.backdrop_url;
-      console.log(url);
       return `
     <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
-      <div class="card-body">
-      <div class="userBackdrop rounded" style="background-image: url('${url}')"></div>
+      <div class="card-body rounded" style="background-image: url('${url}')">
+<!--      <div class="userBackdrop rounded" style="background-image: url('${url}')"></div>-->
         <img src="${user.avatar_url}" class="userAvatar rounded-circle" referrerpolicy="no-referrer">
-        <h5 class="card-title searchUsersTitle">${user.userName}</h5>
+        <h5 class="card-title searchUsersUsername">${user.userName}</h5>
       </div>
       <div id="searchUsersFoot">
         <button class="addUserBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
@@ -82,4 +84,31 @@ export function searchUsersJS() {
   }
 
   //  function and POST for adding a user as a friend:
+  let addBtn = document.getElementsByClassName("addUserBtn");
+  for (let i = 0; i < addBtn.length; i++) {
+    addBtn[i].addEventListener("click", addFriend);
+  }
+
+  const loggedInUser = getUser();
+  console.log(loggedInUser);
+
+  async function addFriend() {
+    const addFriendRequestOptions = {
+      method: "GET",
+    };
+    let id = this.getAttribute("data-id");
+    console.log(id);
+    const addFriend = await fetch(
+      `http://localhost:8080/api/friends`,
+      addFriendRequestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("add friend error: " + response.status);
+      } else {
+        console.log("add friend ok");
+        return await response.json();
+        // await createView("/searchusers");
+      }
+    });
+  }
 }
