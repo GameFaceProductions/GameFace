@@ -11,59 +11,29 @@ export default function HomePage(props) {
   posts = props.posts;
   console.log(props);
 
-  // const addPostHTML = generateAddPostHTML();
+  const addPostHTML = generateAddPostHTML();
 
   return `
-   <div class="main">
     <header style="text-align: center">
       <h1>Whats New:</h1>
     </header>
-    <div class="container main-content">
+    <div class="container main-posts">
         <h3 style="text-align: center">News Feed:</h3>
         <div class="row">
-        <div class="col profile-col">
-        <!-- Left column -->
-        <div class="profile-header">
-          <!-- Header information -->
-          <h3 class="bio"><a>Bio<a></h3>
-          <h2 class="profile-element"><a>@${loggedInUser.userName}</a></h2>
-          <p class="profile-element profile-website">Web Developer</p>
-          <button class="btn btn-search-bar tweet-to-btn">Chat with ${loggedInUser.userName}</button>
-        </div>
-           <div class="profile-header">
-          <!-- Header information -->
-          <h3 class="bio">Dev Favorites!</h3>
-          <p class="profile-element profile-website">List of Games Here</p>
-          <button class="btn btn-search-bar tweet-to-btn">add friend button</button>
-        </div>
-      </div>
-      <!-- End; Left column -->
-      <!-- Center content column -->
-      <div class="col-6">
-        <ol class="tweet-list">
-           ${postsHTML}  
-          </ol>
-        <!-- End: tweet list -->
-      </div>
-      <!-- End: Center content column -->
-      <div class="col right-col home-right">
-        <div class="content-panel">
-          <div class="panel-header">
-            <h4>Favorite Games</h4>
+          <div class="col add-post">
+            ${addPostHTML}
           </div>
         </div>
-          <div class="home-panel">
-          <div class="panel-header">
-            <h4>Suggested Gamers</h4>
-          </div>
+        <div class="row">
+            <div class="col home-post">
+                <ol class="tweet-list">
+                    ${postsHTML}  
+                </ol>
+            </div>
         </div>
-            </li>
-          </div>
-        </div>
-      </div>
+        
+      </li>
     </div>
-  </div>
-</div>
     `;
 
 }
@@ -98,25 +68,15 @@ function generatePostsHTML(posts) {
                     </a>
                     <a class="post-footer-btn">
                         <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
-                    </a>
-                </div>
-            </div>
-          </li>
-            `;
+                    </a>`;
 
-    //only admins and author of post can edit/delete it
-    if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
-    ) {
-      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
-            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
-    } else {
-      postsHTML += `<td></td><td></td>`;
+    if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+                            <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
-    postsHTML += `</tr>`;
+    postsHTML += `</div></div></li>`;
+
   }
-  postsHTML += `</tbody></table>`;
   return postsHTML;
 }
 
@@ -128,22 +88,11 @@ function generateAddPostHTML() {
     return addHTML;
   }
 
-  addHTML = `<h3>Add a post</h3>
+  addHTML = `<div class="add-form">
             <form>
                 <div>
-                    <label for="title">Title</label><br>
-                    <input id="title" name="title" class="form-control" type="text" placeholder="Enter title">
-                    <div class="invalid-feedback">
-                        Title cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Your title is ok!
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="content">Content</label><br>
-                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="Enter content"></textarea>
+                    <label for="content">Share Your Thoughts!</label><br>
+                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
                     <div class="invalid-feedback">
                         Content cannot be blank.
                     </div>
@@ -151,15 +100,8 @@ function generateAddPostHTML() {
                         Content is ok!
                     </div>
                 </div>
-                  <div class="valid-feedback">
-                        Content is ok!
-                    </div>  
-                    <div class="valid-feedback">
-                         <label for="date">Posted:</label>
-                        <input type="date" id="date" name="trip-start" />
-                    </div> 
-                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Save Post</button>
-            </form>`;
+                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+            </form></div>`;
 
   return addHTML;
 }
@@ -173,25 +115,14 @@ export function postSetup() {
 }
 
 function setupValidationHandlers() {
-  let input = document.querySelector("#title");
-  input.addEventListener("keyup", validateFields);
-  input = document.querySelector("#content");
+  let input = document.querySelector("#content");
   input.addEventListener("keyup", validateFields);
 }
 
 function validateFields() {
   let isValid = true;
-  let input = document.querySelector("#title");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
 
-  input = document.querySelector("#content");
+ let input = document.querySelector("#content");
   if (input.value.trim().length < 1) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
@@ -224,10 +155,8 @@ function loadPostIntoForm(postId) {
     console.log("did not find post for id " + postId);
     return;
   }
-  // load the post data into the form
-  const titleField = document.querySelector("#title");
+
   const contentField = document.querySelector("#content");
-  titleField.value = post.title;
   contentField.value = post.content;
   validateFields();
   const saveButton = document.querySelector("#savePost");
@@ -282,15 +211,14 @@ function setupSaveHandler() {
 }
 
 function savePost(postId) {
-  const titleField = document.querySelector("#title");
+
   const contentField = document.querySelector("#content");
 
   if (!validateFields()) {
     return;
   }
   const post = {
-    title: titleField.value,
-    content: contentField.value,
+    content: contentField.value
   };
   // make the request
   const request = {
