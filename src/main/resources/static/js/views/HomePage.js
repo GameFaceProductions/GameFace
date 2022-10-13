@@ -5,27 +5,110 @@ let posts;
 let loggedInUser;
 
 export default function HomePage(props) {
-  loggedInUser = getUser();
 
+  loggedInUser = getUser();
   const postsHTML = generatePostsHTML(props.posts);
   posts = props.posts;
   console.log(props);
 
-  const addPostHTML = generateAddPostHTML();
+  // const addPostHTML = generateAddPostHTML();
 
   return `
-        <header>
-            <h1>Posts Page</h1>
-        </header>
-        <main>
-              <h3>Lists of posts</h3>
-            <div>
-                ${postsHTML}   
-            </div>
-            ${addPostHTML}
-        </main>
+   <div class="main">
+    <header style="text-align: center">
+      <h1>Whats New:</h1>
+    </header>
+    <div class="container main-content">
+        <h3 style="text-align: center">News Feed:</h3>
+        <div class="row">
+        <div class="col profile-col">
+        <!-- Left column -->
+        <div class="profile-header">
+          <!-- Header information -->
+          <h3 class="bio"><a>Bio<a></h3>
+          <h2 class="profile-element"><a>@${loggedInUser.userName}</a></h2>
+          <p class="profile-element profile-website">Web Developer</p>
+          <button class="btn btn-search-bar tweet-to-btn">Chat with ${loggedInUser.userName}</button>
+        </div>
+      </div>
+      <!-- End; Left column -->
+      <!-- Center content column -->
+      <div class="col-6">
+        <ol class="tweet-list">
+           ${postsHTML}  
+          </ol>
+        <!-- End: tweet list -->
+      </div>
+      <!-- End: Center content column -->
+      <div class="col right-col">
+        <div class="content-panel">
+          <div class="panel-header">
+            <h4>Favorite Games</h4>
+          </div>
+                </div>
+              </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     `;
+
 }
+
+
+function generatePostsHTML(posts) {
+  let postsHTML = ``
+
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i];
+
+    let authorName = "";
+    if (post.user) {
+      authorName = post.author.userName;
+    }
+
+    postsHTML += `
+        <li class="home-card">
+            <div class="post-content">
+                <div class="post-header">
+                    <span class="fullname"><strong>${post.author.userName}</strong></span>
+                    <span class="username"><strong>${post.author.userName}</strong></span>
+                    <span class="username"><strong>${post.createdAt}</strong></span>
+                </div>
+                <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+                <div class="post-text">
+                    <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+                </div>
+                <div class="post-footer">
+                    <a class="post-footer-btn">
+                        <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+                    </a>
+                    <a class="post-footer-btn">
+                        <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+                    </a>
+                </div>
+            </div>
+          </li>
+            `;
+
+    //only admins and author of post can edit/delete it
+    if (
+      loggedInUser.role === "ADMIN" ||
+      loggedInUser.userName === post.author.userName
+    ) {
+      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
+            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
+    } else {
+      postsHTML += `<td></td><td></td>`;
+    }
+    postsHTML += `</tr>`;
+  }
+  postsHTML += `</tbody></table>`;
+  return postsHTML;
+}
+
 
 function generateAddPostHTML() {
   let addHTML = ``;
@@ -68,50 +151,6 @@ function generateAddPostHTML() {
             </form>`;
 
   return addHTML;
-}
-
-function generatePostsHTML(posts) {
-  let postsHTML = `
-        <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Content</th>
-            <th scope="col">Author</th>
-            <th scope="col">Posted:</th>
-        </tr>
-        </thead>
-        <tbody>
-    `;
-  for (let i = 0; i < posts.length; i++) {
-    const post = posts[i];
-
-    let authorName = "";
-    if (post.user) {
-      authorName = post.author.userName;
-    }
-
-    postsHTML += `<tr>
-            <td>${post.title}</td>
-            <td>${post.content}</td>
-            <td>${post.author.userName}</td>
-            <td><p id="time">${post.createdAt}</p></td>
-            `;
-
-    //only admins and author of post can edit/delete it
-    if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
-    ) {
-      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
-            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
-    } else {
-      postsHTML += `<td></td><td></td>`;
-    }
-    postsHTML += `</tr>`;
-  }
-  postsHTML += `</tbody></table>`;
-  return postsHTML;
 }
 
 export function postSetup() {

@@ -107,7 +107,8 @@
     padding: 0;
 }
 .post-card {
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background: rgba(171, 171, 171, 0.3);
     border-bottom: 1px solid #e6ecf0;
     min-height: 52px;
     padding: 9px 12px;
