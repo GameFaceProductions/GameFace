@@ -98,25 +98,15 @@ function generatePostsHTML(posts) {
                     </a>
                     <a class="post-footer-btn">
                         <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
-                    </a>
-                </div>
-            </div>
-          </li>
-            `;
+                    </a>`;
 
-    //only admins and author of post can edit/delete it
-    if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
-    ) {
-      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
-            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
-    } else {
-      postsHTML += `<td></td><td></td>`;
+    if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+                            <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
-    postsHTML += `</tr>`;
+    postsHTML += `</div></div></li>`;
+
   }
-  postsHTML += `</tbody></table>`;
   return postsHTML;
 }
 
@@ -173,33 +163,33 @@ export function postSetup() {
 }
 
 function setupValidationHandlers() {
-  let input = document.querySelector("#title");
-  input.addEventListener("keyup", validateFields);
-  input = document.querySelector("#content");
-  input.addEventListener("keyup", validateFields);
+  // let input = document.querySelector("#title");
+  // input.addEventListener("keyup", validateFields);
+  // input = document.querySelector("#content");
+  // input.addEventListener("keyup", validateFields);
 }
 
 function validateFields() {
   let isValid = true;
-  let input = document.querySelector("#title");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
-
-  input = document.querySelector("#content");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
+  // let input = document.querySelector("#title");
+  // if (input.value.trim().length < 1) {
+  //   input.classList.add("is-invalid");
+  //   input.classList.remove("is-valid");
+  //   isValid = false;
+  // } else {
+  //   input.classList.add("is-valid");
+  //   input.classList.remove("is-invalid");
+  // }
+  //
+  // input = document.querySelector("#content");
+  // if (input.value.trim().length < 1) {
+  //   input.classList.add("is-invalid");
+  //   input.classList.remove("is-valid");
+  //   isValid = false;
+  // } else {
+  //   input.classList.add("is-valid");
+  //   input.classList.remove("is-invalid");
+  // }
 
   return isValid;
 }
@@ -275,10 +265,10 @@ function deletePost(postId) {
 
 function setupSaveHandler() {
   const saveButton = document.querySelector("#savePost");
-  saveButton.addEventListener("click", function (event) {
-    const postId = parseInt(this.getAttribute("data-id"));
-    savePost(postId);
-  });
+  // saveButton.addEventListener("click", function (event) {
+  //   const postId = parseInt(this.getAttribute("data-id"));
+  //   savePost(postId);
+  // });
 }
 
 function savePost(postId) {
