@@ -5,15 +5,36 @@ export default function searchUsersHTML(props) {
   user = props.users;
   console.log(user);
 
+  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const options = {
+    onFileSelected: (file) => {
+      // If you throw any error in this function it will reject the file selection.
+      // The error message will be displayed to the user as an alert.
+      if (file.size > 1000 * 1000) {
+        throw new Error("File too big, select something smaller than 1MB");
+      }
+    },
+    maxFiles: 1,
+    onUploadDone: function (res) {
+      const url = res.filesUploaded[0].url;
+      console.log(url);
+      console.log(res);
+    },
+    supportEmail: "gamefaceproductions210@gmail.com",
+    hideModalWhenUploading: true,
+  };
+
+  client.picker(options).open();
+
   return `
 <!-- html here -->
     <div class="container px-1 mt-1 text-center">
     <form>
-        <label for="searchUserInput" class="form-label">Search Users</label>
+        <label for="searchUserInput" class="searchUsersLabel form-label">Search Users</label>
         <input type="search" class="form-control text-center" placeholder="Username" id="searchUserInput">
-      <button type="submit" id="searchUserSubmitBtn" class="btn btn-dark mt-1">Search</button>
+      <button type="submit" id="searchUserSubmitBtn" class="searchUsers searchUsersBtn btn btn-dark mt-1">Search</button>
     </form>   
-      <div id="userListContainer" class="row g-2">
+      <div id="userListContainer" class="row g-3">
       </div>
     </div>`;
 }
@@ -41,19 +62,24 @@ export function searchUsersJS() {
     }
 
     function makeUserCard(user) {
+      let url = user.backdrop_url;
+      console.log(url);
       return `
-    <div class="col-md-3">
+    <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
       <div class="card-body">
+      <div class="userBackdrop rounded" style="background-image: url('${url}')"></div>
+        <img src="${user.avatar_url}" class="userAvatar rounded-circle" referrerpolicy="no-referrer">
         <h5 class="card-title searchUsersTitle">${user.userName}</h5>
-        <p class="card-text"></p>
       </div>
       <div id="searchUsersFoot">
-        <button class="delBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
+        <button class="addUserBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
         </div>
     </div>
     </div>
  `;
     }
   }
+
+  //  function and POST for adding a user as a friend:
 }
