@@ -1,9 +1,11 @@
 .jalopy-nav {
     margin-right: 1em;
 }
+/*Already a body element in about css*/
 /*body{*/
 /*    background-color: ghostwhite;*/
 /*}*/
+
 .jalopy-container {
     position: relative;
     min-height: 100vh;

@@ -30,6 +30,12 @@ export default function HomePage(props) {
           <p class="profile-element profile-website">Web Developer</p>
           <button class="btn btn-search-bar tweet-to-btn">Chat with ${loggedInUser.userName}</button>
         </div>
+           <div class="profile-header">
+          <!-- Header information -->
+          <h3 class="bio">Dev Favorites!</h3>
+          <p class="profile-element profile-website">List of Games Here</p>
+          <button class="btn btn-search-bar tweet-to-btn">add friend button</button>
+        </div>
       </div>
       <!-- End; Left column -->
       <!-- Center content column -->
@@ -40,13 +46,18 @@ export default function HomePage(props) {
         <!-- End: tweet list -->
       </div>
       <!-- End: Center content column -->
-      <div class="col right-col">
+      <div class="col right-col home-right">
         <div class="content-panel">
           <div class="panel-header">
             <h4>Favorite Games</h4>
           </div>
-                </div>
-              </li>
+        </div>
+          <div class="home-panel">
+          <div class="panel-header">
+            <h4>Suggested Gamers</h4>
+          </div>
+        </div>
+            </li>
           </div>
         </div>
       </div>
