@@ -1,22 +1,33 @@
 import {getUser} from "../auth.js";
 
 let posts;
-let user;
+let users;
 
 export default function ProfilePage(props) {
 
     let user = getUser();
+    console.log(user);
+
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
-    console.log(user)
+    users = props.users;
+    console.log(posts);
+    console.log(users);
 
-    return `
+    let currentUser = getUser().userName;
+
+    for (let i = 0; i < users.length; i++) {
+        const user2 = users[i];
+
+
+        if (user2.userName === currentUser) {
+            return `
             <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style="background-color: black; height:200px">
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user2.backdrop_url}); height:200px">
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
-                        <img src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                        <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
                         <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
@@ -29,12 +40,10 @@ export default function ProfilePage(props) {
                 <div class="p-4 text-black" style="background-color: white">
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
-                            <p>12</p>
-                            <p class="small text-muted mb-0">Following</p>
-                        </div>
-                        <div>
-                            <p>12</p>
-                            <p class="small text-muted mb-0">Followers</p>
+                            <a class="friends-display" href="">
+                                <p>${user2.userFriends.length}</p>
+                                <p class="small text-muted mb-0">Friends</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -70,6 +79,8 @@ export default function ProfilePage(props) {
                     </div>
                 </div>
           </div>`
+        }
+    }
 }
 
 function generateUserPosts(posts) {
@@ -89,16 +100,16 @@ function generateUserPosts(posts) {
                             <span class="username">@${post.author.userName}</span>
                             <span class="post-time">- ${post.createdAt}</span>
                         </div>
-                            <a><img class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
+                            <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
                         <div class="post-text">
                             <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
                         </div>
                         <div class="post-footer">
-                            <a class="post-footer-btn">
-                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+                            <a href="" class="post-footer-btn">
+                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
                             </a>
-                            <a class="post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+                            <a href="" class="post-footer-btn">
+                              <i id="like-button" class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
                             </a>
                         </div>
                     </div>
@@ -108,4 +119,9 @@ function generateUserPosts(posts) {
     }
     return userPosts
 }
+
+// let friendClick = document.querySelector(".friends-display")
+// friendClick.addEventListener("click", function() {
+//
+// })
 

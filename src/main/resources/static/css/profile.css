@@ -47,10 +47,10 @@
 /*    height: 100%;*/
 /*}*/
 
-/*.cover-photo {*/
-/*    width: 100vw;*/
-/*    margin-left: 0;*/
-/*}*/
+.cover-photo {
+    background-size:cover;
+    /*z-index: 99;*/
+}
 
 /*.post-content {*/
 /*    font-weight: 600;*/

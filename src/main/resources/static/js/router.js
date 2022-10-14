@@ -41,6 +41,7 @@ export default function router(URI) {
       returnView: ProfilePage,
       state: {
         posts: "/api/posts",
+        users: "/api/users",
       },
       uri: "/profile",
       title: "ProfilePage",
