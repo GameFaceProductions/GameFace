@@ -12,10 +12,10 @@
 }
 /*Bootstrap Grid*/
 /*cell color*/
-div.row > div {
-    border: 1px solid red;
-}
+/*div.row > div {*/
+/*    border: 1px solid red;*/
+/*}*/
 
-div.tall-row {
-    height: 300px;
-}
+/*div.tall-row {*/
+/*    height: 300px;*/
+/*}*/
