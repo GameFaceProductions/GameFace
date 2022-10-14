@@ -22,4 +22,5 @@ public class UserAuthInfoDTO {
     private Collection<Platform> platforms;
     private Collection<PostLikes> likes;
     private Collection<Post> posts;
+    private String gamerTag;
 }

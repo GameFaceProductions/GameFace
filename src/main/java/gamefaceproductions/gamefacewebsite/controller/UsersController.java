@@ -77,6 +77,7 @@ public class UsersController {
         userDTO.setLikes(loggedInUser.getLikes());
         userDTO.setPosts(loggedInUser.getPosts());
         userDTO.setPlatforms(loggedInUser.getPlatforms());
+        userDTO.setGamerTag(loggedInUser.getGamerTag());
         userDTO.setId(loggedInUser.getId());
 
         return userDTO;
