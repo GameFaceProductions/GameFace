@@ -16,6 +16,21 @@ export function setLoggedInUserInfo() {
     });
 }
 
+export function updateLocalStorage() {
+  const request = {
+    method: "GET",
+    headers: getHeaders(),
+  };
+  const url = "/api/users/authinfo";
+  fetch(url, request)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      window.localStorage.setItem("user", JSON.stringify(data));
+    });
+}
+
 export function checkForLoginTokens(url) {
   // console.log(url);
   // access_token is given back from spring after #

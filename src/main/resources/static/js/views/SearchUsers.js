@@ -1,4 +1,4 @@
-import { getHeaders, getUser } from "../auth.js";
+import { getHeaders, getUser, updateLocalStorage } from "../auth.js";
 import createView from "../createView.js";
 
 let user;
@@ -42,16 +42,34 @@ export default function searchUsersHTML(props) {
 }
 
 export function searchUsersJS() {
+  let theHomies = [];
+  let loggedInUserActually;
   const loggedInUser = getUser();
+  let myd = loggedInUser.id;
   let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
-  showSearchedUsers();
+
+  for (let i = 0; i < user.length; i++) {
+    if (myd === user[i].id) {
+      loggedInUserActually = user[i];
+    }
+  }
+  for (let i = 0; i < loggedInUserActually.userFriends.length; i++) {
+    if (loggedInUserActually.userFriends[i] == null) {
+      return;
+    } else {
+      theHomies.push(loggedInUserActually.userFriends[i].id);
+    }
+  }
+  console.log(loggedInUserActually);
+
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
+  showSearchedUsers();
 
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
 
-    function makeUserCards(users) {
+    function makeUserCards() {
       let searchUserInput = document.getElementById("searchUserInput");
       let html = "";
       user.forEach(function (user) {
@@ -63,21 +81,13 @@ export function searchUsersJS() {
     }
 
     function makeUserCard(user) {
-      console.log(user.id);
-      console.log(loggedInUser);
       let friendBtn;
-      let addFriend = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
-      let deleteFriend = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
       let url = user.backdrop_url;
-      let loggedInUsersFriendIds = [];
-      for (let i = 0; i < loggedInUser.userFriends.length; i++) {
-        loggedInUsersFriendIds.push(loggedInUser.userFriends[i].id);
-      }
-      console.log(loggedInUsersFriendIds);
-      if (loggedInUsersFriendIds.includes(user.id)) {
-        friendBtn = deleteFriend;
+      // console.log(user);
+      if (theHomies.includes(user.id)) {
+        friendBtn = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
       } else {
-        friendBtn = addFriend;
+        friendBtn = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
       }
 
       return `
@@ -88,7 +98,7 @@ export function searchUsersJS() {
         <img src="${user.avatar_url}" class="userAvatar rounded-circle" referrerpolicy="no-referrer">
         <h5 class="card-title searchUsersUsername">${user.userName}</h5>
       </div>
-      <div id="searchUsersFoot">
+      <div id="${user.id}">
         ${friendBtn}
         </div>
     </div>
@@ -96,23 +106,24 @@ export function searchUsersJS() {
  `;
     }
   }
+  console.log(theHomies);
 
   //  function and POST for adding a user as a friend:
   let addBtn = document.getElementsByClassName("addUserBtn");
+
   for (let i = 0; i < addBtn.length; i++) {
     addBtn[i].addEventListener("click", addFriend);
   }
 
   // ADD FRIEND
   async function addFriend() {
+    let id = this.getAttribute("data-id");
+
     const addFriendRequestOptions = {
       method: "POST",
       headers: getHeaders(),
     };
-    let myd = loggedInUser.id;
-    let id = this.getAttribute("data-id");
-    console.log(id);
-    const addFriend = await fetch(
+    await fetch(
       `http://localhost:8080/api/friends/${id}/${myd}`,
       addFriendRequestOptions
     ).then(async function (response) {
@@ -120,9 +131,9 @@ export function searchUsersJS() {
         console.log("add friend error: " + response.status);
       } else {
         console.log("add friend ok");
-        return await response.json();
+        let thisBtnDiv = document.getElementById(`${id}`);
+        thisBtnDiv.innerHTML = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
       }
-      document.location.reload();
     });
   }
 
@@ -137,7 +148,6 @@ export function searchUsersJS() {
       method: "DELETE",
       headers: getHeaders(),
     };
-    let myd = loggedInUser.id;
     let id = this.getAttribute("data-id");
     console.log(id);
     const addFriend = await fetch(
@@ -148,9 +158,8 @@ export function searchUsersJS() {
         console.log("remove friend error: " + response.status);
       } else {
         console.log("remove friend ok");
-        return await response.json();
       }
-      document.location.reload();
     });
+    location.reload();
   }
 }
