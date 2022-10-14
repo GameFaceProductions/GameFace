@@ -1,4 +1,3 @@
-import CreateView from "../createView.js";
 import { getHeaders, getUser } from "../auth.js";
 import createView from "../createView.js";
 
@@ -44,35 +43,10 @@ export default function searchUsersHTML(props) {
 
 export function searchUsersJS() {
   const loggedInUser = getUser();
-  console.log(loggedInUser);
-  let submitBtn = document.getElementById("searchUserSubmitBtn");
   let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
-  let loggedInUserFriends;
   showSearchedUsers();
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
-
-  async function getFriends() {
-    const requestOptions = {
-      method: "GET",
-      headers: getHeaders(),
-    };
-    const id = loggedInUser.id;
-    loggedInUserFriends = await fetch(
-      `http://localhost:8080/api/friends/${id}`,
-      requestOptions
-    ).then(async function (response) {
-      if (!response.ok) {
-        console.log("get friends error: " + response.status);
-      } else {
-        console.log("get friends ok");
-        return await response.json();
-      }
-    });
-    console.log(loggedInUserFriends);
-  }
-  let log = getFriends;
-  console.log(log.userFriends);
 
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
@@ -89,8 +63,23 @@ export function searchUsersJS() {
     }
 
     function makeUserCard(user) {
+      console.log(user.id);
+      console.log(loggedInUser);
+      let friendBtn;
+      let addFriend = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
+      let deleteFriend = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
       let url = user.backdrop_url;
-      console.log(user);
+      let loggedInUsersFriendIds = [];
+      for (let i = 0; i < loggedInUser.userFriends.length; i++) {
+        loggedInUsersFriendIds.push(loggedInUser.userFriends[i].id);
+      }
+      console.log(loggedInUsersFriendIds);
+      if (loggedInUsersFriendIds.includes(user.id)) {
+        friendBtn = deleteFriend;
+      } else {
+        friendBtn = addFriend;
+      }
+
       return `
     <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
@@ -100,7 +89,7 @@ export function searchUsersJS() {
         <h5 class="card-title searchUsersUsername">${user.userName}</h5>
       </div>
       <div id="searchUsersFoot">
-        <button class="addUserBtn btn mb-2" data-id="${user.id}">+ ADD USER</button>
+        ${friendBtn}
         </div>
     </div>
     </div>
@@ -114,6 +103,7 @@ export function searchUsersJS() {
     addBtn[i].addEventListener("click", addFriend);
   }
 
+  // ADD FRIEND
   async function addFriend() {
     const addFriendRequestOptions = {
       method: "POST",
@@ -130,11 +120,37 @@ export function searchUsersJS() {
         console.log("add friend error: " + response.status);
       } else {
         console.log("add friend ok");
-        console.log(response);
         return await response.json();
-        // await createView("/searchusers");
       }
+      document.location.reload();
     });
-    console.log(addFriend);
+  }
+
+  //  REMOVE FRIEND
+  let removeBtn = document.getElementsByClassName("removeUserBtn");
+  for (let i = 0; i < removeBtn.length; i++) {
+    removeBtn[i].addEventListener("click", removeFriend);
+  }
+
+  async function removeFriend() {
+    const removeFriendRequestOptions = {
+      method: "DELETE",
+      headers: getHeaders(),
+    };
+    let myd = loggedInUser.id;
+    let id = this.getAttribute("data-id");
+    console.log(id);
+    const addFriend = await fetch(
+      `http://localhost:8080/api/friends/${id}/${myd}`,
+      removeFriendRequestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("remove friend error: " + response.status);
+      } else {
+        console.log("remove friend ok");
+        return await response.json();
+      }
+      document.location.reload();
+    });
   }
 }

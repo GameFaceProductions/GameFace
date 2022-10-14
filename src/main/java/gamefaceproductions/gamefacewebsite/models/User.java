@@ -56,10 +56,12 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
+    @ToString.Exclude
     private Collection<Post> posts;
     
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user", "posts"})
+    @ToString.Exclude
     private Collection<PostLikes> likes;
     
     
@@ -68,6 +70,7 @@ public class User {
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns={@JoinColumn(name="friend_id")})
     @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "posts"})
+    @ToString.Exclude
     private List<User> userFriends;
 
 //    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
@@ -87,6 +90,7 @@ public class User {
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
     @JsonIgnoreProperties("users")
+    @ToString.Exclude
     private Collection<Games> games;
 
     @ManyToMany(
@@ -101,6 +105,7 @@ public class User {
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
     @JsonIgnoreProperties("users")
+    @ToString.Exclude
     private Collection<Platform> platforms;
 
 
