@@ -7,18 +7,18 @@ let loggedInUser;
 export default function HomePage(props) {
 
   loggedInUser = getUser();
-  const postsHTML = generatePostsHTML(props.posts);
   posts = props.posts;
-  console.log(props);
-
+  // console.log(props);
+  const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
-
+  //Return basic view of Homepage no matter if logged in or not:
   return `
     <header style="text-align: center">
-      <h1>Whats New:</h1>
+      <h1>What's New!</h1>
     </header>
-    <div class="container main-posts">
+    <div class="container home">
         <h3 style="text-align: center">News Feed:</h3>
+        <br>
         <div class="row">
           <div class="col add-post">
             ${addPostHTML}
@@ -31,79 +31,103 @@ export default function HomePage(props) {
                 </ol>
             </div>
         </div>
-        
-      </li>
-    </div>
     `;
-
 }
+//Shows up first in newsfeed:
+function generateAddPostHTML() {
+  let addHTML = ``;
+  //user has to be logged in to add post:
+  if (!isLoggedIn()) {
+    return addHTML;
+  }
+  addHTML = `
+        <div class="add-form">
+          <form>
+              <div>
+                  <label for="content"></label>
+                  <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
+                  <div class="invalid-feedback">
+                      Content cannot be blank.
+                  </div>
+                  <div class="valid-feedback">
+                      Content is ok!
+                  </div>
+              </div>
+              <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+          </form>
+        </div>`;
 
+  return addHTML;
+}
 
 function generatePostsHTML(posts) {
   let postsHTML = ``
 
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-
+    const commentsHTML = generateCommentsHTML();
     let authorName = "";
+    //sets value of authorName variable:
     if (post.user) {
       authorName = post.author.userName;
     }
-
-    postsHTML += `
-        <li class="home-card">
-            <div class="post-content">
-                <div class="post-header">
-                    <span class="fullname"><strong>${post.author.userName}</strong></span>
-                    <span class="username"><strong>${post.author.userName}</strong></span>
-                    <span class="username"><strong>${post.createdAt}</strong></span>
-                </div>
-                <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
-                <div class="post-text">
-                    <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
-                </div>
-                <div class="post-footer">
-                    <a class="post-footer-btn">
-                        <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
-                    </a>
-                    <a class="post-footer-btn">
-                        <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
-                    </a>`;
-
+    //generates all posts:
+    postsHTML +=`
+    <li class="home-card">
+        <div class="post-content">
+            <div class="post-header">
+                <span class="fullname"><strong>${post.author.userName}</strong></span>
+                <span class="username"><strong>${post.createdAt}</strong></span>
+            </div>
+            <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+            <div class="post-text">
+                <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+            </div>
+            <div class="post-footer">
+              <a class="post-footer-btn">
+                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+              </a>
+              <a class="post-footer-btn">
+                  <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+              </a>
+            `;
+    //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
       postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
-                            <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
+      <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
-    postsHTML += `</div></div></li>`;
-
-  }
+    //This concats the closing tags of the main postsHTML and adds comment box:
+    postsHTML += `
+    </div>
+    <div class="comments container">${commentsHTML}</div>
+    </li>`;
+    }
   return postsHTML;
 }
 
 
-function generateAddPostHTML() {
-  let addHTML = ``;
-
+function generateCommentsHTML() {
+  let commentsHTML = ``;
+  //user has to be logged in to add post:
   if (!isLoggedIn()) {
-    return addHTML;
+    return commentsHTML;
   }
+  commentsHTML = `
+      <div class="row">
+        <div class="col-6">
+          <div class="comment">
+            <p v-for="items in item" v-text="items"></p>
+          </div><!--End Comment-->
+        </div><!--End col -->
+      </div><!-- End row -->
+      <div class="row">
+        <div class="col-6">
+            <textarea type="text" class="input" placeholder="Write a comment"></textarea>
+            <button class='primaryContained float-right' type="submit">Add Comment</button>
+        </div><!-- End col -->
+      </div><!--End Row -->`;
 
-  addHTML = `<div class="add-form">
-            <form>
-                <div>
-                    <label for="content">Share Your Thoughts!</label><br>
-                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
-                    <div class="invalid-feedback">
-                        Content cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Content is ok!
-                    </div>
-                </div>
-                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
-            </form></div>`;
-
-  return addHTML;
+  return commentsHTML;
 }
 
 export function postSetup() {
@@ -131,7 +155,6 @@ function validateFields() {
     input.classList.add("is-valid");
     input.classList.remove("is-invalid");
   }
-
   return isValid;
 }
 
@@ -211,7 +234,6 @@ function setupSaveHandler() {
 }
 
 function savePost(postId) {
-
   const contentField = document.querySelector("#content");
 
   if (!validateFields()) {
@@ -243,4 +265,3 @@ function savePost(postId) {
   });
 }
 
-//
