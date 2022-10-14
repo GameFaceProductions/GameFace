@@ -3,14 +3,17 @@ import createView from "../createView.js";
 
 let posts;
 let loggedInUser;
+let comments;
 
 export default function HomePage(props) {
-
+  comments = props.comments
   loggedInUser = getUser();
   posts = props.posts;
-  // console.log(props);
+  console.log(comments);
+  console.log(posts);
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
+  const commentsHTML = generateCommentsHTML();
   //Return basic view of Homepage no matter if logged in or not:
   return `
     <header style="text-align: center">
@@ -116,17 +119,16 @@ function generateCommentsHTML() {
       <div class="row">
         <div class="col-6">
           <div class="comment">
-            <p v-for="items in item" v-text="items"></p>
+            <form>
+              <div>
+                  <label for="comment"></label>
+                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+              </div>
+              <button data-id=${post.postComments.content} id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
+            </form>
           </div><!--End Comment-->
         </div><!--End col -->
-      </div><!-- End row -->
-      <div class="row">
-        <div class="col-6">
-            <textarea type="text" class="input" placeholder="Write a comment"></textarea>
-            <button class='primaryContained float-right' type="submit">Add Comment</button>
-        </div><!-- End col -->
-      </div><!--End Row -->`;
-
+      </div><!-- End row -->`;
   return commentsHTML;
 }
 
@@ -136,6 +138,8 @@ export function postSetup() {
   setupDeleteHandlers();
   setupValidationHandlers();
   validateFields();
+  setupCommentHandler();
+  savePostComment();
 }
 
 function setupValidationHandlers() {
@@ -227,6 +231,7 @@ function deletePost(postId) {
 
 function setupSaveHandler() {
   const saveButton = document.querySelector("#savePost");
+  console.log(saveButton);
   saveButton.addEventListener("click", function (event) {
     const postId = parseInt(this.getAttribute("data-id"));
     savePost(postId);
@@ -264,4 +269,50 @@ function savePost(postId) {
     createView("/home");
   });
 }
+//Post comments functionality:
 
+function setupCommentHandler() {
+  const commentBtn = document.querySelector("#saveComment");
+  console.log(commentBtn);
+  commentBtn.addEventListener("click", function (event) {
+    const postId = parseInt(this.getAttribute("data-id"));
+    savePost(postId);
+  });
+}
+
+function savePostComment(postId) {
+  // get the title and content for the new/updated post
+  const commentField = document.querySelector("#comment-box");
+
+  // don't allow save if title or content are invalid
+  if(!validateFields()) {
+    return;
+  }
+  const postComment = {
+    content: commentField.value
+  }
+
+  // make the request
+  const request = {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify(postComment)
+  }
+  let url = POST_API_BASE_URL;
+
+  // if we are updating a post, change the request and the url
+  if(postId > 0) {
+    request.method = "PUT";
+    url += `/${postId}`;
+  }
+
+  fetch(url, request)
+      .then(function(response) {
+        if(response.status !== 200) {
+          console.log("fetch returned bad status code: " + response.status);
+          console.log(response.statusText);
+          return;
+        }
+        createView("/posts");
+      })
+}
