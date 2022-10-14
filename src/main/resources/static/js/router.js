@@ -1,4 +1,4 @@
-import ProfilePage from "./views/ProfilePage.js";
+import ProfilePage, { profileSetup } from "./views/ProfilePage.js";
 import HomePage, { postSetup } from "./views/HomePage.js";
 import About from "./views/About.js";
 import Error404 from "./views/Error404.js";
@@ -42,9 +42,11 @@ export default function router(URI) {
       returnView: ProfilePage,
       state: {
         posts: "/api/posts",
+        users: "/api/users",
       },
       uri: "/profile",
       title: "ProfilePage",
+      viewEvent: profileSetup,
     },
     "/login": {
       returnView: Login,
