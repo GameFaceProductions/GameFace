@@ -23,6 +23,7 @@ export default function router(URI) {
       returnView: HomePage,
       state: {
         posts: "/api/posts",
+        comments: "/api/postcomments",
       },
       uri: "/home",
       title: "Home",
