@@ -1,3 +1,4 @@
+import createView from "./createView.js";
 
 export function setLoggedInUserInfo() {
     const request = {
@@ -9,8 +10,9 @@ export function setLoggedInUserInfo() {
         .then(function(response) {
             return response.json();
         }).then(function(data) {
-        window.localStorage.setItem("user", JSON.stringify(data));
-    });
+            window.localStorage.setItem("user", JSON.stringify(data));
+            createView("/");
+        });
 }
 
 export function checkForLoginTokens(url) {
