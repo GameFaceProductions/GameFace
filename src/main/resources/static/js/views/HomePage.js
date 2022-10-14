@@ -116,17 +116,16 @@ function generateCommentsHTML() {
       <div class="row">
         <div class="col-6">
           <div class="comment">
-            <p v-for="items in item" v-text="items"></p>
+            <form>
+              <div>
+                  <label for="comment"></label>
+                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+              </div>
+              <button data-id="0" id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
+            </form>
           </div><!--End Comment-->
         </div><!--End col -->
-      </div><!-- End row -->
-      <div class="row">
-        <div class="col-6">
-            <textarea type="text" class="input" placeholder="Write a comment"></textarea>
-            <button class='primaryContained float-right' type="submit">Add Comment</button>
-        </div><!-- End col -->
-      </div><!--End Row -->`;
-
+      </div><!-- End row -->`;
   return commentsHTML;
 }
 
@@ -264,4 +263,14 @@ function savePost(postId) {
     createView("/home");
   });
 }
+//Post comments functionality:
 
+// let commentBtn = document.getElementById("saveComment");
+// console.log(commentBtn);
+// commentBtn.addEventListener("click", function (event){
+//   let commentBoxValue = document.querySelector("#comment-box").value;
+//   let li = document.createElement("li");
+//   let text = document.createTextNode(commentBoxValue);
+//   li.appendChild(text);
+//   document.querySelector("#comment-list").appendChild(li);
+// });
