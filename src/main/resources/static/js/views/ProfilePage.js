@@ -30,7 +30,7 @@ export default function ProfilePage(props) {
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button type="button" class="btn btn-outline-dark" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button type="button" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -58,7 +58,7 @@ export default function ProfilePage(props) {
                           <h3 class="bio"><a>Bio<a></h3>
                           <h2 class="profile-element"><a>@${user2.gamer_tag}</a></h2>
                           <p class="profile-element profile-website">Web Developer</p>
-                          <button class="btn btn-outline-dark" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+                          <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
                       </div>
                       <!-- End of the left column -->
@@ -92,6 +92,7 @@ export function profileSetup() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
+    console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
