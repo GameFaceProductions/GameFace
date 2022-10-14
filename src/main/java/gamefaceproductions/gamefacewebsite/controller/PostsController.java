@@ -30,6 +30,7 @@ import java.util.Optional;
 import static gamefaceproductions.gamefacewebsite.models.UserRole.ADMIN;
 
 //
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api/posts", produces = "application/json")
