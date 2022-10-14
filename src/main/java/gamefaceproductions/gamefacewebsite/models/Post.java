@@ -31,6 +31,7 @@ public class Post {
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "role", "posts", "games", "platforms"})
+    @ToString.Exclude
     private Collection<PostComments> postComments;
 
 //    @OneToMany(mappedBy = "posts")
@@ -39,6 +40,7 @@ public class Post {
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"posts", "user"})
+    @ToString.Exclude
     private Collection<PostLikes> likes;
 
     @Column(nullable = false)
