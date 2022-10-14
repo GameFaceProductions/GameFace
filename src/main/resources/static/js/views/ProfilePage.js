@@ -8,6 +8,7 @@ export default function ProfilePage(props) {
     let user = getUser();
     console.log(user);
 
+    let friendsModal = createFriendsModal(props.users)
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     users = props.users;
@@ -55,7 +56,7 @@ export default function ProfilePage(props) {
                         <div class="profile-header">
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
-                          <h2 class="profile-element"><a>@${user.userName}</a></h2>
+                          <h2 class="profile-element"><a>@${user2.gamer_tag}</a></h2>
                           <p class="profile-element profile-website">Web Developer</p>
                           <button class="btn btn-outline-dark" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
@@ -65,6 +66,7 @@ export default function ProfilePage(props) {
                       <div class="col-6">
                         <ol class="post-list">
                           ${postHTML}
+                          ${friendsModal}
                         </ol>
                       </div>
                       <!-- The right column will start here -->
@@ -83,21 +85,25 @@ export default function ProfilePage(props) {
     }
 }
 
+export function profileSetup() {
+    setupModalFunction()
+}
+
 function generateUserPosts(posts) {
     let userPosts = ``
-    let currentUser = getUser().userName;
+    let currentUser = getUser();
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
 
-        if (post.author.userName === currentUser) {
+        if (post.author.userName === currentUser.userName) {
 
             userPosts += `
                 <li class="post-card">
                     <div class="post-content">
                         <div class="post-header">
                             <span class="fullname"><strong>${post.author.userName}</strong></span>
-                            <span class="username">@${post.author.userName}</span>
+                            <span class="username">@${currentUser.gamerTag}</span>
                             <span class="post-time">- ${post.createdAt}</span>
                         </div>
                             <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
@@ -120,8 +126,69 @@ function generateUserPosts(posts) {
     return userPosts
 }
 
-// let friendClick = document.querySelector(".friends-display")
-// friendClick.addEventListener("click", function() {
-//
-// })
+function createFriendsModal(users) {
+    let friendModal = ``
+    let currentUser = getUser().userName;
+
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        const friends = users[i].userFriends
+
+        if(user.userName === currentUser) {
+                console.log(friends);
+                friendModal += `
+                 <section class="modal hidden">
+                  <div class="flex">
+                    <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
+                    <button class="btn-close">⨉</button>
+                  </div>
+                  <div>
+                    <h3>Stay in touch</h3>
+                    <p>
+                      ${friends}
+                    </p>
+                  </div>
+                
+                  <button class="btn">Do Something</button>
+                </section>
+
+                <div class="overlay hidden"></div>
+                <button class="btn btn-open">Open Modal</button>
+             `
+        }
+    }
+    return friendModal
+}
+
+function setupModalFunction() {
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".btn-open");
+    const closeModalBtn = document.querySelector(".btn-close");
+
+// close modal function
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+
+// close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
+
+// close modal when the Esc key is pressed
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
+
+// open modal function
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+// open modal event
+    openModalBtn.addEventListener("click", openModal);
+}
 
