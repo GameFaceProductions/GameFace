@@ -42,21 +42,26 @@ public class FriendsController {
         return optionalUser;
     }
 
-    @PostMapping("/{id}")
-    public void addFriend(@PathVariable long id, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+    @PostMapping("/{id}/{myid}")
+    public void addFriend(@PathVariable long id, @PathVariable long myid, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
-        friendsRepository.addFriendFromUser(loggedInUser.getId(), id);
-        friendsRepository.addFriendFromUser(id, loggedInUser.getId());
+        System.out.println(loggedInUser);
+        System.out.println(id);
+        System.out.println(myid);
+        friendsRepository.addFriendFromUser(id, myid);
+        friendsRepository.addFriendFromUser(myid, id);
     }
     //    BLOCKED THIS SHIZ IS HARD. Maybe need to make user_id and friend_id sever as composite key so
 //    friends can be deleted based on the unique friendship (unidirectional) which preserves friends
 //    so if user1 removes user2, user2 can still consider user1 a friend on their end... Or bidirectional if easier.
 //    Just need a good way to target each ROW in the user_friends table to correctly delete based on user_id's.
-    @DeleteMapping("/{id}")
-    public void removeFriend(@PathVariable long id, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
-        System.out.println(friendsRepository.findAll().get(1).getUserFriends());
+    @DeleteMapping("/{id}/{myid}")
+    public void removeFriend(@PathVariable long id, @PathVariable long myid,  @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
-        friendsRepository.deleteFriendFromUser(loggedInUser.getId(), id);
-        friendsRepository.deleteFriendFromUser(id, loggedInUser.getId());
+        System.out.println(loggedInUser);
+        System.out.println(id);
+        System.out.println(myid);
+        friendsRepository.deleteFriendFromUser(id, myid);
+        friendsRepository.deleteFriendFromUser(myid, id);
     }
 }
