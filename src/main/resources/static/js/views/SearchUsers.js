@@ -43,11 +43,36 @@ export default function searchUsersHTML(props) {
 }
 
 export function searchUsersJS() {
+  const loggedInUser = getUser();
+  console.log(loggedInUser);
   let submitBtn = document.getElementById("searchUserSubmitBtn");
   let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
+  let loggedInUserFriends;
   showSearchedUsers();
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
+
+  async function getFriends() {
+    const requestOptions = {
+      method: "GET",
+      headers: getHeaders(),
+    };
+    const id = loggedInUser.id;
+    loggedInUserFriends = await fetch(
+      `http://localhost:8080/api/friends/${id}`,
+      requestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("get friends error: " + response.status);
+      } else {
+        console.log("get friends ok");
+        return await response.json();
+      }
+    });
+    console.log(loggedInUserFriends);
+  }
+  let log = getFriends;
+  console.log(log.userFriends);
 
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
@@ -56,7 +81,6 @@ export function searchUsersJS() {
       let searchUserInput = document.getElementById("searchUserInput");
       let html = "";
       user.forEach(function (user) {
-        console.log(user.userName);
         if (user.userName.includes(searchUserInput.value)) {
           html += makeUserCard(user);
         }
@@ -66,6 +90,7 @@ export function searchUsersJS() {
 
     function makeUserCard(user) {
       let url = user.backdrop_url;
+      console.log(user);
       return `
     <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
@@ -89,26 +114,27 @@ export function searchUsersJS() {
     addBtn[i].addEventListener("click", addFriend);
   }
 
-  const loggedInUser = getUser();
-  console.log(loggedInUser);
-
   async function addFriend() {
     const addFriendRequestOptions = {
-      method: "GET",
+      method: "POST",
+      headers: getHeaders(),
     };
+    let myd = loggedInUser.id;
     let id = this.getAttribute("data-id");
     console.log(id);
     const addFriend = await fetch(
-      `http://localhost:8080/api/friends`,
+      `http://localhost:8080/api/friends/${id}/${myd}`,
       addFriendRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
         console.log("add friend error: " + response.status);
       } else {
         console.log("add friend ok");
+        console.log(response);
         return await response.json();
         // await createView("/searchusers");
       }
     });
+    console.log(addFriend);
   }
 }
