@@ -74,13 +74,6 @@ public class PostsController {
         newPost.setAuthor(loggedInUser);
         newPost.setCreatedAt(LocalDate.now());
 
-        //  String userName = auth.getName();
-
-//        String userName = "Lunalon";
-//
-//        User author = userRepository.findByUserName(userName);
-//        newPost.setAuthor(author);
-//        newPost.setCreatedAt(LocalDate.now());
         postRepository.save(newPost);
 //        emailService.prepareAndSend(newPost, "New post created by: " + newPost.getAuthor().getUserName(), "Title: " + newPost.getTitle() + "\nContent: " + newPost.getContent());
     }

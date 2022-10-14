@@ -3,165 +3,133 @@ import createView from "../createView.js";
 
 let posts;
 let loggedInUser;
+let comments;
 
 export default function HomePage(props) {
-
+  comments = props.comments
   loggedInUser = getUser();
-  const postsHTML = generatePostsHTML(props.posts);
   posts = props.posts;
-  console.log(props);
-
-  // const addPostHTML = generateAddPostHTML();
-
+  console.log(comments);
+  console.log(posts);
+  const postsHTML = generatePostsHTML(props.posts);
+  const addPostHTML = generateAddPostHTML();
+  const commentsHTML = generateCommentsHTML();
+  //Return basic view of Homepage no matter if logged in or not:
   return `
-   <div class="main">
     <header style="text-align: center">
-      <h1>Whats New:</h1>
+      <h1>What's New!</h1>
     </header>
-    <div class="container main-content">
+    <div class="container home">
         <h3 style="text-align: center">News Feed:</h3>
+        <br>
         <div class="row">
-        <div class="col profile-col">
-        <!-- Left column -->
-        <div class="profile-header">
-          <!-- Header information -->
-          <h3 class="bio"><a>Bio<a></h3>
-          <h2 class="profile-element"><a>@${loggedInUser.userName}</a></h2>
-          <p class="profile-element profile-website">Web Developer</p>
-          <button class="btn btn-search-bar tweet-to-btn">Chat with ${loggedInUser.userName}</button>
-        </div>
-           <div class="profile-header">
-          <!-- Header information -->
-          <h3 class="bio">Dev Favorites!</h3>
-          <p class="profile-element profile-website">List of Games Here</p>
-          <button class="btn btn-search-bar tweet-to-btn">add friend button</button>
-        </div>
-      </div>
-      <!-- End; Left column -->
-      <!-- Center content column -->
-      <div class="col-6">
-        <ol class="tweet-list">
-           ${postsHTML}  
-          </ol>
-        <!-- End: tweet list -->
-      </div>
-      <!-- End: Center content column -->
-      <div class="col right-col home-right">
-        <div class="content-panel">
-          <div class="panel-header">
-            <h4>Favorite Games</h4>
+          <div class="col add-post">
+            ${addPostHTML}
           </div>
         </div>
-          <div class="home-panel">
-          <div class="panel-header">
-            <h4>Suggested Gamers</h4>
-          </div>
+        <div class="row">
+            <div class="col home-post">
+                <ol class="tweet-list">
+                    ${postsHTML}  
+                </ol>
+            </div>
         </div>
-            </li>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
     `;
-
 }
+//Shows up first in newsfeed:
+function generateAddPostHTML() {
+  let addHTML = ``;
+  //user has to be logged in to add post:
+  if (!isLoggedIn()) {
+    return addHTML;
+  }
+  addHTML = `
+        <div class="add-form">
+          <form>
+              <div>
+                  <label for="content"></label>
+                  <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
+                  <div class="invalid-feedback">
+                      Content cannot be blank.
+                  </div>
+                  <div class="valid-feedback">
+                      Content is ok!
+                  </div>
+              </div>
+              <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+          </form>
+        </div>`;
 
+  return addHTML;
+}
 
 function generatePostsHTML(posts) {
   let postsHTML = ``
 
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-
+    const commentsHTML = generateCommentsHTML();
     let authorName = "";
+    //sets value of authorName variable:
     if (post.user) {
       authorName = post.author.userName;
     }
-
-    postsHTML += `
-        <li class="home-card">
-            <div class="post-content">
-                <div class="post-header">
-                    <span class="fullname"><strong>${post.author.userName}</strong></span>
-                    <span class="username"><strong>${post.author.userName}</strong></span>
-                    <span class="username"><strong>${post.createdAt}</strong></span>
-                </div>
-                <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
-                <div class="post-text">
-                    <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
-                </div>
-                <div class="post-footer">
-                    <a class="post-footer-btn">
-                        <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
-                    </a>
-                    <a class="post-footer-btn">
-                        <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
-                    </a>
-                </div>
+    //generates all posts:
+    postsHTML +=`
+    <li class="home-card">
+        <div class="post-content">
+            <div class="post-header">
+                <span class="fullname"><strong>${post.author.userName}</strong></span>
+                <span class="username"><strong>${post.createdAt}</strong></span>
             </div>
-          </li>
+            <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+            <div class="post-text">
+                <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+            </div>
+            <div class="post-footer">
+              <a class="post-footer-btn">
+                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+              </a>
+              <a class="post-footer-btn">
+                  <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+              </a>
             `;
-
-    //only admins and author of post can edit/delete it
-    if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
-    ) {
-      postsHTML += `<td><button data-id=${post.id} class="btn btn-primary editPost">Edit</button></td>
-            <td><button data-id=${post.id} class="btn btn-danger deletePost">Delete</button></td>`;
-    } else {
-      postsHTML += `<td></td><td></td>`;
+    //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
+    if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+      <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
-    postsHTML += `</tr>`;
-  }
-  postsHTML += `</tbody></table>`;
+    //This concats the closing tags of the main postsHTML and adds comment box:
+    postsHTML += `
+    </div>
+    <div class="comments container">${commentsHTML}</div>
+    </li>`;
+    }
   return postsHTML;
 }
 
 
-function generateAddPostHTML() {
-  let addHTML = ``;
-
+function generateCommentsHTML() {
+  let commentsHTML = ``;
+  //user has to be logged in to add post:
   if (!isLoggedIn()) {
-    return addHTML;
+    return commentsHTML;
   }
-
-  addHTML = `<h3>Add a post</h3>
+  commentsHTML = `
+      <div class="row">
+        <div class="col-6">
+          <div class="comment">
             <form>
-                <div>
-                    <label for="title">Title</label><br>
-                    <input id="title" name="title" class="form-control" type="text" placeholder="Enter title">
-                    <div class="invalid-feedback">
-                        Title cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Your title is ok!
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="content">Content</label><br>
-                    <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="Enter content"></textarea>
-                    <div class="invalid-feedback">
-                        Content cannot be blank.
-                    </div>
-                    <div class="valid-feedback">
-                        Content is ok!
-                    </div>
-                </div>
-                  <div class="valid-feedback">
-                        Content is ok!
-                    </div>  
-                    <div class="valid-feedback">
-                         <label for="date">Posted:</label>
-                        <input type="date" id="date" name="trip-start" />
-                    </div> 
-                <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Save Post</button>
-            </form>`;
-
-  return addHTML;
+              <div>
+                  <label for="comment"></label>
+                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+              </div>
+              <button data-id=${post.postComments.content} id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
+            </form>
+          </div><!--End Comment-->
+        </div><!--End col -->
+      </div><!-- End row -->`;
+  return commentsHTML;
 }
 
 export function postSetup() {
@@ -170,18 +138,19 @@ export function postSetup() {
   setupDeleteHandlers();
   setupValidationHandlers();
   validateFields();
+  setupCommentHandler();
+  savePostComment();
 }
 
 function setupValidationHandlers() {
-  let input = document.querySelector("#title");
-  input.addEventListener("keyup", validateFields);
-  input = document.querySelector("#content");
+  let input = document.querySelector("#content");
   input.addEventListener("keyup", validateFields);
 }
 
 function validateFields() {
   let isValid = true;
-  let input = document.querySelector("#title");
+
+ let input = document.querySelector("#content");
   if (input.value.trim().length < 1) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
@@ -190,17 +159,6 @@ function validateFields() {
     input.classList.add("is-valid");
     input.classList.remove("is-invalid");
   }
-
-  input = document.querySelector("#content");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
-
   return isValid;
 }
 
@@ -224,10 +182,8 @@ function loadPostIntoForm(postId) {
     console.log("did not find post for id " + postId);
     return;
   }
-  // load the post data into the form
-  const titleField = document.querySelector("#title");
+
   const contentField = document.querySelector("#content");
-  titleField.value = post.title;
   contentField.value = post.content;
   validateFields();
   const saveButton = document.querySelector("#savePost");
@@ -275,6 +231,7 @@ function deletePost(postId) {
 
 function setupSaveHandler() {
   const saveButton = document.querySelector("#savePost");
+  console.log(saveButton);
   saveButton.addEventListener("click", function (event) {
     const postId = parseInt(this.getAttribute("data-id"));
     savePost(postId);
@@ -282,15 +239,13 @@ function setupSaveHandler() {
 }
 
 function savePost(postId) {
-  const titleField = document.querySelector("#title");
   const contentField = document.querySelector("#content");
 
   if (!validateFields()) {
     return;
   }
   const post = {
-    title: titleField.value,
-    content: contentField.value,
+    content: contentField.value
   };
   // make the request
   const request = {
@@ -314,5 +269,50 @@ function savePost(postId) {
     createView("/home");
   });
 }
+//Post comments functionality:
 
-//
+function setupCommentHandler() {
+  const commentBtn = document.querySelector("#saveComment");
+  console.log(commentBtn);
+  commentBtn.addEventListener("click", function (event) {
+    const postId = parseInt(this.getAttribute("data-id"));
+    savePost(postId);
+  });
+}
+
+function savePostComment(postId) {
+  // get the title and content for the new/updated post
+  const commentField = document.querySelector("#comment-box");
+
+  // don't allow save if title or content are invalid
+  if(!validateFields()) {
+    return;
+  }
+  const postComment = {
+    content: commentField.value
+  }
+
+  // make the request
+  const request = {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify(postComment)
+  }
+  let url = POST_API_BASE_URL;
+
+  // if we are updating a post, change the request and the url
+  if(postId > 0) {
+    request.method = "PUT";
+    url += `/${postId}`;
+  }
+
+  fetch(url, request)
+      .then(function(response) {
+        if(response.status !== 200) {
+          console.log("fetch returned bad status code: " + response.status);
+          console.log(response.statusText);
+          return;
+        }
+        createView("/posts");
+      })
+}

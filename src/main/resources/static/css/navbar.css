@@ -42,3 +42,6 @@ h1{
 small{
     margin: 10px;
 }
+.nav-item:hover, .nav-logo:hover{
+    cursor: pointer;
+}
