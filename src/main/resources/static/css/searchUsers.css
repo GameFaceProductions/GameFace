@@ -10,13 +10,13 @@
     margin-top: .3rem;
     width: 6rem;
     position: relative;
-    top: 5.2rem;
+    top: 5.0rem;
     border: solid #ab2fbf .1rem ;
 }
 
 .searchUsersUsername {
     position: relative;
-    top: 5.3rem;
+    top: 5.5rem;
 }
 
 .userBackdrop {
@@ -28,6 +28,15 @@
     background-color: #00CACE;
     border: solid #ab2fbf .1rem;
     margin-top: .5rem;
+    height: 2.5em;
+}
+
+.removeUserBtn{
+    color: whitesmoke;
+    background-color: #ce0037;
+    border: solid #ab2fbf .1rem;
+    margin-top: .5rem;
+    height: 2.5em;
 }
 
 .searchUsers {

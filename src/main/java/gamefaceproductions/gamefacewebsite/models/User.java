@@ -26,10 +26,10 @@ public class User {
     @Column(nullable = false, unique = true, length = 50)
     private String userName;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(unique = true, length = 50)
     private String gamerTag;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 25)
     private String region;
 
     @Column(nullable = false, length = 10)
@@ -64,7 +64,7 @@ public class User {
     @ToString.Exclude
     private Collection<PostLikes> likes;
     
-    
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},

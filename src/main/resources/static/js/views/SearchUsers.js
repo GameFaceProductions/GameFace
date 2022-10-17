@@ -34,7 +34,6 @@ export default function searchUsersHTML(props) {
     <form>
         <label for="searchUserInput" class="searchUsersLabel form-label">Search Users</label>
         <input type="search" class="form-control text-center" placeholder="Username" id="searchUserInput">
-      <button type="submit" id="searchUserSubmitBtn" class="searchUsers searchUsersBtn btn btn-dark mt-1">Search</button>
     </form>   
       <div id="userListContainer" class="row g-3">
       </div>
@@ -85,16 +84,15 @@ export function searchUsersJS() {
       let url = user.backdrop_url;
       // console.log(user);
       if (theHomies.includes(user.id)) {
-        friendBtn = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
+        friendBtn = `<button class="removeUserBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-minus"></i> Remove Friend</button>`;
       } else {
-        friendBtn = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
+        friendBtn = `<button class="addUserBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-plus"></i> Add Friend</button>`;
       }
 
       return `
     <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
-      <div class="card-body rounded" style="background-image: url('${url}')">
-<!--      <div class="userBackdrop rounded" style="background-image: url('${url}')"></div>-->
+      <div class="card-body rounded" style="background-image: url('${url}'); background-size: cover; background-position: center;">
         <img src="${user.avatar_url}" class="userAvatar rounded-circle" referrerpolicy="no-referrer">
         <h5 class="card-title searchUsersUsername">${user.userName}</h5>
       </div>
@@ -137,7 +135,7 @@ export function searchUsersJS() {
       } else {
         console.log("add friend ok");
         let thisBtnDiv = document.getElementById(`${id}`);
-        thisBtnDiv.innerHTML = `<button class="removeUserBtn btn mb-2" data-id="${id}">- Remove Friend</button>`;
+        thisBtnDiv.innerHTML = `<button class="removeUserBtn mb-2 rounded" data-id="${id}"><i class="fa-solid fa-user-minus"></i> Remove Friend</button>`;
         let removeBtn = document.getElementsByClassName("removeUserBtn");
         for (let i = 0; i < removeBtn.length; i++) {
           removeBtn[i].addEventListener("click", removeFriend);
@@ -163,7 +161,7 @@ export function searchUsersJS() {
       } else {
         console.log("remove friend ok");
         let thisBtnDiv = document.getElementById(`${id}`);
-        thisBtnDiv.innerHTML = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
+        thisBtnDiv.innerHTML = `<button class="addUserBtn rounded mb-2" data-id="${id}"><i class="fa-solid fa-user-plus"></i> Add Friend</button>`;
         let addBtn = document.getElementsByClassName("addUserBtn");
         for (let i = 0; i < addBtn.length; i++) {
           addBtn[i].addEventListener("click", addFriend);
