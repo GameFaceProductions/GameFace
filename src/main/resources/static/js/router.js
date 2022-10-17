@@ -117,7 +117,7 @@ export default function router(URI) {
     // },
     "/searchusers": {
       returnView: searchUsersHTML,
-      state: { users: "/api/users" },
+      state: { users: "/api/users", posts: "/api/posts" },
       uri: "/searchusers",
       title: "User Search",
       viewEvent: searchUsersJS,
