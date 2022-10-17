@@ -132,25 +132,24 @@ export function searchUsersJS() {
       } else {
         console.log("add friend ok");
         let thisBtnDiv = document.getElementById(`${id}`);
-        thisBtnDiv.innerHTML = `<button class="removeUserBtn btn mb-2" data-id="${user.id}">- Remove Friend</button>`;
+        thisBtnDiv.innerHTML = `<button class="removeUserBtn btn mb-2" data-id="${id}">- Remove Friend</button>`;
+        let removeBtn = document.getElementsByClassName("removeUserBtn");
+        for (let i = 0; i < removeBtn.length; i++) {
+          removeBtn[i].addEventListener("click", removeFriend);
+        }
       }
     });
   }
 
   //  REMOVE FRIEND
-  let removeBtn = document.getElementsByClassName("removeUserBtn");
-  for (let i = 0; i < removeBtn.length; i++) {
-    removeBtn[i].addEventListener("click", removeFriend);
-  }
-
   async function removeFriend() {
+    let id = this.getAttribute("data-id");
+    console.log(id);
     const removeFriendRequestOptions = {
       method: "DELETE",
       headers: getHeaders(),
     };
-    let id = this.getAttribute("data-id");
-    console.log(id);
-    const addFriend = await fetch(
+    fetch(
       `http://localhost:8080/api/friends/${id}/${myd}`,
       removeFriendRequestOptions
     ).then(async function (response) {
@@ -158,8 +157,13 @@ export function searchUsersJS() {
         console.log("remove friend error: " + response.status);
       } else {
         console.log("remove friend ok");
+        let thisBtnDiv = document.getElementById(`${id}`);
+        thisBtnDiv.innerHTML = `<button class="addUserBtn btn mb-2" data-id="${user.id}">+ Add Friend</button>`;
+        let addBtn = document.getElementsByClassName("addUserBtn");
+        for (let i = 0; i < addBtn.length; i++) {
+          addBtn[i].addEventListener("click", addFriend);
+        }
       }
     });
-    location.reload();
   }
 }
