@@ -104,7 +104,7 @@ function generatePostsHTML(posts) {
     </div>
     <div class="comments container">${commentsHTML}</div>
     </li>`;
-    }
+  }
   return postsHTML;
 }
 
@@ -122,9 +122,9 @@ function generateCommentsHTML() {
             <form>
               <div>
                   <label for="comment"></label>
-                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
               </div>
-              <button id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
+              <button name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
             </form>
           </div><!--End Comment-->
         </div><!--End col -->
@@ -138,7 +138,7 @@ export function postSetup() {
   setupDeleteHandlers();
   setupValidationHandlers();
   validateFields();
-  // setupCommentHandler();
+  setupCommentHandler();
   // savePostComment();
 }
 
@@ -150,7 +150,7 @@ function setupValidationHandlers() {
 function validateFields() {
   let isValid = true;
 
- let input = document.querySelector("#content");
+  let input = document.querySelector("#content");
   if (input.value.trim().length < 1) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
@@ -271,14 +271,55 @@ function savePost(postId) {
 }
 //Post comments functionality:
 //
-// function setupCommentHandler() {
-//   const commentBtn = document.querySelector("#saveComment");
-//   console.log(commentBtn);
-//   commentBtn.addEventListener("click", function (event) {
-//     const postId = parseInt(this.getAttribute("data-id"));
-//     savePost(postId);
-//   });
-// }
+function setupCommentHandler() {
+  const commentBtns = document.querySelectorAll(".save-comment-btn");
+  const commentTests = document.querySelectorAll(".input-comments");
+  let commentText = "";
+  // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+  let postComment = {
+    // createdAt: posts.createdAt,
+    content: commentText
+  }
+  // Captures each comment keystroke
+  commentTests.forEach(element => {
+    element.addEventListener("input", function (event){
+      // console.log(element.value);
+      commentText = commentTests.value;
+    })
+  })
+  console.log(commentBtns);
+  // Sends user's comment to SQL db
+  for (let i = 0; i < commentBtns.length; i++) {
+    commentBtns[i].addEventListener("click", function (event) {
+      event.preventDefault()
+      postCommentValue(postComment);
+    });
+  }
+}
+
+
+function postCommentValue (comment) {
+  fetch('http://localhost:8080/api/postcomments/', {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({
+      // createdAt: comment.createdAt,
+      content: comment.content
+    }),
+  })
+      .then(function(response){
+        return response.json()})
+      .then(function(data)
+      {
+        console.log(data)
+      })
+      .catch(error => console.error('Error:', error));
+};
+
+
+
+
 //
 // function savePostComment(postId) {
 //   // get the title and content for the new/updated post

@@ -42,7 +42,7 @@ public class PostCommentsController {
     }
 
     //POST:
-    @PostMapping("/post/{id}/postcomments")
+    @PostMapping("")
     public void createPostComment(@RequestBody PostComments newPostComment, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
 
