@@ -6,14 +6,11 @@ let users;
 export default function ProfilePage(props) {
 
     let user = getUser();
-    console.log(user);
 
     let friendsModal = createFriendsModal(props.users)
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     users = props.users;
-    console.log(posts);
-    console.log(users);
 
     let currentUser = getUser().userName;
 
@@ -66,7 +63,6 @@ export default function ProfilePage(props) {
                       <div class="col-6">
                         <ol class="post-list">
                           ${postHTML}
-                          ${friendsModal}
                         </ol>
                       </div>
                       <!-- The right column will start here -->
@@ -92,7 +88,6 @@ export function profileSetup() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
-    console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
@@ -136,7 +131,9 @@ function createFriendsModal(users) {
         const friends = users[i].userFriends
 
         if(user.userName === currentUser) {
-                console.log(friends);
+            for (let j = 0; j < friends.length; j++) {
+                const friend = friends[j].userName
+                console.log(friend);
                 friendModal += `
                  <section class="modal hidden">
                   <div class="flex">
@@ -146,7 +143,7 @@ function createFriendsModal(users) {
                   <div>
                     <h3>Stay in touch</h3>
                     <p>
-                      ${friends}
+                      ${friend}
                     </p>
                   </div>
                 
@@ -154,8 +151,9 @@ function createFriendsModal(users) {
                 </section>
 
                 <div class="overlay hidden"></div>
-                <button class="btn btn-open">Open Modal</button>
+                <button class="btn open-modal">Open Modal</button>
              `
+            }
         }
     }
     return friendModal
@@ -164,7 +162,7 @@ function createFriendsModal(users) {
 function setupModalFunction() {
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
-    const openModalBtn = document.querySelector(".btn-open");
+    const openModalBtn = document.querySelector(".open-modal");
     const closeModalBtn = document.querySelector(".btn-close");
 
 // close modal function
