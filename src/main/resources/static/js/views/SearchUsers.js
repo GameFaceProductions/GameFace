@@ -114,6 +114,11 @@ export function searchUsersJS() {
   for (let i = 0; i < addBtn.length; i++) {
     addBtn[i].addEventListener("click", addFriend);
   }
+  let removeBtn = document.getElementsByClassName("removeUserBtn");
+
+  for (let i = 0; i < removeBtn.length; i++) {
+    removeBtn[i].addEventListener("click", removeFriend);
+  }
 
   // ADD FRIEND
   async function addFriend() {
