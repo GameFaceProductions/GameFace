@@ -5,7 +5,6 @@ let user;
 export default function searchUsersHTML(props) {
   user = props.users;
   console.log(user);
-  .log
   // FILE STACK PICKER https://cdn.filestackcontent.com/
 
   // const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");

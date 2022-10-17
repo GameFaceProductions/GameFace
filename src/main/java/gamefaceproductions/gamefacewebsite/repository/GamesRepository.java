@@ -13,6 +13,12 @@ public interface GamesRepository extends JpaRepository<Games, Long> {
     @Query(value = "insert into user_games (user_id, game_id) VALUES (:userId, :gameId)", nativeQuery = true)
     void addGameById(@Param("userId") Long userID, @Param("gameId") Long gamedId);
 
+//    INSERT INTO games for inserting each game id as it is gathered from RAWG
+//    @Modifying
+//    @Transactional
+//    @Query(value = "insert into games (game, game_id) VALUES (:userId, :gameId)", nativeQuery = true)
+//    void addGameById(@Param("userId") Long userID, @Param("gameId") Long gamedId);
+
     @Modifying
     @Transactional
     @Query(value = "delete from user_games WHERE user_id = :userId AND game_id = :gameId", nativeQuery = true)

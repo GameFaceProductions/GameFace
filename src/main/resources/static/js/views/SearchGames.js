@@ -3,9 +3,13 @@ import createView from "../createView.js";
 
 let user;
 let games;
-export default function searchUsersHTML(props) {
+let myd;
+export default function searchGamesHTML(props) {
   user = props.users;
   console.log(user);
+  myd = getUser().id;
+  games = props.users[myd].userGames;
+  console.log(games);
 
   return `
 <!-- html here -->
@@ -15,7 +19,7 @@ export default function searchUsersHTML(props) {
         <input type="search" class="form-control text-center" placeholder="Username" id="searchGamesInput">
         <button type="submit" id="searchGamesBtn" class="searchGamesBtn">Search</button>
     </form>   
-      <div id="userListContainer" class="row g-3">
+      <div id="gameListContainer" class="row g-3">
       </div>
     </div>`;
 }
@@ -34,10 +38,10 @@ export function searchGamesJS() {
     }
   }
   for (let i = 0; i < loggedInUserActually.games.length; i++) {
-    if (loggedInUserActually.userFriends[i] == null) {
+    if (loggedInUserActually.games[i] == null) {
       return;
     } else {
-      theHomiesGames.push(loggedInUserActually.games[i].game);
+      theHomiesGames.push(loggedInUserActually.games[i].gameId);
     }
   }
   console.log(loggedInUserActually);
@@ -49,25 +53,29 @@ export function searchGamesJS() {
 
     function makeGameCards() {
       let searchGamesInput = document.getElementById("searchGamesInput");
+      console.log(searchGamesInput);
       let html = "";
+      gameSearchReults.forEach(function () {
+        html += makeGameCard();
+      });
       return html;
     }
 
-    function makeUserCard(user) {
-      let friendBtn;
+    function makeGameCard() {
+      let gameBtn;
       // console.log(user);
       //check for matching game id (if matched show delete button NOt add button)
-      if (theHomies.includes(user.id)) {
-        friendBtn = `<button class="removeUserBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-minus"></i> Remove Friend</button>`;
+      if (theHomiesGames.includes(games.gameId)) {
+        gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
       } else {
-        friendBtn = `<button class="addUserBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-plus"></i> Add Friend</button>`;
+        gameBtn = `<button class="addGameBtn rounded mb-2" data-id="${user.id}"><i class="fa-solid fa-user-plus"></i> Add Game</button>`;
       }
 
       return `
     <div class="col-sm-6 col-lg-3">
     <div class="searchCards card">
       <div id="${user.id}">
-        ${friendBtn}
+        ${gameBtn}
         </div>
     </div>
     </div>
@@ -76,63 +84,66 @@ export function searchGamesJS() {
   }
   console.log(theHomiesGames);
 
+  // NEED TO GENERATE LIST OF GAMES BASED ON FETCH FROM RAWG NOT PRE GENERATED!
+  // ENTIRE HTML NEEDS TO GENERATE!!!!
+  //REFACTOR BELOW FOR GAMES!!!!!
   //  function and POST for adding a user as a friend:
-  let addBtn = document.getElementsByClassName("addUserBtn");
+  let addBtn = document.getElementsByClassName("addGameBtn");
 
   for (let i = 0; i < addBtn.length; i++) {
-    addBtn[i].addEventListener("click", addFriend);
+    addBtn[i].addEventListener("click", addGame);
   }
-  let removeBtn = document.getElementsByClassName("removeUserBtn");
+  let removeBtn = document.getElementsByClassName("removeGameBtn");
 
   for (let i = 0; i < removeBtn.length; i++) {
-    removeBtn[i].addEventListener("click", removeFriend);
+    removeBtn[i].addEventListener("click", removeGame);
   }
 
   // ADD FRIEND
-  async function addFriend() {
+  async function addGame() {
     let id = this.getAttribute("data-id");
 
-    const addFriendRequestOptions = {
+    const addGameRequestOptions = {
       method: "POST",
       headers: getHeaders(),
     };
     await fetch(
       `http://localhost:8080/api/friends/${id}/${myd}`,
-      addFriendRequestOptions
+      addGameRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
-        console.log("add friend error: " + response.status);
+        console.log("add game error: " + response.status);
       } else {
-        console.log("add friend ok");
+        console.log("add game ok");
         let thisBtnDiv = document.getElementById(`${id}`);
-        thisBtnDiv.innerHTML = `<button class="removeUserBtn mb-2 rounded" data-id="${id}"><i class="fa-solid fa-user-minus"></i> Remove Friend</button>`;
-        let removeBtn = document.getElementsByClassName("removeUserBtn");
+        thisBtnDiv.innerHTML = `<button class="removeGameBtn mb-2 rounded" data-id="${id}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
+        let removeBtn = document.getElementsByClassName("removeGameBtn");
         for (let i = 0; i < removeBtn.length; i++) {
-          removeBtn[i].addEventListener("click", removeFriend);
+          removeBtn[i].addEventListener("click", removeGame);
         }
       }
     });
   }
 
   //  REMOVE FRIEND
-  async function removeFriend() {
+  async function removeGame() {
     let id = this.getAttribute("data-id");
     console.log(id);
-    const removeFriendRequestOptions = {
+    const removeGameRequestOptions = {
       method: "DELETE",
       headers: getHeaders(),
     };
     fetch(
       `http://localhost:8080/api/friends/${id}/${myd}`,
-      removeFriendRequestOptions
+      removeGameRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
-        console.log("remove friend error: " + response.status);
+        console.log("remove game error: " + response.status);
       } else {
-        console.log("remove friend ok");
+        console.log("remove game ok");
         let thisBtnDiv = document.getElementById(`${id}`);
-        thisBtnDiv.innerHTML = `<button class="addUserBtn rounded mb-2" data-id="${id}"><i class="fa-solid fa-user-plus"></i> Add Friend</button>`;
-        let addBtn = document.getElementsByClassName("addUserBtn");
+        thisBtnDiv.innerHTML = `<button class="addGameBtn rounded mb-2" data-id="${id}"><i class="fa-solid fa-user-plus"></i> Add Game</button>`;
+        let addBtn = document.getElementsByClassName("addGameBtn");
         for (let i = 0; i < addBtn.length; i++) {
           addBtn[i].addEventListener("click", addFriend);
         }
