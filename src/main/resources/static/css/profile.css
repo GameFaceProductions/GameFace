@@ -4,16 +4,30 @@
 /*    justify-content: center;*/
 /*    align-items: center;*/
 /*}*/
+body{
+    color: ghostwhite;
+}
 
 .post-card {
     padding: 1rem 1.5rem;
-    border: 2px solid var(--stroke-color);
+    border: 1px solid #ee9ca7;
     border-radius: 0.5rem;
-    box-shadow: 4px 4px 20px 0px #07617c4b;
-    background-color: white;
+    box-shadow: 4px 4px 20px 0 #fc00ff;
+    background-color: rgba(171, 171, 171, 0.1);
     min-height: 52px;
     margin-bottom: 1rem;
 }
+
+
+.d-flex{
+    background: rgba(0,0,0,0.2);
+}
+
+ .p-4{
+     background: #000000;  /* fallback for old browsers */
+     background: linear-gradient(to bottom, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     /*background: linear-gradient(to left, #1D2671, #C33764); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+ }
 
 /*.post-header {*/
 /*    display: flex;*/
@@ -52,11 +66,6 @@
     /*z-index: 99;*/
 }
 
-/*.post-content {*/
-/*    font-weight: 600;*/
-/*    line-height: 2;*/
-/*    margin-bottom: 0.5rem;*/
-/*}*/
 
 /*.post-time {*/
 /*    display: flex;*/
@@ -65,10 +74,25 @@
 /* Main content elements' styles */
 
 /* Left column*/
+.profile-col{
+    background: rgba(171, 171, 171, 0.1);
+    border-radius: 0.5rem;
+    margin-top: 10px;
+    border: 1px solid #4CA2CD;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
+}
+
 .profile-header {
     margin-top: 35px;
     padding-right: 15px;
     padding-left: 15px;
+}
+
+.img-fluid {
+    border-style: none;
+    border-radius: 50%;
+    background: linear-gradient(to left, #00dbde, #fc00ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .profile-element {
@@ -78,7 +102,7 @@
     margin-top: 12px;
 }
 .bio {
-    color: #000;
+    color: #ffffff;
 }
 
 .profile-website {
@@ -100,6 +124,7 @@
 
 /* Main column*/
 .main-content {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .post-list {
@@ -150,12 +175,19 @@
 
 .right-col {
     padding-left: 0;
+    background: rgba(171, 171, 171, 0.1);
+    border-radius: 0.5rem;
+    margin-top: 10px;
+    border: 1px solid #4CA2CD;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
+
 .content-panel {
-    margin: 10px 0 0;
-    background-color: #fff;
+    margin: 10px 0 0 10px;
+    background: rgba(171, 171, 171, 0.1);
     line-height: 16px;
     padding: 15px;
+    border-radius: 5px;
 }
 
 .content-panel h4 {
@@ -172,7 +204,7 @@
 }
 
 .btn-follow {
-    border-color: #1DA1F2;
+    /*border-color: #1DA1F2;*/
     color: #1DA1F2;
     background-color: white;
     border: 1px solid #1da1f2;
@@ -193,15 +225,17 @@
 }
 
 .main {
-    background-color: #e1e2e3;
+    /*background-color: #e1e2e3;*/
+    background: black;
+    color: #fff;
 }
 
 .post-content {
-    color: black;
+    color: ghostwhite;
 }
 
 .panel-header {
-    color: black;
+    color: ghostwhite;
 }
 
 /*Modal CSS*/
@@ -261,7 +295,7 @@
 
 button {
     cursor: pointer;
-    border: none;
+    /*border: none;*/
     font-weight: 600;
 }
 
@@ -271,9 +305,15 @@ button {
     font-weight: 700;
     background-color: black;
     color: white;
-    border-radius: 5px;
+    border: 1px #C4FCF0 solid;
+    border-radius: 2.9rem;
     text-align: center;
     font-size: 1em;
+}
+
+.btn:hover{
+    background: linear-gradient(90deg, #fa7199, #f5ce62, #e43603, #fa7199);
+    background-size: 400%;
 }
 
 .btn-open {
