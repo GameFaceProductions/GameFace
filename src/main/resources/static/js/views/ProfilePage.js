@@ -4,16 +4,11 @@ let posts;
 let users;
 
 export default function ProfilePage(props) {
-
+    let currentUser = getUser().userName;
     let user = getUser();
-    console.log(user);
-
-    // let friendsModal = createFriendsModal(props.users)
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     users = props.users;
-
-    let currentUser = getUser().userName;
 
     for (let i = 0; i < users.length; i++) {
         const user2 = users[i];
@@ -144,29 +139,46 @@ function generateUserPosts(posts) {
 
 function getFriends() {
     let friend = [];
-    let friends;
+    let friend1 = [];
+    let friend2;
+    let friend4;
+    let html =``
+    let friendList = document.querySelector("#friends-list")
     let currentUser = getUser().userName;
-    let friendsList = document.querySelector("#friends-list")
 
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
         const friends = users[i].userFriends
+        const friends2 = users[i].userFriends
 
         if (user.userName === currentUser) {
+            for (let j = 0; j < friends2.length; j++) {
+                friend1.push(friends[j].avatar_url)
+            }
+
             for (let j = 0; j < friends.length; j++) {
                 friend.push(friends[j].userName);
             }
         }
     }
-    for (let i = 0; i < friend.length; i++) {
-        friends = friend[i];
+
+    for (let i = 0; i < friend1.length; i++) {
+        friend4 = friend1[i];
+        html += `
+            <img src="${friend4}" width="50px" height="50px" alt="user" />
+        `
     }
-    friendsList += `
-        <ol>
-            <li>${friends}</li>
-        </ol>
-    `
-    return friendsList
+
+    for (let i = 0; i < friend.length; i++) {
+        friend2 = friend[i];
+        html += `
+            <p>
+            <img src="${friend4}" width="50px" height="50px" alt="user" />
+            ${friend2}
+            </p>
+        `
+    }
+    friendList.innerHTML = html;
 }
 
 function setupModalFunction() {
@@ -176,7 +188,7 @@ function setupModalFunction() {
     const closeModalBtn = document.querySelector(".btn-close");
 
 // close modal function
-    const closeModal = function () {
+    const closeModal = function() {
         modal.classList.add("hidden");
         overlay.classList.add("hidden");
     };
@@ -199,5 +211,6 @@ function setupModalFunction() {
     };
 // open modal event
     openModalBtn.addEventListener("click", openModal);
+    openModalBtn.addEventListener('click', getFriends)
 }
 
