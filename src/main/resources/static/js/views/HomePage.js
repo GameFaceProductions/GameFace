@@ -34,6 +34,25 @@ export default function HomePage(props) {
                 </ol>
             </div>
         </div>
+        <div class="row">
+          <div class="col profile-col">
+            <!-- Left column -->
+            <div class="profile-header">
+              <!-- Bio -->
+              <h3 class="bio"><a>Bio<a></h3>
+              <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
+              <p class="profile-element profile-website">Web Developer</p>
+              <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+            </div>
+          </div>  
+            <!-- The right column will start here -->
+          <div class="col right-col">
+            <div class="content-panel">
+              <div class="panel-header">
+                <h4>Favorite Games</h4>
+              </div>
+            </div>
+          </div>
     `;
 }
 //Shows up first in newsfeed:

@@ -1,6 +1,6 @@
 /*Main container styling:*/
 .home{
-    background: rgba(0, 4, 40, 0.9);
+    background: rgba(171, 171, 171, 0.1);
     border-radius: 0.2rem;
 }
 
@@ -10,11 +10,12 @@
 
 .home-card{
     margin: 2rem;
+    list-style-type: none;
     padding: 0.5rem;
     border-radius: 0.8rem;
     box-shadow: 0 0 0.6rem rgba(124, 179, 197, 0.6);
     border: 1px black solid;
-    background: linear-gradient(to bottom, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: rgba(171, 171, 171, 0.1);
 
 }
 
@@ -68,7 +69,6 @@ button {
 }
 
 #comment-list li {
-    list-style-type: none;
     border-bottom: 1px solid #8d8d8d1a;
     font-size: 18px;
     color: rgb(61, 61, 61);

@@ -5,11 +5,15 @@ export default function About(props) {
         </header>
         <br>
         <main>
+          <div class="buttons" style="text-align: center">
+            <button onclick="window.location.href='/login';">Login</button>
+            <button onclick="window.location.href='/register';">Register</button>
+          </div>
             <div class="logo">
                 <div class="image">
                     <img src="/images/1.jpg" alt="logo">
                 </div>
-<!--                <img src="/images/GameFace.gif" alt="logo">-->
+    <!--                <img src="/images/GameFace.gif" alt="logo">-->
                 <h2 style="text-align: center">Connect. Create. Grow.</h2>
             </div>
             <br>
@@ -76,10 +80,10 @@ export default function About(props) {
                     </div>
                 </div>
             </div>
-            <div class="buttons" style="text-align: center">
-                <button onclick="window.location.href='/login';">Login</button>
-                <button onclick="window.location.href='/register';">Register</button>
-            </div>
+<!--            <div class="buttons" style="text-align: center">-->
+<!--                <button onclick="window.location.href='/login';">Login</button>-->
+<!--                <button onclick="window.location.href='/register';">Register</button>-->
+<!--            </div>-->
         </main>          
     `;
 }
