@@ -10,10 +10,9 @@ body{
 
 .post-card {
     padding: 1rem 1.5rem;
-    /*border: 2px solid #FFAFBD;*/
-    /*background: linear-gradient(to right, #ffc3a0, #FFAFBD); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+    border: 1px solid #ee9ca7;
     border-radius: 0.5rem;
-    box-shadow: 4px 4px 20px 0px #C33764;
+    box-shadow: 4px 4px 20px 0 #fc00ff;
     background-color: rgba(171, 171, 171, 0.1);
     min-height: 52px;
     margin-bottom: 1rem;
@@ -25,8 +24,8 @@ body{
 }
 
  .p-4{
-     /*background: #FFAFBD;  !* fallback for old browsers *!*/
-     background: linear-gradient(to right, #EC6EAD, #3494E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     background: #000000;  /* fallback for old browsers */
+     background: linear-gradient(to bottom, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
      /*background: linear-gradient(to left, #1D2671, #C33764); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
  }
 
@@ -79,7 +78,8 @@ body{
     background: rgba(171, 171, 171, 0.1);
     border-radius: 0.5rem;
     margin-top: 10px;
-    box-shadow: 4px 4px 20px 0 #4ca2cd;
+    border: 1px solid #4CA2CD;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
 
 .profile-header {
@@ -88,10 +88,11 @@ body{
     padding-left: 15px;
 }
 
-.img-fluid{
+.img-fluid {
     border-style: none;
     border-radius: 50%;
-    background: linear-gradient(to left, #E100FF, #7F00FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to left, #00dbde, #fc00ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .profile-element {
@@ -177,8 +178,8 @@ body{
     background: rgba(171, 171, 171, 0.1);
     border-radius: 0.5rem;
     margin-top: 10px;
-    box-shadow: 4px 4px 20px 0 #4ca2cd;
-
+    border: 1px solid #4CA2CD;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
 
 .content-panel {
@@ -294,7 +295,7 @@ body{
 
 button {
     cursor: pointer;
-    border: none;
+    /*border: none;*/
     font-weight: 600;
 }
 
@@ -304,9 +305,15 @@ button {
     font-weight: 700;
     background-color: black;
     color: white;
-    border-radius: 5px;
+    border: 1px #C4FCF0 solid;
+    border-radius: 2.9rem;
     text-align: center;
     font-size: 1em;
+}
+
+.btn:hover{
+    background: linear-gradient(90deg, #fa7199, #f5ce62, #e43603, #fa7199);
+    background-size: 400%;
 }
 
 .btn-open {

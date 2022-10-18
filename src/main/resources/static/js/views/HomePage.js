@@ -16,25 +16,24 @@ export default function HomePage(props) {
   const commentsHTML = generateCommentsHTML();
   //Return basic view of Homepage no matter if logged in or not:
   return `
-    <header style="text-align: center">
-      <h1>What's New!</h1>
-    </header>
+<!--    <header style="text-align: center">-->
+<!--      <h1>What's New!</h1>-->
+<!--    </header>-->
     <div class="container home">
-        <h3 style="text-align: center">News Feed:</h3>
+      <h3 style="text-align: center">Featured Highlights</h3>
+      <div class="add-post">
+        <div class="add-post">Highlights</div>
+        <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Post Clip</button>
+      </div>
+      <div class="col add-post">
+          ${addPostHTML}
+      </div>
+      <div class="row">
         <br>
-        <div class="row">
-          <div class="col add-post">
-            ${addPostHTML}
-          </div>
-        </div>
-        <div class="row">
-            <div class="col home-post">
-                <ol class="tweet-list">
-                    ${postsHTML}  
-                </ol>
-            </div>
-        </div>
-        <div class="row">
+<!--            <div class="row">-->
+<!--            </div>-->
+<!--            <div class="row">--
+           </div>-->
           <div class="col profile-col">
             <!-- Left column -->
             <div class="profile-header">
@@ -42,9 +41,15 @@ export default function HomePage(props) {
               <h3 class="bio"><a>Bio<a></h3>
               <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
               <p class="profile-element profile-website">Web Developer</p>
-              <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+              <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
             </div>
-          </div>  
+          </div>
+<!--          middle colum-->
+           <div class="col-6 home-post">
+              <ol class="tweet-list">
+                  ${postsHTML}  
+              </ol>
+          </div>
             <!-- The right column will start here -->
           <div class="col right-col">
             <div class="content-panel">
@@ -53,6 +58,7 @@ export default function HomePage(props) {
               </div>
             </div>
           </div>
+        </div>
     `;
 }
 //Shows up first in newsfeed:
@@ -115,14 +121,12 @@ function generatePostsHTML(posts) {
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
-      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
       <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
     //This concats the closing tags of the main postsHTML and adds comment box:
     postsHTML += `
-    </div>
-    <div class="comments container">${commentsHTML}</div>
-    </li>`;
+    </div></li><div class="comments container">${commentsHTML}</div>`;
     }
   return postsHTML;
 }
@@ -136,16 +140,15 @@ function generateCommentsHTML() {
   }
   commentsHTML = `
       <div class="row">
-        <div class="col-6">
-          <div class="comment">
+        <div class="col-10 comment add-post">
             <form>
               <div>
                   <label for="comment"></label>
-                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+                  <input type="text" placeholder="Say Something!" id="comment-box">
               </div>
               <button id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
             </form>
-          </div><!--End Comment-->
+          <!--End Comment-->
         </div><!--End col -->
       </div><!-- End row -->`;
   return commentsHTML;
