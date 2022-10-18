@@ -1,8 +1,10 @@
 package gamefaceproductions.gamefacewebsite.dto;
 
+import gamefaceproductions.gamefacewebsite.models.Games;
 import gamefaceproductions.gamefacewebsite.models.User;
 import lombok.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,4 +23,5 @@ public class UserFetchDto {
     private String avatar_url;
     private String backdrop_url;
     private List<User> userFriends;
+    private Collection<Games> games;
 }

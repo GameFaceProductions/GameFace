@@ -20,6 +20,9 @@ public class Games {
     private Long id;
 
     @Column(nullable = false)
+    private Long gameId;
+
+    @Column(nullable = false)
     private String game;
 
     @ManyToMany(

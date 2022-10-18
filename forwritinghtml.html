@@ -1,30 +1,18 @@
-<div class="container">
-    <div class="row">
-        <p>Hello</p>
-    </div>
-</div>
+let theHomies = [];
+let loggedInUserActually;
+const loggedInUser = getUser();
+let myd = loggedInUser.id;
 
-<main>
-    <div id="movieListContainer" class="row">
-        ${makeMovieCards(props.movies)}
-    </div>
-</main>
-
-<div class="card col-3 h-100">
-    <img src="${movie.posterUrl}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title movieTitle text-center">${movie.title}</h5>
-        <h5 class="card-title movieTitle text-center">${movie.rating}</h5>
-        <h5 id="genres" class="card-title movieTitle text-center">${genre}</h5>
-
-        <p class="card-text"></p>
-    </div>
-    <div id="movieFoot">
-        <button type="button" class="btn btn-primary editBtn mb-2" data-id="${movie.id}" data-bs-toggle="modal"
-                data-bs-target="#editMovieModal"><i class="fa fa-pencil"></i></button>
-        <button type="button" class="btn btn-primary moreInfoBtn mb-2" data-id="${movie.id}" data-bs-toggle="modal"
-                data-bs-target="#moreInfoMovieModal">More Info
-        </button>
-        <button class="delBtn btn mb-2" data-id="${movie.id}"><i class="fa fa-trash"></i></button>
-    </div>
-</div>
+for (let i = 0; i < user.length; i++) {
+if (myd === user[i].id) {
+loggedInUserActually = user[i];
+}
+}
+for (let i = 0; i < loggedInUserActually.userFriends.length; i++) {
+if (loggedInUserActually.userFriends[i] == null) {
+return;
+} else {
+theHomies.push(loggedInUserActually.userFriends[i].id);
+}
+}
+console.log(loggedInUserActually);

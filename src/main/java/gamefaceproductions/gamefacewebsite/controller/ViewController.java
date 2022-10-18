@@ -16,7 +16,7 @@ public class ViewController {
 //        return "forward:/index.html";
         return new RedirectView("index.html");
     }
-    @RequestMapping({"/", "/about","/profile", "logout", "/login", "/home", "/posts", "/register", "/me", "/searchusers"})
+    @RequestMapping({"/", "/about","/profile", "logout", "/login", "/home", "/posts", "/register", "/me", "/searchusers", "/searchgames"})
     public String showView() {
         return "forward:/index.html";
     }

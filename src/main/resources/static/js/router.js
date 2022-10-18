@@ -9,7 +9,7 @@ import prepareUserHTML, { prepareUserJS } from "./views/AccountDetails.js";
 import Logout, { LogoutEvent } from "./views/Logout.js";
 import DoLogin, { DoLoginEvents } from "./views/DoLogin.js";
 // import GameInfo from "./views/GameInfo.js";
-// import SearchGames from "./views/SearchGames.js";
+import searchGamesHTML, { searchGamesJS } from "./views/SearchGames.js";
 import searchUsersHTML, { searchUsersJS } from "./views/SearchUsers.js";
 
 /**
@@ -109,12 +109,13 @@ export default function router(URI) {
     //     uri: '/game',
     //     title: 'Game Details'
     // },
-    // '/gamesearch': {
-    //     returnView: SearchGames,
-    //     state: {},
-    //     uri: '/searchGame',
-    //     title: 'Game Search'
-    // },
+    "/searchgames": {
+      returnView: searchGamesHTML,
+      state: { users: "/api/users" },
+      uri: "/searchgames",
+      title: "Search Games",
+      viewEvent: searchGamesJS,
+    },
     "/searchusers": {
       returnView: searchUsersHTML,
       state: { users: "/api/users" },

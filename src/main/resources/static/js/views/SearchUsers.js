@@ -41,6 +41,7 @@ export default function searchUsersHTML(props) {
 }
 
 export function searchUsersJS() {
+  console.log(user);
   let theHomies = [];
   let loggedInUserActually;
   const loggedInUser = getUser();

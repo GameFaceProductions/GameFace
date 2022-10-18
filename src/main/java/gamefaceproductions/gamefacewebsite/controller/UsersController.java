@@ -48,6 +48,7 @@ public class UsersController {
             userDTO.setBackdrop_url(user.getBackdrop_url());
             userDTO.setGamer_tag(user.getGamerTag());
             userDTO.setUserFriends(user.getUserFriends());
+            userDTO.setGames(user.getGames());
             userDTOs.add(userDTO);
         }
         return userDTOs;

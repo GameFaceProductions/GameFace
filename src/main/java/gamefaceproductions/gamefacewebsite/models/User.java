@@ -63,6 +63,12 @@ public class User {
     @JsonIgnoreProperties({"user", "posts"})
     @ToString.Exclude
     private Collection<PostLikes> likes;
+
+//    not sure if this one to many is needed or not!
+    @OneToMany (mappedBy = "author")
+    @JsonIgnoreProperties({"gamerTag", "author", "games", "region", "blocked", "email", "createdAt", "role", "userFriends", "friendsList", "likes", "gameMedia", "posts", "platforms", "blocked"})
+    @ToString.Exclude
+    private Collection<PostComments> postComments;
     
 
     @ManyToMany(cascade = CascadeType.MERGE)

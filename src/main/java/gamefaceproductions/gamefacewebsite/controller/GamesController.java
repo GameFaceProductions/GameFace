@@ -31,9 +31,14 @@ public class GamesController {
         return optionalGames;
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteGameById(@PathVariable long id) {
-        gamesRepository.deleteById(id);
+    @PostMapping("/{myd}/{gameId}")
+    public void addGameById(@PathVariable long gameId, @PathVariable long myd){
+        gamesRepository.addGameById(gameId, myd);
+    }
+
+    @DeleteMapping("/{myd}/{gameId}")
+    public void deleteGameById(@PathVariable long gameId, @PathVariable long myd) {
+        gamesRepository.deleteGameById(gameId, myd);
     }
 
 }

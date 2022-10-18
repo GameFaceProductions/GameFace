@@ -1,0 +1,43 @@
+.searchGamesInput {
+    width: 25%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#searchGamesBtn {
+    border: solid #ab2fbf .1rem;
+    background-color: #00CACE;
+}
+
+#gameListContainer {
+    margin-top: 2rem;
+}
+
+.gameInfo {
+    background-color: rgba(171, 47, 191, 0.48);
+    margin-top: 12.1rem;
+    border-top: solid #ab2fbf .1rem;
+}
+
+.gameCardBackground {
+    background-repeat: round;
+    background-size: cover;
+    background-position: center;
+}
+
+.addGameBtn {
+    color: whitesmoke;
+    background-color: #00CACE;
+    border: solid #ab2fbf .1rem;
+    margin-top: .5rem;
+    height: 2em;
+    margin-left: 1em;
+}
+
+.removeGameBtn {
+    color: whitesmoke;
+    background-color: #ce0037;
+    border: solid #ab2fbf .1rem;
+    margin-top: .5rem;
+    height: 2.5em;
+}
