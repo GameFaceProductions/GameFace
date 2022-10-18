@@ -42,19 +42,14 @@ public class PostCommentsController {
     }
 
     //POST:
-    @PostMapping("/post/{id}/postcomments")
-    public void createPostComment(@RequestBody PostComments newPostComment, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+    @PostMapping("/postcomment/{userId}/{postId}")
+    public void createPostComment(@RequestBody PostComments newPostComment, @PathVariable long userId, @PathVariable long postId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
 
         if (newPostComment.getContent() == null || newPostComment.getContent().length() < 1) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be blank!");
         }
 
-        System.out.println(newPostComment);
-
-        newPostComment.setAuthor(loggedInUser);
-        newPostComment.setCreatedAt(LocalDate.now());
-        postCommentsRepository.save(newPostComment);
-
+        postCommentsRepository.addCommentToPost(userId, postId, newPostComment);
     }
 }

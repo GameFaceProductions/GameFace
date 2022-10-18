@@ -32,33 +32,43 @@ export function searchGamesJS() {
   let loggedInUserActually;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
+  let redirectURL;
   let searchGamesBtn = document.getElementById(`searchGamesBtn`);
   let searchGamesStoreBtn = document.getElementsByClassName(`storeLink`);
   let searchGamesPageContainer = document.getElementById("gameListContainer");
   let searchGamesInput = document.getElementById("searchGamesInput");
 
   searchGamesBtn.addEventListener("click", fetchRawgGames);
-  for (let i = 0; i < searchGamesStoreBtn.length; i++) {
-    searchGamesStoreBtn[i].addEventListener("click", fetchRawgGamesStoreLink);
-  }
+
   async function fetchRawgGamesStoreLink() {
+    let gameId = this.getAttribute("data-id");
+    console.log(gameId);
     const requestOptions = {
       method: "GET",
     };
-    getGameData = await fetch(
-      `    https://api.rawg.io/api/games/${gameData.id}/stores?key=${RAWG_API_KEY}
+    getGameStoreLink = await fetch(
+      `    https://api.rawg.io/api/games/${gameId}/stores?key=${RAWG_API_KEY}
 `,
       requestOptions
     ).then(async function (response) {
       if (!response.ok) {
-        console.log("fetch game error: " + response.status);
+        console.log("fetch store link error: " + response.status);
       } else {
-        console.log("fetch game ok");
+        console.log("fetch store link ok");
         return await response.json();
       }
     });
-    console.log(getGameData);
+    console.log(getGameStoreLink.results);
+    for (let i = 0; i < getGameStoreLink.results.length; i++) {
+      if (getGameStoreLink.results[i].store_id === 1) {
+        redirectURL = getGameStoreLink.results[i].url;
+      } else {
+        redirectURL = getGameStoreLink.results[0].url;
+      }
+    }
+    return window.location.replace(`${redirectURL}`);
   }
+
   async function fetchRawgGames() {
     let searchGameInput = searchGamesInput.value.trim();
     const requestOptions = {
@@ -75,8 +85,11 @@ export function searchGamesJS() {
         return await response.json();
       }
     });
-    console.log(getGameData);
     showSearchedGames();
+    searchGamesBtn.addEventListener("click", fetchRawgGames);
+    for (let i = 0; i < searchGamesStoreBtn.length; i++) {
+      searchGamesStoreBtn[i].addEventListener("click", fetchRawgGamesStoreLink);
+    }
   }
 
   function showSearchedGames() {
@@ -95,8 +108,13 @@ export function searchGamesJS() {
     function makeGameCard(gameData) {
       let gameBtn;
       let storeBtn;
-      console.log(user);
-      storeBtn = `<button class="storeLink rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
+
+      if (gameData.stores === null) {
+        storeBtn = `<button class="storeLink hidden rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
+      } else {
+        storeBtn = `<button class="storeLink rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
+      }
+
       // check for matching game id (if matched show delete button NOt add button)
       if (theHomiesGames.includes(gameData.id)) {
         gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
