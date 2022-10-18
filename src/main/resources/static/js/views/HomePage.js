@@ -21,9 +21,8 @@ export default function HomePage(props) {
 <!--    </header>-->
     <div class="container home">
       <h3 style="text-align: center">Featured Highlights</h3>
-      <div class="add-post">
-        <div class="add-post">Highlights</div>
-        <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Post Clip</button>
+      <div class="highlights">
+        <div class="highlights">Highlights</div>
       </div>
       <div class="col add-post">
           ${addPostHTML}
@@ -158,8 +157,8 @@ export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
-  setupValidationHandlers();
-  validateFields();
+  // setupValidationHandlers();
+  // validateFields();
   // setupCommentHandler();
   // savePostComment();
 }

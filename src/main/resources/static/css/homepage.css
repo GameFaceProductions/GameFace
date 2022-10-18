@@ -25,7 +25,16 @@
     margin:0;
     padding:0;
     letter-spacing: 0;
+}
 
+/*//highlight clip styling*/
+.highlights{
+    margin: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0 0.6rem rgba(124, 179, 197, 0.6);
+    border: 1px black solid;
+    background: linear-gradient(to top, #485563, #29323c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /*styling for add comment box:*/
