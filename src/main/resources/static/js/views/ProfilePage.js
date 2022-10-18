@@ -35,7 +35,7 @@ export default function ProfilePage(props) {
                     </div>
                 </div>
                 <!-- Start of followers/following div -->
-                <div class="p-4 text-black" style="background-color: white">
+                <div class="p-4 text-black">
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
                             <a class="friends-display" href="">
