@@ -6,8 +6,9 @@ let users;
 export default function ProfilePage(props) {
 
     let user = getUser();
+    console.log(user);
 
-    let friendsModal = createFriendsModal(props.users)
+    // let friendsModal = createFriendsModal(props.users)
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     users = props.users;
@@ -70,6 +71,24 @@ export default function ProfilePage(props) {
                         <div class="content-panel">
                           <div class="panel-header">
                             <h4>Favorite Games</h4>
+                      <!-- Modal containing lists of current users friends starts here -->
+                      <section class="modal hidden">
+                          <div class="flex">
+                            <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
+                            <button class="btn-close">⨉</button>
+                          </div>
+                          <div>
+                            <div id="friends-list">
+                                Users list of friends will go here
+                            </div>
+                          </div>
+                            <button class="btn">Do Something</button>
+                      </section>
+                      <!-- End of modal -->
+                      <!-- Button to open up the modal -->
+                          <div class="overlay hidden"></div>
+                          <button class="btn open-modal">Open Modal</button>
+                      <!-- End of modal button -->
                           </div>
                         </div>
                       </div>
@@ -83,6 +102,7 @@ export default function ProfilePage(props) {
 
 export function profileSetup() {
     setupModalFunction()
+    getFriends()
 }
 
 function generateUserPosts(posts) {
@@ -122,41 +142,31 @@ function generateUserPosts(posts) {
     return userPosts
 }
 
-function createFriendsModal(users) {
-    let friendModal = ``
+function getFriends() {
+    let friend = [];
+    let friends;
     let currentUser = getUser().userName;
+    let friendsList = document.querySelector("#friends-list")
 
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
         const friends = users[i].userFriends
 
-        if(user.userName === currentUser) {
+        if (user.userName === currentUser) {
             for (let j = 0; j < friends.length; j++) {
-                const friend = friends[j].userName
-                console.log(friend);
-                friendModal += `
-                 <section class="modal hidden">
-                  <div class="flex">
-                    <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
-                    <button class="btn-close">⨉</button>
-                  </div>
-                  <div>
-                    <h3>Stay in touch</h3>
-                    <p>
-                      ${friend}
-                    </p>
-                  </div>
-                
-                  <button class="btn">Do Something</button>
-                </section>
-
-                <div class="overlay hidden"></div>
-                <button class="btn open-modal">Open Modal</button>
-             `
+                friend.push(friends[j].userName);
             }
         }
     }
-    return friendModal
+    for (let i = 0; i < friend.length; i++) {
+        friends = friend[i];
+    }
+    friendsList += `
+        <ol>
+            <li>${friends}</li>
+        </ol>
+    `
+    return friendsList
 }
 
 function setupModalFunction() {
