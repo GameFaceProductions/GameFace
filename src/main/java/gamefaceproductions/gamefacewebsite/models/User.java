@@ -55,7 +55,7 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnoreProperties({"posts", "likes", "createdAt", "author"})
+    @JsonIgnoreProperties({"posts", "likes", "createdAt", "author", "postComments", "userFriends", "games", "platforms"})
     @ToString.Exclude
     private Collection<Post> posts;
     
@@ -75,12 +75,12 @@ public class User {
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns={@JoinColumn(name="friend_id")})
-    @JsonIgnoreProperties({"friendsList", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "posts"})
+    @JsonIgnoreProperties({"userFriends", "friendsList", "likes", "gamerTag", "region", "blocked", "email", "createdAt", "role", "userFriends", "posts", "postComments", "games", "platforms"})
     @ToString.Exclude
     private List<User> userFriends;
 
 //    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "userFriends")
-//    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList", "posts"})
+//    @JsonIgnoreProperties({"userFriends", "likes", "userName", "gamerTag", "region", "blocked", "email", "createdAt", "role", "friendsList", "posts", "postComments", "games", "platforms"})
 //    private List<User> friendsList;
 
 

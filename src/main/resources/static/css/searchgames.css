@@ -8,6 +8,9 @@
     border: solid #ab2fbf .1rem;
     background-color: #00CACE;
 }
+#searchGamesBtn:hover{
+    border: solid #ab2fbf .2rem;
+}
 
 #gameListContainer {
     margin-top: 2rem;
@@ -15,14 +18,28 @@
 
 .gameInfo {
     background-color: rgba(171, 47, 191, 0.48);
-    margin-top: 12.1rem;
-    border-top: solid #ab2fbf .1rem;
+    border: solid #ab2fbf .1rem;
+    border-top: none;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top: none;
+    height: 8em;
+}
+.gameInfoText{
+    padding-top: 0.5rem;
+
 }
 
 .gameCardBackground {
-    background-repeat: round;
     background-size: cover;
     background-position: center;
+    border-radius: 10% 10% 0 0;
+    border-bottom: none;
+}
+
+.storeLink {
+    background-color: #00CACE;
+    border: solid #ab2fbf .1rem;
 }
 
 .addGameBtn {
@@ -32,6 +49,15 @@
     margin-top: .5rem;
     height: 2em;
     margin-left: 1em;
+}
+
+.addGameBtn:hover {
+    border: solid #ab2fbf .2rem;
+}
+
+.storeLink:hover {
+    border: solid #ab2fbf .2rem;
+
 }
 
 .removeGameBtn {
