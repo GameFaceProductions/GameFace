@@ -172,7 +172,6 @@ export function postSetup() {
   setupEditHandlers();
   setupDeleteHandlers();
   postCommentValue();
-
   // setupValidationHandlers();
   // validateFields();
   // setupCommentHandler();
@@ -307,100 +306,30 @@ function savePost(postId) {
   });
 }
 //Post comments functionality:
-//
-// function setupCommentHandler() {
-//   // const commentBtns = document.querySelectorAll(".save-comment-btn");
-//   // const commentTests = document.querySelectorAll("#comment-box");
-//   let commentText = "";
-//   // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
-//
-//   let postComment = {
-//     // createdAt: posts.createdAt,
-//     content: commentText
-//   }
-//   // Captures each comment keystroke
-//   commentTests.forEach(element => {
-//     element.addEventListener("input", function (event){
-//       // console.log(element.value);
-//       commentText = commentTests.value;
-//     })
-//   })
-//   console.log(commentBtns);
-//   // Sends user's comment to SQL db
-//   for (let i = 0; i < commentBtns.length; i++) {
-//     commentBtns[i].addEventListener("click", function (event) {
-//       event.preventDefault()
-//       postCommentValue(postComment);
-//     });
-//   }
-// }
-
-
+//only works for one button
 function postCommentValue () {
   const commentBtns = document.querySelector("#comment-btn");
-  commentBtns.addEventListener("click", function (event) {
-    const commentTests = document.querySelector("#comment-box").value;
-    const postId = commentBtns.getAttribute("data-id");
+    commentBtns.addEventListener("click", function (event) {
+      const commentTests = document.querySelector("#comment-box").value;
+      const postId = commentBtns.getAttribute("data-id");
 
-    fetch('http://localhost:8080/api/postcomments/' + postId, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify({
-        post_id: postId,
-        content: commentTests,
-      }),
-    })
-        .then(function(response){
-          return response.json()})
-        .then(function(data)
-        {
-          console.log(data)
-        })
-        .catch(error => console.error('Error:', error)
-  )});
-
+      fetch('http://localhost:8080/api/postcomments/postcomment/' + postId, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(commentTests
+        ),
+      })
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (data) {
+            console.log(data)
+          })
+          .catch(error => console.error('Error:', error)
+          )
+    });
 }
 
 
 
 
-
-
-
-//
-// function savePostComment(postId) {
-//   // get the title and content for the new/updated post
-//   const commentField = document.querySelector("#comment-box");
-//
-//   // don't allow save if title or content are invalid
-//   if(!validateFields()) {
-//     return;
-//   }
-//   const postComment = {
-//     content: commentField.value
-//   }
-//
-//   // make the request
-//   const request = {
-//     method: "POST",
-//     headers: getHeaders(),
-//     body: JSON.stringify(postComment)
-//   }
-//   let url = POST_API_BASE_URL;
-//
-//   // if we are updating a post, change the request and the url
-//   if(postId > 0) {
-//     request.method = "PUT";
-//     url += `/${postId}`;
-//   }
-//
-//   fetch(url, request)
-//       .then(function(response) {
-//         if(response.status !== 200) {
-//           console.log("fetch returned bad status code: " + response.status);
-//           console.log(response.statusText);
-//           return;
-//         }
-//         createView("/posts");
-//       })
-// }
