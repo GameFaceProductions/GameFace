@@ -1,5 +1,7 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
+import gamefaceproductions.gamefacewebsite.dto.UserAuthInfoDTO;
+import gamefaceproductions.gamefacewebsite.dto.UserFriendsDto;
 import gamefaceproductions.gamefacewebsite.models.Platform;
 import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.repository.FriendsRepository;
@@ -51,17 +53,26 @@ public class FriendsController {
         friendsRepository.addFriendFromUser(id, myid);
         friendsRepository.addFriendFromUser(myid, id);
     }
+
     //    BLOCKED THIS SHIZ IS HARD. Maybe need to make user_id and friend_id sever as composite key so
 //    friends can be deleted based on the unique friendship (unidirectional) which preserves friends
 //    so if user1 removes user2, user2 can still consider user1 a friend on their end... Or bidirectional if easier.
 //    Just need a good way to target each ROW in the user_friends table to correctly delete based on user_id's.
     @DeleteMapping("/{id}/{myid}")
-    public void removeFriend(@PathVariable long id, @PathVariable long myid,  @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+    public void removeFriend(@PathVariable long id, @PathVariable long myid, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
         System.out.println(loggedInUser);
         System.out.println(id);
         System.out.println(myid);
         friendsRepository.deleteFriendFromUser(id, myid);
         friendsRepository.deleteFriendFromUser(myid, id);
+    }
+
+    @GetMapping("/myfriends")
+    private UserFriendsDto getUserFriends(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+        UserFriendsDto userFriendsDtoDTO = new UserFriendsDto();
+        userFriendsDtoDTO.setUserFriends(loggedInUser.getUserFriends());
+        return userFriendsDtoDTO;
     }
 }
