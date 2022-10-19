@@ -15,7 +15,8 @@ export default function Navbar(props) {
         <i onclick="window.location.href='/profile';" class="bi bi-person-circle nav-item no-italic"><small class="nav-text">Profile</small></i>
         <i onclick="window.location.href='/searchusers';" class="bi bi-search nav-item no-italic"><small class="nav-text">Search</small></i>
         <i onclick="window.location.href='/logout';" class="bi bi-box-arrow-in-right nav-item no-italic"><small class="nav-text">Logout</small></i>
-        <text class="float-end">Logged in as: ${user.userName}</text>`;
+        <text  style="font-family: 'Press Start 2P', serif;" class="float-end">${user.userName}</text>`;
+
   } else {
     navbar += `
        <i onclick="window.location.href='/';"  class="bi bi-info-circle-fill nav-item no-italic"><small class="nav-text">About Us</small></i> 
