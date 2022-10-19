@@ -134,7 +134,7 @@ function generatePostsHTML(posts) {
 <!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
                   <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
               </div>
-              <button id="comment-btn" data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
+              <button id="comment-btn" data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
             </form>
           <!--End Comment-->
         </div><!--End col -->
@@ -175,7 +175,6 @@ export function postSetup() {
   // setupValidationHandlers();
   // validateFields();
   // setupCommentHandler();
-  // savePostComment();
 }
 
 function setupValidationHandlers() {
