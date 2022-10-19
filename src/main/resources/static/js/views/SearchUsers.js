@@ -2,9 +2,10 @@ import { getHeaders, getUser, updateLocalStorage } from "../auth.js";
 import createView from "../createView.js";
 
 let user;
+let friends;
 export default function searchUsersHTML(props) {
   user = props.users;
-  console.log(user);
+  friends = props.friends;
   // FILE STACK PICKER https://cdn.filestackcontent.com/
 
   // const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
@@ -41,27 +42,21 @@ export default function searchUsersHTML(props) {
 }
 
 export function searchUsersJS() {
-  console.log(user);
+  console.log(friends);
   let theHomies = [];
-  let loggedInUserActually;
+  let getLoggedInUserFriends;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
   let searchUsersInput = document.getElementById(`searchUserInput`);
   let searchUsersPageContainer = document.getElementById("userListContainer");
 
-  for (let i = 0; i < user.length; i++) {
-    if (myd === user[i].id) {
-      loggedInUserActually = user[i];
-    }
-  }
-  for (let i = 0; i < loggedInUserActually.userFriends.length; i++) {
-    if (loggedInUserActually.userFriends[i] == null) {
+  for (let i = 0; i < friends.userFriends.length; i++) {
+    if (friends.userFriends[i] == null) {
       return;
     } else {
-      theHomies.push(loggedInUserActually.userFriends[i].id);
+      theHomies.push(friends.userFriends[i].id);
     }
   }
-  console.log(loggedInUserActually);
 
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
   showSearchedUsers();

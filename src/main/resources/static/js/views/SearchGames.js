@@ -16,7 +16,7 @@ export default function searchGamesHTML(props) {
     <div class="container px-1 mt-1 text-center">
     <form>
         <label for="searchGamesInput" class="searchGamesLabel form-label">Search Games</label>
-        <input type="search" class="form-control searchGamesInput text-center" placeholder="Username" id="searchGamesInput">
+        <input type="search" class="form-control searchGamesInput text-center" placeholder="Game" id="searchGamesInput">
         <button type="submit" id="searchGamesBtn" class="searchGamesBtn rounded">Search</button>
     </form>   
       <div id="gameListContainer" class="row g-3">
@@ -90,6 +90,11 @@ export function searchGamesJS() {
     for (let i = 0; i < searchGamesStoreBtn.length; i++) {
       searchGamesStoreBtn[i].addEventListener("click", fetchRawgGamesStoreLink);
     }
+    let addGameBtn = document.getElementsByClassName("addGameBtn");
+
+    for (let i = 0; i < addGameBtn.length; i++) {
+      addGameBtn[i].addEventListener("click", addGame);
+    }
   }
 
   function showSearchedGames() {
@@ -108,7 +113,8 @@ export function searchGamesJS() {
     function makeGameCard(gameData) {
       let gameBtn;
       let storeBtn;
-
+      let released = gameData.released;
+      let releaseYear = released.slice(0, 4);
       if (gameData.stores === null) {
         storeBtn = `<button class="storeLink hidden rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
       } else {
@@ -117,22 +123,23 @@ export function searchGamesJS() {
 
       // check for matching game id (if matched show delete button NOt add button)
       if (theHomiesGames.includes(gameData.id)) {
-        gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
+        gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-star"></i> Remove Game</button>`;
       } else {
-        gameBtn = `<button class="addGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-user-plus"></i> Add Game</button>`;
+        gameBtn = `<button class="addGameBtn rounded mb-2" name="${gameData.slug}" data-id="${gameData.id}"><i class="fa-regular fa-star"></i> Add Game</button>`;
       }
       let html = "";
       html += `
      <div class="col-sm-6 col-lg-4">
      <div class="searchCards card gameCardBackground" style="background-image: url('${gameData.background_image}');  background-size: cover; background-position: center;">
-       <div class="gameInfo rounded">
-       <div class="text-nowrap">
-       ${gameData.name}
+     </div>
+     <div class="gameInfo">
+       <div class="gameInfoText">
+       ${gameData.name}<br>
+       ${releaseYear}
          </div>
          <div id="${gameData.id}">
         ${gameBtn} ${storeBtn}
         </div>
-     </div>
      </div>
      </div>
   `;
@@ -146,44 +153,54 @@ export function searchGamesJS() {
   //  // NEED TO GENERATE LIST OF GAMES BASED ON FETCH FROM RAWG NOT PRE GENERATED!
   //  // ENTIRE HTML NEEDS TO GENERATE!!!!
   //  // REFACTOR BELOW FOR GAMES!!!!!
-  //  //  function and POST for adding a user as a friend:
+  //  //  function and POST for adding a game:
   //
-  //  let addBtn = document.getElementsByClassName("addGameBtn");
-  //
-  //  for (let i = 0; i < addBtn.length; i++) {
-  //    addBtn[i].addEventListener("click", addGame);
-  //  }
-  //  let removeBtn = document.getElementsByClassName("removeGameBtn");
-  //
-  //  for (let i = 0; i < removeBtn.length; i++) {
-  //    removeBtn[i].addEventListener("click", removeGame);
-  //  }
-  //
-  //  // ADD FRIEND
-  //  async function addGame() {
-  //    let id = this.getAttribute("data-id");
-  //
-  //    const addGameRequestOptions = {
-  //      method: "POST",
-  //      headers: getHeaders(),
-  //    };
-  //    await fetch(
-  //      `http://localhost:8080/api/friends/${id}/${myd}`,
-  //      addGameRequestOptions
-  //    ).then(async function (response) {
-  //      if (!response.ok) {
-  //        console.log("add game error: " + response.status);
-  //      } else {
-  //        console.log("add game ok");
-  //        let thisBtnDiv = document.getElementById(`${id}`);
-  //        thisBtnDiv.innerHTML = `<button class="removeGameBtn mb-2 rounded" data-id="${id}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
-  //        let removeBtn = document.getElementsByClassName("removeGameBtn");
-  //        for (let i = 0; i < removeBtn.length; i++) {
-  //          removeBtn[i].addEventListener("click", removeGame);
-  //        }
-  //      }
-  //    });
-  //  }
+
+  // let removeGameBtn = document.getElementsByClassName("removeGameBtn");
+
+  // for (let i = 0; i < removeGameBtn.length; i++) {
+  //   removeGameBtn[i].addEventListener("click", removeGame);
+  // }
+
+  //  // ADD GAME
+  async function addGame() {
+    let gameId = this.getAttribute("data-id");
+    let gameName = this.getAttribute("name");
+
+    //Pushing game into games table
+    const addGameRequestOptions = {
+      method: "POST",
+      headers: getHeaders(),
+    };
+    await fetch(
+      `http://localhost:8080/api/games/save/${gameName}/${gameId}`,
+      addGameRequestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("save game error: " + response.status);
+      } else {
+        console.log("save game ok");
+      }
+    });
+
+    //Pushing game into user_games table
+    await fetch(
+      `http://localhost:8080/api/games/add/${myd}/${gameId}`,
+      addGameRequestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("add game to user error: " + response.status);
+      } else {
+        console.log("add game to user ok");
+        let thisBtnDiv = document.getElementById(`${gameId}`);
+        thisBtnDiv.innerHTML = `<button class="removeGameBtn mb-2 rounded" data-id="${gameId}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
+        // let removeBtn = document.getElementsByClassName("removeGameBtn");
+        // for (let i = 0; i < removeBtn.length; i++) {
+        //   removeBtn[i].addEventListener("click", removeGame);
+        // }
+      }
+    });
+  }
   //
   //  //  REMOVE FRIEND
   //  async function removeGame() {

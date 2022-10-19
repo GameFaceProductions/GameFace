@@ -16,13 +16,10 @@ import java.util.Collection;
 
 public class Games {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long gameId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String game;
 
     @ManyToMany(
@@ -36,6 +33,6 @@ public class Games {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    @JsonIgnoreProperties({"games", "posts", "likes", "userFriends"})
+    @JsonIgnoreProperties({"games", "posts", "likes","users", "userFriends"})
     private Collection<User> users;
 }
