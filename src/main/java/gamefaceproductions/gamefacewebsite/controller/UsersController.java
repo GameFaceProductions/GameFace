@@ -47,8 +47,6 @@ public class UsersController {
             userDTO.setAvatar_url(user.getAvatar_url());
             userDTO.setBackdrop_url(user.getBackdrop_url());
             userDTO.setGamer_tag(user.getGamerTag());
-            userDTO.setUserFriends(user.getUserFriends());
-            userDTO.setGames(user.getGames());
             userDTOs.add(userDTO);
         }
         return userDTOs;
@@ -73,12 +71,6 @@ public class UsersController {
         userDTO.setRole(loggedInUser.getRole());
         userDTO.setUserName(loggedInUser.getUserName());
         userDTO.setAvatar_url(loggedInUser.getAvatar_url());
-        userDTO.setUserFriends(loggedInUser.getUserFriends());
-        userDTO.setGames(loggedInUser.getGames());
-        userDTO.setLikes(loggedInUser.getLikes());
-        userDTO.setPosts(loggedInUser.getPosts());
-        userDTO.setPlatforms(loggedInUser.getPlatforms());
-        userDTO.setGamerTag(loggedInUser.getGamerTag());
         userDTO.setId(loggedInUser.getId());
 
         return userDTO;

@@ -11,6 +11,7 @@ import DoLogin, { DoLoginEvents } from "./views/DoLogin.js";
 // import GameInfo from "./views/GameInfo.js";
 import searchGamesHTML, { searchGamesJS } from "./views/SearchGames.js";
 import searchUsersHTML, { searchUsersJS } from "./views/SearchUsers.js";
+import { getUser } from "./auth.js";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -118,7 +119,7 @@ export default function router(URI) {
     },
     "/searchusers": {
       returnView: searchUsersHTML,
-      state: { users: "/api/users" },
+      state: { users: "/api/users", friends: `/api/friends/${getUser().id}` },
       uri: "/searchusers",
       title: "User Search",
       viewEvent: searchUsersJS,

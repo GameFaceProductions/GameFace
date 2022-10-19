@@ -31,9 +31,14 @@ public class GamesController {
         return optionalGames;
     }
 
-    @PostMapping("/{myd}/{gameId}")
-    public void addGameById(@PathVariable long gameId, @PathVariable long myd){
-        gamesRepository.addGameById(gameId, myd);
+    @PostMapping("/save/{name}/{gameId}")
+    public void addGameToGames (@PathVariable String name, @PathVariable long gameId){
+        gamesRepository.addGameToGames(name, gameId);
+    }
+
+    @PostMapping("/add/{myd}/{gameId}")
+    public void addGameById(@PathVariable long myd, @PathVariable long gameId){
+        gamesRepository.addGameById(myd, gameId);
     }
 
     @DeleteMapping("/{myd}/{gameId}")

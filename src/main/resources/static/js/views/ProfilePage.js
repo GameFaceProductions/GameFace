@@ -4,15 +4,11 @@ let posts;
 let users;
 
 export default function ProfilePage(props) {
-
+    let currentUser = getUser().userName;
     let user = getUser();
-
-    let friendsModal = createFriendsModal(props.users)
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     users = props.users;
-
-    let currentUser = getUser().userName;
 
     for (let i = 0; i < users.length; i++) {
         const user2 = users[i];
@@ -34,6 +30,20 @@ export default function ProfilePage(props) {
                         <p>Region</p>
                     </div>
                 </div>
+                <!-- Modal containing lists of current users friends starts here -->
+                      <section class="modal hidden">
+                          <div class="flex">
+                            <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
+                            <button class="btn-close">⨉</button>
+                          </div>
+                          <div>
+                            <div id="friends-list">
+                                Users list of friends will go here
+                            </div>
+                          </div>
+                      </section>
+                <!-- End of modal -->
+                <div class="overlay hidden"></div>
                 <!-- Start of followers/following div -->
                 <div class="p-4 text-black">
                     <div class="d-flex justify-content-end text-center py-1">
@@ -54,7 +64,7 @@ export default function ProfilePage(props) {
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
                           <h2 class="profile-element"><a>@${user2.gamer_tag}</a></h2>
-                          <p class="profile-element profile-website">Web Developer</p>
+                          <p class="bio-text text-black">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
                       </div>
@@ -76,14 +86,17 @@ export default function ProfilePage(props) {
                       <!-- End of the right column -->
                     </div>
                 </div>
-          </div>`
+            </div>`
         }
     }
 }
 
 export function profileSetup() {
     setupModalFunction()
+    getFriends()
 }
+
+
 
 function generateUserPosts(posts) {
     let userPosts = ``
@@ -122,51 +135,48 @@ function generateUserPosts(posts) {
     return userPosts
 }
 
-function createFriendsModal(users) {
-    let friendModal = ``
+
+
+function getFriends() {
+    let html =``
+    let friendList = document.querySelector("#friends-list")
     let currentUser = getUser().userName;
+    let friendArray = [];
 
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
         const friends = users[i].userFriends
 
-        if(user.userName === currentUser) {
+        if (user.userName === currentUser) {
             for (let j = 0; j < friends.length; j++) {
-                const friend = friends[j].userName
-                console.log(friend);
-                friendModal += `
-                 <section class="modal hidden">
-                  <div class="flex">
-                    <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
-                    <button class="btn-close">⨉</button>
-                  </div>
-                  <div>
-                    <h3>Stay in touch</h3>
-                    <p>
-                      ${friend}
-                    </p>
-                  </div>
-                
-                  <button class="btn">Do Something</button>
-                </section>
-
-                <div class="overlay hidden"></div>
-                <button class="btn open-modal">Open Modal</button>
-             `
+                let friendObj = {name: friends[j].userName, url: friends[j].avatar_url}
+                friendArray.push(friendObj)
             }
         }
     }
-    return friendModal
+    for (let j = 0; j < friendArray.length; j++) {
+        html += `
+                <a href="">
+                    <div class="mb-2">
+                        <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
+                        ${friendArray[j].name}
+                    </div>
+                </a>
+            `
+    }
+    friendList.innerHTML = html;
 }
+
+
 
 function setupModalFunction() {
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
-    const openModalBtn = document.querySelector(".open-modal");
+    const openModalBtn = document.querySelector(".friends-display");
     const closeModalBtn = document.querySelector(".btn-close");
 
 // close modal function
-    const closeModal = function () {
+    const closeModal = function() {
         modal.classList.add("hidden");
         overlay.classList.add("hidden");
     };
@@ -189,5 +199,6 @@ function setupModalFunction() {
     };
 // open modal event
     openModalBtn.addEventListener("click", openModal);
+    openModalBtn.addEventListener('click', getFriends)
 }
 
