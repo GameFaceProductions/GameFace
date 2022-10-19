@@ -64,7 +64,7 @@ export default function ProfilePage(props) {
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
                           <h2 class="profile-element"><a>@${user2.gamer_tag}</a></h2>
-                          <p class="profile-element profile-website">Web Developer</p>
+                          <p class="bio-text text-black">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
                       </div>

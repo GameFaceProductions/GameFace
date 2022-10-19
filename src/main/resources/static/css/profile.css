@@ -304,3 +304,16 @@ button {
 .hidden {
     display: none;
 }
+
+.friends-list{
+
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00CACE;
+}
