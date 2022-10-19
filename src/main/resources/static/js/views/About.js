@@ -1,8 +1,10 @@
 export default function About(props) {
     return `
-        <header>
-            <h1 style="text-align: center">About Us</h1>
-        </header>
+<!--        <header>-->
+<!--            <h1 style="text-align: center">About Us</h1>-->
+<!--        </header>-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
         <br>
         <main>
           <div class="buttons" style="text-align: center">
@@ -14,23 +16,23 @@ export default function About(props) {
                     <img src="/images/1.jpg" alt="logo">
                 </div>
     <!--                <img src="/images/GameFace.gif" alt="logo">-->
-                <h2 style="text-align: center">Connect. Create. Grow.</h2>
+                <h2 style="text-align: center">Connect &nbsp;&nbsp;• &nbsp;&nbsp;Create&nbsp;&nbsp; •&nbsp;&nbsp; Grow</h2>
             </div>
-            <br>
+            <br><br><br><br><br>
             <div class="statement container">
-                <div class="connect">
-                    <h4 style="text-align: center">Connect</h4>
-                    <p>GameFace is a social media platform made BY gamers FOR gamers.  GameFace allows gamers and casual users alike to connect with others, create unique content, and grow their skills in order to enhance their gaming experience. Join us now and begin to connect, play, and grow your brand with other gamers like you!</p>
+                <div class="connect" style="display: flex; flex-direction: column; align-items: center;">
+                    <h4 class="glitchy" style="text-align: center" title="Connect">Connect</h4>
+                    <p style="text-align: center; max-width: 70%;">GameFace is a social media platform made BY gamers FOR gamers.  GameFace allows gamers and casual users alike to connect with others, create unique content, and grow their skills in order to enhance their gaming experience. Join us now and begin to connect, play, and grow your brand with other gamers like you!</p>
                 </div>
                 <br>
-                <div class="create">
-                    <h4 style="text-align: center">Create</h4>
-                    <p style="text-align: center">GameFace is a platform that allows users to freely create and experiment with different types of content without having to worry about demonetization or confusing algorithms. All in an ad-free environment.</p>
+                <div class="create" style="display: flex; flex-direction: column; align-items: center;">
+                    <h4 class="glitchy" style="text-align: center" title="Create">Create</h4>
+                    <p style="text-align: center; max-width: 70%;">GameFace is a platform that allows users to freely create and experiment with different types of content without having to worry about demonetization or confusing algorithms. All in an ad-free environment.</p>
                 </div>
                 <br>
-                <div class="grow">
-                    <h4 style="text-align: center">Grow</h4>
-                    <p>Connect with gamers from all places and levels to create a unique gaming experience and take your skills and brand to the next level!</p>
+                <div class="grow" style="display: flex; flex-direction: column; align-items: center;">
+                    <h4 class="glitchy" style="text-align: center" title="Grow">Grow</h4>
+                    <p style="text-align: center; max-width: 70%;">Connect with gamers from all places and levels to create a unique gaming experience and take your skills and brand to the next level!</p>
                 </div>
             </div>
                 <br>
@@ -38,44 +40,44 @@ export default function About(props) {
                 <h2 style="text-align: center">Meet our developers:</h2>   
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
-                    <div class="dev-card">
+                    <div class="dev-card" style="max-width: 19%;">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/101914667?v=4" alt="dev"/>
                         </div>
                         <h2>Scrimm</h2>
-                        <small>Developer</small>
+                        <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah</p>
+                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
                     </div>
-                    <div class="dev-card">
+                    <div class="dev-card" style="max-width: 19%;">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/106278680?v=4" alt="dev"/>
                         </div>
-                        <h2>Pinky</h2>
-                        <small>Developer</small>
+                        <h2>BrekkyJ</h2>
+                        <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah</p>
-                        <button onclick="window.location.href='https://www.linkedin.com/in/brekken-jackson/';">Connect!</button>
+                        <p>Thanks for stopping by GameFace! I am a WebDev that enjoys problem-solving and team work. I can not wait until GameFace rises to the top to laugh at the other social medias, and no you can't have it Zuck.</p>
+                        <button onclick="window.location.href='https://github.com/brekkenjackson';">Connect!</button>
                     </div>
-                    <div class="dev-card">
+                    <div class="dev-card" style="max-width: 19%;">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/101299129?v=4" alt="dev"/>
                         </div>
                         <h2>B0derChola</h2>
-                        <small>Developer</small>
+                        <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah</p>
+                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/valeriareveles/';">Connect!</button>
                     </div>
-                    <div class="dev-card">
+                    <div class="dev-card" style="max-width: 19%;">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/106278622?v=4" alt="dev"/>
                         </div>
                         <h2>Mattdog00</h2>
-                        <small>Developer</small>
+                        <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah</p>
+                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>

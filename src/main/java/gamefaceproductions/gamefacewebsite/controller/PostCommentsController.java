@@ -52,6 +52,6 @@ public class PostCommentsController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be blank!");
         }
 
-        postCommentsRepository.addCommentToPost(userId, postId, newPostComment);
+        postCommentsRepository.addCommentToPost(postId, newPostComment);
     }
 }
