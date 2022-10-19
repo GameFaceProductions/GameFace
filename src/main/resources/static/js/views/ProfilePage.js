@@ -60,7 +60,7 @@ export default function ProfilePage(props) {
                         <div class="profile-header">
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
-                          <h2 class="profile-element"><a>@${friends.gamer_tag}</a></h2>
+                          <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
                           <p class="bio-text text-black">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
@@ -96,6 +96,7 @@ export function profileSetup() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
+    console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
