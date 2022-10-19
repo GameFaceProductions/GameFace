@@ -16,23 +16,47 @@ export default function HomePage(props) {
   const commentsHTML = generateCommentsHTML();
   //Return basic view of Homepage no matter if logged in or not:
   return `
-    <header style="text-align: center">
-      <h1>What's New!</h1>
-    </header>
+<!--    <header style="text-align: center">-->
+<!--      <h1>What's New!</h1>-->
+<!--    </header>-->
     <div class="container home">
-        <h3 style="text-align: center">News Feed:</h3>
+      <h3 style="text-align: center">Featured Highlights</h3>
+      <div class="highlights">
+        <div class="highlights">Highlights</div>
+      </div>
+      <div class="col add-post">
+          ${addPostHTML}
+      </div>
+      <div class="row">
         <br>
-        <div class="row">
-          <div class="col add-post">
-            ${addPostHTML}
-          </div>
-        </div>
-        <div class="row">
-            <div class="col home-post">
-                <ol class="tweet-list">
-                    ${postsHTML}  
-                </ol>
+<!--            <div class="row">-->
+<!--            </div>-->
+<!--            <div class="row">--
+           </div>-->
+          <div class="col profile-col">
+            <!-- Left column -->
+            <div class="profile-header">
+              <!-- Bio -->
+              <h3 class="bio"><a>Bio<a></h3>
+              <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
+              <p class="profile-element profile-website">Web Developer</p>
+              <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
             </div>
+          </div>
+<!--          middle colum-->
+           <div class="col-6 home-post">
+              <ol class="tweet-list">
+                  ${postsHTML}  
+              </ol>
+          </div>
+            <!-- The right column will start here -->
+          <div class="col right-col">
+            <div class="content-panel">
+              <div class="panel-header">
+                <h4>Favorite Games</h4>
+              </div>
+            </div>
+          </div>
         </div>
     `;
 }
@@ -96,14 +120,12 @@ function generatePostsHTML(posts) {
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
-      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</button>
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
       <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
     //This concats the closing tags of the main postsHTML and adds comment box:
     postsHTML += `
-    </div>
-    <div class="comments container">${commentsHTML}</div>
-    </li>`;
+    </div></li><div class="comments container">${commentsHTML}</div>`;
     }
   return postsHTML;
 }
@@ -117,16 +139,16 @@ function generateCommentsHTML() {
   }
   commentsHTML = `
       <div class="row">
-        <div class="col-6">
-          <div class="comment">
+        <div class="col-10 comment add-post">
             <form>
               <div>
                   <label for="comment"></label>
-                  <input type="text" placeholder="Say Something!" id="comment-box" cols="30" rows="10">
+                  <input type="text" placeholder="Say Something!" id="comment-box">
+                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
               </div>
-              <button id="saveComment" name="saveComment" type="button" class="my-button button btn-primary">Comment</button>
+              <button name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
             </form>
-          </div><!--End Comment-->
+          <!--End Comment-->
         </div><!--End col -->
       </div><!-- End row -->`;
   return commentsHTML;
@@ -136,8 +158,9 @@ export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
-  setupValidationHandlers();
-  validateFields();
+
+  // setupValidationHandlers();
+  // validateFields();
   // setupCommentHandler();
   // savePostComment();
 }
@@ -150,7 +173,7 @@ function setupValidationHandlers() {
 function validateFields() {
   let isValid = true;
 
- let input = document.querySelector("#content");
+  let input = document.querySelector("#content");
   if (input.value.trim().length < 1) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
@@ -271,14 +294,55 @@ function savePost(postId) {
 }
 //Post comments functionality:
 //
-// function setupCommentHandler() {
-//   const commentBtn = document.querySelector("#saveComment");
-//   console.log(commentBtn);
-//   commentBtn.addEventListener("click", function (event) {
-//     const postId = parseInt(this.getAttribute("data-id"));
-//     savePost(postId);
-//   });
-// }
+function setupCommentHandler() {
+  const commentBtns = document.querySelectorAll(".save-comment-btn");
+  const commentTests = document.querySelectorAll(".input-comments");
+  let commentText = "";
+  // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+  let postComment = {
+    // createdAt: posts.createdAt,
+    content: commentText
+  }
+  // Captures each comment keystroke
+  commentTests.forEach(element => {
+    element.addEventListener("input", function (event){
+      // console.log(element.value);
+      commentText = commentTests.value;
+    })
+  })
+  console.log(commentBtns);
+  // Sends user's comment to SQL db
+  for (let i = 0; i < commentBtns.length; i++) {
+    commentBtns[i].addEventListener("click", function (event) {
+      event.preventDefault()
+      postCommentValue(postComment);
+    });
+  }
+}
+
+
+function postCommentValue (comment) {
+  fetch('http://localhost:8080/api/postcomments/', {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({
+      // createdAt: comment.createdAt,
+      content: comment.content
+    }),
+  })
+      .then(function(response){
+        return response.json()})
+      .then(function(data)
+      {
+        console.log(data)
+      })
+      .catch(error => console.error('Error:', error));
+};
+
+
+
+
 //
 // function savePostComment(postId) {
 //   // get the title and content for the new/updated post
