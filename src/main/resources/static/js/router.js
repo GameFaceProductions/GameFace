@@ -43,7 +43,7 @@ export default function router(URI) {
       returnView: ProfilePage,
       state: {
         posts: "/api/posts",
-        users: "/api/users",
+        friends: `/api/friends/${getUser().id}`,
       },
       uri: "/profile",
       title: "ProfilePage",
