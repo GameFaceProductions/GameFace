@@ -30,6 +30,20 @@ export default function ProfilePage(props) {
                         <p>Region</p>
                     </div>
                 </div>
+                <!-- Modal containing lists of current users friends starts here -->
+                      <section class="modal hidden">
+                          <div class="flex">
+                            <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
+                            <button class="btn-close">⨉</button>
+                          </div>
+                          <div>
+                            <div id="friends-list">
+                                Users list of friends will go here
+                            </div>
+                          </div>
+                      </section>
+                <!-- End of modal -->
+                <div class="overlay hidden"></div>
                 <!-- Start of followers/following div -->
                 <div class="p-4 text-black" style="background-color: white">
                     <div class="d-flex justify-content-end text-center py-1">
@@ -66,24 +80,6 @@ export default function ProfilePage(props) {
                         <div class="content-panel">
                           <div class="panel-header">
                             <h4>Favorite Games</h4>
-                      <!-- Modal containing lists of current users friends starts here -->
-                      <section class="modal hidden">
-                          <div class="flex">
-                            <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
-                            <button class="btn-close">⨉</button>
-                          </div>
-                          <div>
-                            <div id="friends-list">
-                                Users list of friends will go here
-                            </div>
-                          </div>
-                            <button class="btn">Do Something</button>
-                      </section>
-                      <!-- End of modal -->
-                      <!-- Button to open up the modal -->
-                          <div class="overlay hidden"></div>
-                          <button class="btn open-modal">Open Modal</button>
-                      <!-- End of modal button -->
                           </div>
                         </div>
                       </div>
@@ -99,6 +95,8 @@ export function profileSetup() {
     setupModalFunction()
     getFriends()
 }
+
+
 
 function generateUserPosts(posts) {
     let userPosts = ``
@@ -137,6 +135,8 @@ function generateUserPosts(posts) {
     return userPosts
 }
 
+
+
 function getFriends() {
     let html =``
     let friendList = document.querySelector("#friends-list")
@@ -157,7 +157,7 @@ function getFriends() {
     for (let j = 0; j < friendArray.length; j++) {
         html += `
                 <a href="">
-                    <div>
+                    <div class="mb-2">
                         <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
@@ -167,10 +167,12 @@ function getFriends() {
     friendList.innerHTML = html;
 }
 
+
+
 function setupModalFunction() {
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
-    const openModalBtn = document.querySelector(".open-modal");
+    const openModalBtn = document.querySelector(".friends-display");
     const closeModalBtn = document.querySelector(".btn-close");
 
 // close modal function
