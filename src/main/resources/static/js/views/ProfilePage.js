@@ -90,7 +90,7 @@ export default function ProfilePage(props) {
                       <!-- End of the right column -->
                     </div>
                 </div>
-          </div>`
+            </div>`
         }
     }
 }
@@ -138,45 +138,31 @@ function generateUserPosts(posts) {
 }
 
 function getFriends() {
-    let friend = [];
-    let friend1 = [];
-    let friend2;
-    let friend4;
     let html =``
     let friendList = document.querySelector("#friends-list")
     let currentUser = getUser().userName;
+    let friendArray = [];
 
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
         const friends = users[i].userFriends
-        const friends2 = users[i].userFriends
 
         if (user.userName === currentUser) {
-            for (let j = 0; j < friends2.length; j++) {
-                friend1.push(friends[j].avatar_url)
-            }
-
             for (let j = 0; j < friends.length; j++) {
-                friend.push(friends[j].userName);
+                let friendObj = {name: friends[j].userName, url: friends[j].avatar_url}
+                friendArray.push(friendObj)
             }
         }
     }
-
-    for (let i = 0; i < friend1.length; i++) {
-        friend4 = friend1[i];
+    for (let j = 0; j < friendArray.length; j++) {
         html += `
-            <img src="${friend4}" width="50px" height="50px" alt="user" />
-        `
-    }
-
-    for (let i = 0; i < friend.length; i++) {
-        friend2 = friend[i];
-        html += `
-            <p>
-            <img src="${friend4}" width="50px" height="50px" alt="user" />
-            ${friend2}
-            </p>
-        `
+                <a href="">
+                    <div>
+                        <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
+                        ${friendArray[j].name}
+                    </div>
+                </a>
+            `
     }
     friendList.innerHTML = html;
 }
