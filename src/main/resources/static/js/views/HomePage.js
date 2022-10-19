@@ -13,7 +13,7 @@ export default function HomePage(props) {
   console.log(posts);
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
-  const commentsHTML = generateCommentsHTML();
+  // const commentsHTML = generateCommentsHTML();
   //Return basic view of Homepage no matter if logged in or not:
   return `
 <!--    <header style="text-align: center">-->
@@ -48,6 +48,7 @@ export default function HomePage(props) {
               <ol class="tweet-list">
                   ${postsHTML}  
               </ol>
+              
           </div>
             <!-- The right column will start here -->
           <div class="col right-col">
@@ -92,7 +93,7 @@ function generatePostsHTML(posts) {
 
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-    const commentsHTML = generateCommentsHTML();
+    // const commentsHTML = generateCommentsHTML();
     let authorName = "";
     //sets value of authorName variable:
     if (post.user) {
@@ -125,39 +126,52 @@ function generatePostsHTML(posts) {
     }
     //This concats the closing tags of the main postsHTML and adds comment box:
     postsHTML += `
-    </div></li><div class="comments container">${commentsHTML}</div>`;
+    </div></li><div class="row">
+        <div class="col-10 comment add-post">
+            <form>
+              <div>
+                  <label for="comment"></label>
+<!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
+                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
+              </div>
+              <button id="comment-btn" data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
+            </form>
+          <!--End Comment-->
+        </div><!--End col -->
+      </div><!-- End row -->`;
     }
   return postsHTML;
 }
 
 
-function generateCommentsHTML() {
-  let commentsHTML = ``;
-  //user has to be logged in to add post:
-  if (!isLoggedIn()) {
-    return commentsHTML;
-  }
-  commentsHTML = `
-      <div class="row">
-        <div class="col-10 comment add-post">
-            <form>
-              <div>
-                  <label for="comment"></label>
-                  <input type="text" placeholder="Say Something!" id="comment-box">
-                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
-              </div>
-              <button name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
-            </form>
-          <!--End Comment-->
-        </div><!--End col -->
-      </div><!-- End row -->`;
-  return commentsHTML;
-}
+// function generateCommentsHTML() {
+//   let commentsHTML = ``;
+//   //user has to be logged in to add post:
+//   if (!isLoggedIn()) {
+//     return commentsHTML;
+//   }
+//   commentsHTML = `
+//       <div class="row">
+//         <div class="col-10 comment add-post">
+//             <form>
+//               <div>
+//                   <label for="comment"></label>
+// <!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
+//                   <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
+//               </div>
+//               <button name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
+//             </form>
+//           <!--End Comment-->
+//         </div><!--End col -->
+//       </div><!-- End row -->`;
+//   return commentsHTML;
+// }
 
 export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
+  postCommentValue();
 
   // setupValidationHandlers();
   // validateFields();
@@ -294,51 +308,61 @@ function savePost(postId) {
 }
 //Post comments functionality:
 //
-function setupCommentHandler() {
-  const commentBtns = document.querySelectorAll(".save-comment-btn");
-  const commentTests = document.querySelectorAll(".input-comments");
-  let commentText = "";
-  // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+// function setupCommentHandler() {
+//   // const commentBtns = document.querySelectorAll(".save-comment-btn");
+//   // const commentTests = document.querySelectorAll("#comment-box");
+//   let commentText = "";
+//   // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+//
+//   let postComment = {
+//     // createdAt: posts.createdAt,
+//     content: commentText
+//   }
+//   // Captures each comment keystroke
+//   commentTests.forEach(element => {
+//     element.addEventListener("input", function (event){
+//       // console.log(element.value);
+//       commentText = commentTests.value;
+//     })
+//   })
+//   console.log(commentBtns);
+//   // Sends user's comment to SQL db
+//   for (let i = 0; i < commentBtns.length; i++) {
+//     commentBtns[i].addEventListener("click", function (event) {
+//       event.preventDefault()
+//       postCommentValue(postComment);
+//     });
+//   }
+// }
 
-  let postComment = {
-    // createdAt: posts.createdAt,
-    content: commentText
-  }
-  // Captures each comment keystroke
-  commentTests.forEach(element => {
-    element.addEventListener("input", function (event){
-      // console.log(element.value);
-      commentText = commentTests.value;
+
+function postCommentValue () {
+  const commentBtns = document.querySelector("#comment-btn");
+  commentBtns.addEventListener("click", function (event) {
+    const commentTests = document.querySelector("#comment-box").value;
+    const postId = commentBtns.getAttribute("data-id");
+
+    fetch('http://localhost:8080/api/postcomments/' + postId, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({
+        post_id: postId,
+        content: commentTests,
+      }),
     })
-  })
-  console.log(commentBtns);
-  // Sends user's comment to SQL db
-  for (let i = 0; i < commentBtns.length; i++) {
-    commentBtns[i].addEventListener("click", function (event) {
-      event.preventDefault()
-      postCommentValue(postComment);
-    });
-  }
+        .then(function(response){
+          return response.json()})
+        .then(function(data)
+        {
+          console.log(data)
+        })
+        .catch(error => console.error('Error:', error)
+  )});
+
 }
 
 
-function postCommentValue (comment) {
-  fetch('http://localhost:8080/api/postcomments/', {
-    method: 'POST',
-    headers: getHeaders(),
-    body: JSON.stringify({
-      // createdAt: comment.createdAt,
-      content: comment.content
-    }),
-  })
-      .then(function(response){
-        return response.json()})
-      .then(function(data)
-      {
-        console.log(data)
-      })
-      .catch(error => console.error('Error:', error));
-};
+
 
 
 

@@ -5,16 +5,22 @@ import gamefaceproductions.gamefacewebsite.models.Post;
 import gamefaceproductions.gamefacewebsite.models.PostComments;
 import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.repository.PostCommentsRepository;
+import gamefaceproductions.gamefacewebsite.repository.PostsRepository;
+import gamefaceproductions.gamefacewebsite.repository.UsersRepository;
 import gamefaceproductions.gamefacewebsite.services.AuthBuddy;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+
+import static java.time.LocalDateTime.now;
 
 @AllArgsConstructor
 @RestController
@@ -22,6 +28,8 @@ import java.util.Optional;
 public class PostCommentsController {
 
     PostCommentsRepository postCommentsRepository;
+    PostsRepository postsRepository;
+    UsersRepository usersRepository;
     private AuthBuddy authBuddy;
 
     @GetMapping("")
@@ -43,15 +51,27 @@ public class PostCommentsController {
 
     //POST:
 
-    @PostMapping("/postcomment/{userId}/{postId}")
-    public void createPostComment(@RequestBody PostComments newPostComment, @PathVariable long userId, @PathVariable long postId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+    @PostMapping("/postcomment/{id}")
+    public ResponseEntity<PostComments> createPostComment(@RequestBody PostComments newPostComment, @PathVariable("id") long postId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) throws Exception {
 
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+        Optional<User> user = usersRepository.findById(loggedInUser.getId());
+        Optional<Post> currentPost = postsRepository.findById(postId);
+        if (currentPost.isPresent() && user.isPresent()) {
+            // TODO: Add the comment to the post
+            // TODO: Associate the comment to the user
+            // TODO: add the time to the updated time
 
-        if (newPostComment.getContent() == null || newPostComment.getContent().length() < 1) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be blank!");
+            PostComments newComment = new PostComments();
+            newComment.setContent(newPostComment.getContent());
+            newComment.setAuthor(user.get());
+            newComment.setPosts(currentPost.get());
+            newComment.setCreatedAt(LocalDate.now());
+            postCommentsRepository.save(newComment);
+            return new ResponseEntity<>(newComment, new HttpHeaders(), HttpStatus.OK);
+        } else {
+            System.out.println("DUMMY, THAT ISN'T A POST");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
-//        postCommentsRepository.addCommentToPost(userId, postId, newPostComment);
     }
 }
