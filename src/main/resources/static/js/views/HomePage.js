@@ -48,7 +48,6 @@ export default function HomePage(props) {
               <ol class="tweet-list">
                   ${postsHTML}  
               </ol>
-              
           </div>
             <!-- The right column will start here -->
           <div class="col right-col">
@@ -118,6 +117,10 @@ function generatePostsHTML(posts) {
               <a class="post-footer-btn">
                   <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
               </a>
+              <button data-id="${post.id}" class="btn btn-primary comment-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment
+              
+            </button><!-- End row -->
+
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
@@ -126,23 +129,28 @@ function generatePostsHTML(posts) {
     }
     //This concats the closing tags of the main postsHTML and adds comment box:
     postsHTML += `
-    </div></li><div class="row">
-        <div class="col-10 comment add-post">
-            <form>
-              <div>
-                  <label for="comment"></label>
-<!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
-                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
-              </div>
-              <button id="comment-btn" data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
-            </form>
-          <!--End Comment-->
-        </div><!--End col -->
-      </div><!-- End row -->`;
+    </div></li><div class="row collapse" id="collapseComment-${post.id}">
+                  <div class="col-10 comment">
+                      <form>
+                        <div>
+                          <label for="comment"></label>
+          <!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
+                          <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${post.id}">
+                        </div>
+                        <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                      </form>
+                      ${createPostCommentHTML(post)}
+                    <!--End Comment-->
+                  </div><!--End col -->
+              </div>`;
     }
   return postsHTML;
 }
 
+function createPostCommentHTML(post){
+  console.log(post);
+  return `<p>Here are comments</p>`;
+}
 
 // function generateCommentsHTML() {
 //   let commentsHTML = ``;
@@ -171,6 +179,7 @@ export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
+  // commentBtn();
   postCommentValue();
   // setupValidationHandlers();
   // validateFields();
@@ -304,19 +313,30 @@ function savePost(postId) {
     createView("/home");
   });
 }
+
+// function commentBtn() {
+//   // let commentSec = ``;
+//   const comments = document.querySelectorAll(".comment-btn");
+//   for(let comBtn in comments){
+//      comBtn.addEventListener("click", (e) => {
+//        e.preventDefault();
+//        // comBtn.appendChild(commentSec);
+//        console.log(comBtn);
+//      } )
+//   }
+// }
 //Post comments functionality:
 //only works for one button
 function postCommentValue () {
-  const commentBtns = document.querySelector("#comment-btn");
-    commentBtns.addEventListener("click", function (event) {
-      const commentTests = document.querySelector("#comment-box").value;
-      const postId = commentBtns.getAttribute("data-id");
-
+  const commentBtns = document.querySelectorAll(".save-comment");
+  for (let i = 0; i < commentBtns.length; i++) {
+    commentBtns[i].addEventListener("click", function (event) {
+      const postId = this.getAttribute("data-id");
+      const commentTests = document.querySelector(`#comment-box-${postId}`).value;
       fetch('http://localhost:8080/api/postcomments/postcomment/' + postId, {
         method: 'POST',
         headers: getHeaders(),
-        body: JSON.stringify(commentTests
-        ),
+        body: JSON.stringify(commentTests),
       })
           .then(function (response) {
             return response.json()
@@ -327,6 +347,27 @@ function postCommentValue () {
           .catch(error => console.error('Error:', error)
           )
     });
+
+  }
+    // commentBtns.addEventListener("click", function (event) {
+    //   const commentTests = document.querySelector("#comment-box").value;
+    //   const postId = commentBtns.getAttribute("data-id");
+    //
+    //   fetch('http://localhost:8080/api/postcomments/postcomment/' + postId, {
+    //     method: 'POST',
+    //     headers: getHeaders(),
+    //     body: JSON.stringify(commentTests
+    //     ),
+    //   })
+    //       .then(function (response) {
+    //         return response.json()
+    //       })
+    //       .then(function (data) {
+    //         console.log(data)
+    //       })
+    //       .catch(error => console.error('Error:', error)
+    //       )
+    // });
 }
 
 
