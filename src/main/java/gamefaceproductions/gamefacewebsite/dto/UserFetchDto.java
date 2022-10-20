@@ -22,6 +22,5 @@ public class UserFetchDto {
     private String gamer_tag;
     private String avatar_url;
     private String backdrop_url;
-    private List<User> userFriends;
     private Collection<Games> games;
 }

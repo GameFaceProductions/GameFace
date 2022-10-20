@@ -112,7 +112,7 @@ export default function router(URI) {
     // },
     "/searchgames": {
       returnView: searchGamesHTML,
-      state: { users: "/api/users" },
+      state: { user: `/api/users/${getUser().id}` },
       uri: "/searchgames",
       title: "Search Games",
       viewEvent: searchGamesJS,

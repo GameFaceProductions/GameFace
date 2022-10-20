@@ -1,6 +1,7 @@
 package gamefaceproductions.gamefacewebsite.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import gamefaceproductions.gamefacewebsite.dto.UserFetchDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,6 @@ public class Games {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    @JsonIgnoreProperties({"games", "posts", "likes","users", "userFriends"})
-    private Collection<User> users;
+    @JsonIgnoreProperties({"games", "role", "email", "backdrop_url", "avatar_url", "createdAt", "posts", "likes", "users", "userFriends", "platforms", "postComments"})
+    private Collection<UserFetchDto> users;
 }
