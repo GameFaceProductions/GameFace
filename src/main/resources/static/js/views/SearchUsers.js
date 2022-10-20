@@ -44,7 +44,6 @@ export default function searchUsersHTML(props) {
 export function searchUsersJS() {
   console.log(friends);
   let theHomies = [];
-  let getLoggedInUserFriends;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
   let searchUsersInput = document.getElementById(`searchUserInput`);

@@ -2,14 +2,11 @@ import { getHeaders, getUser, updateLocalStorage } from "../auth.js";
 import createView from "../createView.js";
 
 let user;
-let games;
 let myd;
 export default function searchGamesHTML(props) {
   user = props.users;
   console.log(user[0]);
   myd = getUser().id;
-  games = user[myd].games;
-  console.log(games);
 
   return `
 <!-- html here -->
@@ -29,7 +26,6 @@ export function searchGamesJS() {
   let gameData;
   let getGameStoreLink;
   let theHomiesGames = [];
-  let loggedInUserActually;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
   let redirectURL;
@@ -114,7 +110,12 @@ export function searchGamesJS() {
       let gameBtn;
       let storeBtn;
       let released = gameData.released;
-      let releaseYear = released.slice(0, 4);
+      let releaseYear;
+      if (released === null) {
+        releaseYear = `<br>`;
+      } else {
+        releaseYear = released.slice(0, 4);
+      }
       if (gameData.stores === null) {
         storeBtn = `<button class="storeLink hidden rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
       } else {
@@ -148,7 +149,7 @@ export function searchGamesJS() {
   }
 
   //
-  //  console.log(theHomiesGames);
+  console.log(theHomiesGames);
   //
   //  // NEED TO GENERATE LIST OF GAMES BASED ON FETCH FROM RAWG NOT PRE GENERATED!
   //  // ENTIRE HTML NEEDS TO GENERATE!!!!
