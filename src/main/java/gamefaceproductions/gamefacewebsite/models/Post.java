@@ -26,7 +26,7 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes", "games", "platforms"})
+    @JsonIgnoreProperties({"gamerTag", "region", "blocked", "email", "createdAt", "role", "posts", "userFriends", "friendsList", "likes", "games", "platforms", "postComments", "backdrop_url"})
     private User author;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)

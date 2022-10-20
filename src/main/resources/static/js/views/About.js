@@ -40,7 +40,7 @@ export default function About(props) {
                 <h2 style="text-align: center">Meet our developers:</h2>   
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
-                    <div class="dev-card" style="max-width: 19%;">
+                    <div class="dev-card">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/101914667?v=4" alt="dev"/>
                         </div>
@@ -50,7 +50,7 @@ export default function About(props) {
                         <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
                     </div>
-                    <div class="dev-card" style="max-width: 19%;">
+                    <div class="dev-card">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/106278680?v=4" alt="dev"/>
                         </div>
@@ -60,7 +60,7 @@ export default function About(props) {
                         <p>Thanks for stopping by GameFace! I am a WebDev that enjoys problem-solving and team work. I can not wait until GameFace rises to the top to laugh at the other social medias, and no you can't have it Zuck.</p>
                         <button onclick="window.location.href='https://github.com/brekkenjackson';">Connect!</button>
                     </div>
-                    <div class="dev-card" style="max-width: 19%;">
+                    <div class="dev-card">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/101299129?v=4" alt="dev"/>
                         </div>
@@ -70,7 +70,7 @@ export default function About(props) {
                         <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/valeriareveles/';">Connect!</button>
                     </div>
-                    <div class="dev-card" style="max-width: 19%;">
+                    <div class="dev-card">
                         <div class="profile-img">
                             <img src="https://avatars.githubusercontent.com/u/106278622?v=4" alt="dev"/>
                         </div>

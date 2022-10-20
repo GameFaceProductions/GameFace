@@ -24,21 +24,11 @@ export default function router(URI) {
       returnView: HomePage,
       state: {
         posts: "/api/posts",
-        comments: "/api/postcomments",
       },
       uri: "/home",
       title: "Home",
       viewEvent: postSetup,
     },
-    // '/home': {
-    //     returnView: HomePage,
-    //     state: {
-    //         posts: '/api/home'
-    //     },
-    //     uri: '/home',
-    //     title: 'Home Page',
-    //     viewEvent: postSetup
-    // },
     "/profile": {
       returnView: ProfilePage,
       state: {
@@ -104,12 +94,6 @@ export default function router(URI) {
       uri: location.pathname,
       title: "Loading...",
     },
-    // '/game': {
-    //     returnView: GameInfo,
-    //     state: {},
-    //     uri: '/game',
-    //     title: 'Game Details'
-    // },
     "/searchgames": {
       returnView: searchGamesHTML,
       state: { users: "/api/users" },
