@@ -3,11 +3,13 @@ import createView from "../createView.js";
 
 let posts;
 let loggedInUser;
+let postFetch;
 
 
 export default function HomePage(props) {
   loggedInUser = getUser();
-  posts = props.posts;
+  postFetch = props.posts;
+   posts = postFetch.reverse();
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
 
@@ -301,6 +303,7 @@ function postCommentValue () {
           })
           .catch(error => console.error('Error:', error)
           )
+      createView("/home");
     });
 
   }

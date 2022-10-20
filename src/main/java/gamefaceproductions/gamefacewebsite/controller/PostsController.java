@@ -45,6 +45,7 @@ public class PostsController {
     @GetMapping("")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Post> fetchPosts() {
+
         return postRepository.findAll();
     }
 
