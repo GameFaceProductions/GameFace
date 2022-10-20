@@ -297,7 +297,7 @@ h2{
 }
 
 .glitchy{
-    animation: glitch 1s linear infinite;
+    animation: glitch 1.2s linear infinite;
 }
 
 @keyframes glitch{

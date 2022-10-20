@@ -33,7 +33,7 @@ export default function router(URI) {
       returnView: ProfilePage,
       state: {
         posts: "/api/posts",
-        users: "/api/users",
+        friends: `/api/friends/${getUser().id}`,
       },
       uri: "/profile",
       title: "ProfilePage",
@@ -96,7 +96,7 @@ export default function router(URI) {
     },
     "/searchgames": {
       returnView: searchGamesHTML,
-      state: { users: "/api/users" },
+      state: { user: `/api/users/${getUser().id}` },
       uri: "/searchgames",
       title: "Search Games",
       viewEvent: searchGamesJS,

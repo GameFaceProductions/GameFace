@@ -44,7 +44,6 @@ export default function searchUsersHTML(props) {
 export function searchUsersJS() {
   console.log(friends);
   let theHomies = [];
-  let getLoggedInUserFriends;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
   let searchUsersInput = document.getElementById(`searchUserInput`);
@@ -62,7 +61,7 @@ export function searchUsersJS() {
   showSearchedUsers();
 
   function showSearchedUsers() {
-    searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
+    searchUsersPageContainer.innerHTML = `${makeUserCards()}`;
 
     function makeUserCards() {
       let searchUserInput = document.getElementById("searchUserInput");

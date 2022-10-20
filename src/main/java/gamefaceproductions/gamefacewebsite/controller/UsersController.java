@@ -47,6 +47,7 @@ public class UsersController {
             userDTO.setAvatar_url(user.getAvatar_url());
             userDTO.setBackdrop_url(user.getBackdrop_url());
             userDTO.setGamer_tag(user.getGamerTag());
+            userDTO.setGames(user.getGames());
             userDTOs.add(userDTO);
         }
         return userDTOs;
@@ -72,6 +73,7 @@ public class UsersController {
         userDTO.setUserName(loggedInUser.getUserName());
         userDTO.setAvatar_url(loggedInUser.getAvatar_url());
         userDTO.setId(loggedInUser.getId());
+        userDTO.setGamerTag(loggedInUser.getGamerTag());
 
         return userDTO;
     }

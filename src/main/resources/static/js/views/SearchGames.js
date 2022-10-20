@@ -2,14 +2,11 @@ import { getHeaders, getUser, updateLocalStorage } from "../auth.js";
 import createView from "../createView.js";
 
 let user;
-let games;
 let myd;
 export default function searchGamesHTML(props) {
-  user = props.users;
-  console.log(user[0]);
+  user = props.user;
+  console.log(user);
   myd = getUser().id;
-  games = user[myd].games;
-  console.log(games);
 
   return `
 <!-- html here -->
@@ -29,7 +26,6 @@ export function searchGamesJS() {
   let gameData;
   let getGameStoreLink;
   let theHomiesGames = [];
-  let loggedInUserActually;
   const loggedInUser = getUser();
   let myd = loggedInUser.id;
   let redirectURL;
@@ -39,6 +35,14 @@ export function searchGamesJS() {
   let searchGamesInput = document.getElementById("searchGamesInput");
 
   searchGamesBtn.addEventListener("click", fetchRawgGames);
+
+  for (let i = 0; i < user.games.length; i++) {
+    if (user.games[i] == null) {
+      return;
+    } else {
+      theHomiesGames.push(user.games[i].gameId);
+    }
+  }
 
   async function fetchRawgGamesStoreLink() {
     let gameId = this.getAttribute("data-id");
@@ -95,10 +99,15 @@ export function searchGamesJS() {
     for (let i = 0; i < addGameBtn.length; i++) {
       addGameBtn[i].addEventListener("click", addGame);
     }
+    let removeGameBtn = document.getElementsByClassName("removeGameBtn");
+
+    for (let i = 0; i < removeGameBtn.length; i++) {
+      removeGameBtn[i].addEventListener("click", removeGame);
+    }
   }
 
   function showSearchedGames() {
-    searchGamesPageContainer.innerHTML = `${makeGameCards(user)}`;
+    searchGamesPageContainer.innerHTML = `${makeGameCards()}`;
 
     function makeGameCards() {
       gameData = getGameData.results;
@@ -114,7 +123,12 @@ export function searchGamesJS() {
       let gameBtn;
       let storeBtn;
       let released = gameData.released;
-      let releaseYear = released.slice(0, 4);
+      let releaseYear;
+      if (released === null) {
+        releaseYear = `<br>`;
+      } else {
+        releaseYear = released.slice(0, 4);
+      }
       if (gameData.stores === null) {
         storeBtn = `<button class="storeLink hidden rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-cart-shopping"></i></button>`;
       } else {
@@ -123,13 +137,13 @@ export function searchGamesJS() {
 
       // check for matching game id (if matched show delete button NOt add button)
       if (theHomiesGames.includes(gameData.id)) {
-        gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid fa-star"></i> Remove Game</button>`;
+        gameBtn = `<button class="removeGameBtn rounded mb-2" data-id="${gameData.id}"><i class="fa-solid favoriteStar fa-star"></i> Remove Game</button>`;
       } else {
-        gameBtn = `<button class="addGameBtn rounded mb-2" name="${gameData.slug}" data-id="${gameData.id}"><i class="fa-regular fa-star"></i> Add Game</button>`;
+        gameBtn = `<button class="addGameBtn rounded mb-2" name="${gameData.slug}" data-id="${gameData.id}"><i class="fa-regular notFavoriteStar fa-star"></i> Add Game</button>`;
       }
       let html = "";
       html += `
-     <div class="col-sm-6 col-lg-4">
+     <div class="col-md-6 col-lg-4">
      <div class="searchCards card gameCardBackground" style="background-image: url('${gameData.background_image}');  background-size: cover; background-position: center;">
      </div>
      <div class="gameInfo">
@@ -138,8 +152,9 @@ export function searchGamesJS() {
        ${releaseYear}
          </div>
          <div id="${gameData.id}">
-        ${gameBtn} ${storeBtn}
+        ${gameBtn}
         </div>
+        ${storeBtn}
      </div>
      </div>
   `;
@@ -148,19 +163,12 @@ export function searchGamesJS() {
   }
 
   //
-  //  console.log(theHomiesGames);
+  console.log(theHomiesGames);
   //
   //  // NEED TO GENERATE LIST OF GAMES BASED ON FETCH FROM RAWG NOT PRE GENERATED!
   //  // ENTIRE HTML NEEDS TO GENERATE!!!!
   //  // REFACTOR BELOW FOR GAMES!!!!!
   //  //  function and POST for adding a game:
-  //
-
-  // let removeGameBtn = document.getElementsByClassName("removeGameBtn");
-
-  // for (let i = 0; i < removeGameBtn.length; i++) {
-  //   removeGameBtn[i].addEventListener("click", removeGame);
-  // }
 
   //  // ADD GAME
   async function addGame() {
@@ -193,38 +201,38 @@ export function searchGamesJS() {
       } else {
         console.log("add game to user ok");
         let thisBtnDiv = document.getElementById(`${gameId}`);
-        thisBtnDiv.innerHTML = `<button class="removeGameBtn mb-2 rounded" data-id="${gameId}"><i class="fa-solid fa-user-minus"></i> Remove Game</button>`;
-        // let removeBtn = document.getElementsByClassName("removeGameBtn");
-        // for (let i = 0; i < removeBtn.length; i++) {
-        //   removeBtn[i].addEventListener("click", removeGame);
-        // }
+        thisBtnDiv.innerHTML = `<button class="removeGameBtn rounded mb-2" data-id="${gameId}"><i class="fa-solid favoriteStar fa-star"></i> Remove Game</button>`;
+        let removeBtn = document.getElementsByClassName("removeGameBtn");
+        for (let i = 0; i < removeBtn.length; i++) {
+          removeBtn[i].addEventListener("click", removeGame);
+        }
       }
     });
   }
   //
-  //  //  REMOVE FRIEND
-  //  async function removeGame() {
-  //    let id = this.getAttribute("data-id");
-  //    console.log(id);
-  //    const removeGameRequestOptions = {
-  //      method: "DELETE",
-  //      headers: getHeaders(),
-  //    };
-  //    fetch(
-  //      `http://localhost:8080/api/friends/${id}/${myd}`,
-  //      removeGameRequestOptions
-  //    ).then(async function (response) {
-  //      if (!response.ok) {
-  //        console.log("remove game error: " + response.status);
-  //      } else {
-  //        console.log("remove game ok");
-  //        let thisBtnDiv = document.getElementById(`${id}`);
-  //        thisBtnDiv.innerHTML = `<button class="addGameBtn rounded mb-2" data-id="${id}"><i class="fa-solid fa-user-plus"></i> Add Game</button>`;
-  //        let addBtn = document.getElementsByClassName("addGameBtn");
-  //        for (let i = 0; i < addBtn.length; i++) {
-  //          addBtn[i].addEventListener("click", addFriend);
-  //        }
-  //      }
-  //    });
-  //  }
+  //  //  REMOVE GAME
+  async function removeGame() {
+    let gameId = this.getAttribute("data-id");
+    console.log(gameId);
+    const removeGameRequestOptions = {
+      method: "DELETE",
+      headers: getHeaders(),
+    };
+    fetch(
+      `http://localhost:8080/api/games/${myd}/${gameId}`,
+      removeGameRequestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("remove game error: " + response.status);
+      } else {
+        console.log("remove game ok");
+        let thisBtnDiv = document.getElementById(`${gameId}`);
+        thisBtnDiv.innerHTML = `<button class="addGameBtn rounded mb-2" name="${gameData.slug}" data-id="${gameId}"><i class="fa-regular notFavoriteStar fa-star"></i> Add Game</button>`;
+        let addBtn = document.getElementsByClassName("addGameBtn");
+        for (let i = 0; i < addBtn.length; i++) {
+          addBtn[i].addEventListener("click", addGame);
+        }
+      }
+    });
+  }
 }
