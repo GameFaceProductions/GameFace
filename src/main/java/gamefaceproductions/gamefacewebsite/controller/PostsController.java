@@ -63,9 +63,6 @@ public class PostsController {
     public void createPost(@RequestBody Post newPost, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
 
-        if (newPost.getTitle() == null || newPost.getTitle().length() < 1) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title cannot be blank!");
-        }
         if (newPost.getContent() == null || newPost.getContent().length() < 1) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be blank!");
         }

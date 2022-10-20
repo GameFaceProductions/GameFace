@@ -52,7 +52,7 @@ public class PostCommentsController {
     //POST:
 
     @PostMapping("/postcomment/{id}")
-    public ResponseEntity<PostComments> createPostComment(@RequestBody PostComments newPostComment, @PathVariable("id") long postId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) throws Exception {
+    public ResponseEntity<PostComments> createPostComment(@RequestBody String newPostComment, @PathVariable("id") long postId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) throws Exception {
 
         User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
         Optional<User> user = usersRepository.findById(loggedInUser.getId());
@@ -63,7 +63,7 @@ public class PostCommentsController {
             // TODO: add the time to the updated time
 
             PostComments newComment = new PostComments();
-            newComment.setContent(newPostComment.getContent());
+            newComment.setContent(newPostComment);
             newComment.setAuthor(user.get());
             newComment.setPosts(currentPost.get());
             newComment.setCreatedAt(LocalDate.now());

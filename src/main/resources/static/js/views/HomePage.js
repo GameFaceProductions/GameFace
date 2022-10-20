@@ -3,22 +3,15 @@ import createView from "../createView.js";
 
 let posts;
 let loggedInUser;
-let comments;
+
 
 export default function HomePage(props) {
-  comments = props.comments
   loggedInUser = getUser();
   posts = props.posts;
-  console.log(comments);
-  console.log(posts);
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
-  // const commentsHTML = generateCommentsHTML();
-  //Return basic view of Homepage no matter if logged in or not:
+
   return `
-<!--    <header style="text-align: center">-->
-<!--      <h1>What's New!</h1>-->
-<!--    </header>-->
     <div class="container home">
       <h3 style="text-align: center">Featured Highlights</h3>
       <div class="highlights">
@@ -27,79 +20,70 @@ export default function HomePage(props) {
       <div class="col add-post">
           ${addPostHTML}
       </div>
-      <div class="row">
-        <br>
-<!--            <div class="row">-->
-<!--            </div>-->
-<!--            <div class="row">--
-           </div>-->
+      <div class="row"><br>
           <div class="col profile-col">
-            <!-- Left column -->
-            <div class="profile-header">
-              <!-- Bio -->
-              <h3 class="bio"><a>Bio<a></h3>
-              <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
-              <p class="profile-element profile-website">Web Developer</p>
-              <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
-            </div>
+          <!-- Left column -->
+          <div class="profile-header">
+            <!-- Bio -->
+            <h3 class="bio"><a>Bio<a></h3>
+            <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
+            <p class="profile-element profile-website">Web Developer</p>
+            <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
           </div>
-<!--          middle colum-->
-           <div class="col-6 home-post">
-              <ol class="tweet-list">
-                  ${postsHTML}  
-              </ol>
-              
-          </div>
-            <!-- The right column will start here -->
-          <div class="col right-col">
-            <div class="content-panel">
-              <div class="panel-header">
-                <h4>Favorite Games</h4>
-              </div>
+        </div>
+    <!-- middle colum-->
+        <div class="col-6 home-post">
+          <ol class="tweet-list">
+              ${postsHTML}  
+          </ol>
+        </div>
+    <!-- The right column will start here -->
+        <div class="col right-col">
+          <div class="content-panel">
+            <div class="panel-header">
+              <h4>Favorite Games</h4>
             </div>
           </div>
         </div>
-    `;
+    </div>`;
 }
+
 //Shows up first in newsfeed:
 function generateAddPostHTML() {
   let addHTML = ``;
-  //user has to be logged in to add post:
-  if (!isLoggedIn()) {
-    return addHTML;
-  }
+
   addHTML = `
-        <div class="add-form">
-          <form>
-              <div>
-                  <label for="content"></label>
-                  <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
-                  <div class="invalid-feedback">
-                      Content cannot be blank.
-                  </div>
-                  <div class="valid-feedback">
-                      Content is ok!
-                  </div>
-              </div>
-              <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
-          </form>
-        </div>`;
+    <div class="add-form">
+      <form>
+          <div>
+            <label for="content"></label>
+            <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
+            <div class="invalid-feedback">
+                Content cannot be blank.
+            </div>
+            <div class="valid-feedback">
+                Content is ok!
+            </div>
+          </div>
+          <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+      </form>
+    </div>`;
 
   return addHTML;
 }
+
 
 function generatePostsHTML(posts) {
   let postsHTML = ``
 
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-    // const commentsHTML = generateCommentsHTML();
     let authorName = "";
     //sets value of authorName variable:
     if (post.user) {
       authorName = post.author.userName;
     }
-    //generates all posts:
+
     postsHTML +=`
     <li class="home-card">
         <div class="post-content">
@@ -118,67 +102,62 @@ function generatePostsHTML(posts) {
               <a class="post-footer-btn">
                   <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
               </a>
+               <!--This button is for collapsable comment input-->
+              <button data-id="${post.id}" class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment</button>
             `;
-    //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
-    if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
-      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
-      <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
-    }
-    //This concats the closing tags of the main postsHTML and adds comment box:
-    postsHTML += `
-    </div></li><div class="row">
-        <div class="col-10 comment add-post">
-            <form>
-              <div>
-                  <label for="comment"></label>
-<!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
-                  <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
-              </div>
-              <button id="comment-btn" data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
-            </form>
-          <!--End Comment-->
-        </div><!--End col -->
-      </div><!-- End row -->`;
+        //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
+            if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
+              postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
+              <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
+            }
+        //Closes posts/home divs and concat collapsable comment form:
+            postsHTML += `</div></li>
+            <div class="row collapse" id="collapseComment-${post.id}">
+              <div class="col-10 comment">
+                <form>
+                  <div>
+                    <label for="comment"></label>
+                    <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${post.id}">
+                  </div>
+                <!--This button is for saving/pushing comment to backend-->
+                  <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                </form>
+                ${createPostCommentHTML(post)}
+              </div><!--End col -->
+            </div>`;
     }
   return postsHTML;
 }
 
+function createPostCommentHTML(posts){
+  return `
+    <div class="comment-section home-card">
+        ${commentsSection(posts)}
+    </div>`;
+}
 
-// function generateCommentsHTML() {
-//   let commentsHTML = ``;
-//   //user has to be logged in to add post:
-//   if (!isLoggedIn()) {
-//     return commentsHTML;
-//   }
-//   commentsHTML = `
-//       <div class="row">
-//         <div class="col-10 comment add-post">
-//             <form>
-//               <div>
-//                   <label for="comment"></label>
-// <!--                  <input type="text" placeholder="Say Something!" id="comment-box">-->
-//                   <input class="input-comments" type="text" placeholder="Say Something!" id="comment-box">
-//               </div>
-//               <button name="saveComment" type="button" class="my-button button btn-primary save-comment-btn">Comment</button>
-//             </form>
-//           <!--End Comment-->
-//         </div><!--End col -->
-//       </div><!-- End row -->`;
-//   return commentsHTML;
-// }
+function commentsSection(posts){
+  let html =``;
+  for (let i = 0; i < posts.postComments.length; i++) {
+  html +=
+    `<div>${posts.postComments[i].content}</div>`
+  }
+  return html;
+
+}
+
 
 export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
   postCommentValue();
-
-  // setupValidationHandlers();
-  // validateFields();
-  // setupCommentHandler();
-  // savePostComment();
+  setupValidationHandlers();
+  validateFields();
 }
 
+
+// Post FETCH/functionality
 function setupValidationHandlers() {
   let input = document.querySelector("#content");
   input.addEventListener("keyup", validateFields);
@@ -233,17 +212,13 @@ function fetchPostById(postId) {
       return posts[i];
     }
   }
-  // didn't find it so return something falsy
   return false;
 }
 
 function setupDeleteHandlers() {
-  // target all delete buttons
   const deleteButtons = document.querySelectorAll(".deletePost");
-  // add click handler to all delete buttons
   for (let i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener("click", function (event) {
-      // get the post id of the delete button
       const postId = this.getAttribute("data-id");
       deletePost(postId);
     });
@@ -284,14 +259,13 @@ function savePost(postId) {
   const post = {
     content: contentField.value
   };
-  // make the request
   const request = {
     method: "POST",
     headers: getHeaders(),
     body: JSON.stringify(post),
   };
   let url = POST_API_BASE_URL;
-  // if we are updating a post, change the request and the url
+
   if (postId > 0) {
     request.method = "PUT";
     url += `/${postId}`;
@@ -302,105 +276,37 @@ function savePost(postId) {
       console.log(response.statusText);
       return;
     }
-    // location.reload();
     createView("/home");
   });
 }
-//Post comments functionality:
-//
-// function setupCommentHandler() {
-//   // const commentBtns = document.querySelectorAll(".save-comment-btn");
-//   // const commentTests = document.querySelectorAll("#comment-box");
-//   let commentText = "";
-//   // let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
-//
-//   let postComment = {
-//     // createdAt: posts.createdAt,
-//     content: commentText
-//   }
-//   // Captures each comment keystroke
-//   commentTests.forEach(element => {
-//     element.addEventListener("input", function (event){
-//       // console.log(element.value);
-//       commentText = commentTests.value;
-//     })
-//   })
-//   console.log(commentBtns);
-//   // Sends user's comment to SQL db
-//   for (let i = 0; i < commentBtns.length; i++) {
-//     commentBtns[i].addEventListener("click", function (event) {
-//       event.preventDefault()
-//       postCommentValue(postComment);
-//     });
-//   }
-// }
 
 
+//Comments FETCH/Functionality:
 function postCommentValue () {
-  const commentBtns = document.querySelector("#comment-btn");
-  commentBtns.addEventListener("click", function (event) {
-    const commentTests = document.querySelector("#comment-box").value;
-    const postId = commentBtns.getAttribute("data-id");
+  const commentBtns = document.querySelectorAll(".save-comment");
+  for (let i = 0; i < commentBtns.length; i++) {
+    commentBtns[i].addEventListener("click", function (event) {
+      const postId = this.getAttribute("data-id");
+      const commentTests = document.querySelector(`#comment-box-${postId}`).value;
+      fetch('http://localhost:8080/api/postcomments/postcomment/' + postId, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: commentTests,
+      })
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (data) {
+            console.log(data)
+          })
+          .catch(error => console.error('Error:', error)
+          )
+    });
 
-    fetch('http://localhost:8080/api/postcomments/' + postId, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify({
-        post_id: postId,
-        content: commentTests,
-      }),
-    })
-        .then(function(response){
-          return response.json()})
-        .then(function(data)
-        {
-          console.log(data)
-        })
-        .catch(error => console.error('Error:', error)
-  )});
+  }
 
 }
 
 
 
 
-
-
-
-//
-// function savePostComment(postId) {
-//   // get the title and content for the new/updated post
-//   const commentField = document.querySelector("#comment-box");
-//
-//   // don't allow save if title or content are invalid
-//   if(!validateFields()) {
-//     return;
-//   }
-//   const postComment = {
-//     content: commentField.value
-//   }
-//
-//   // make the request
-//   const request = {
-//     method: "POST",
-//     headers: getHeaders(),
-//     body: JSON.stringify(postComment)
-//   }
-//   let url = POST_API_BASE_URL;
-//
-//   // if we are updating a post, change the request and the url
-//   if(postId > 0) {
-//     request.method = "PUT";
-//     url += `/${postId}`;
-//   }
-//
-//   fetch(url, request)
-//       .then(function(response) {
-//         if(response.status !== 200) {
-//           console.log("fetch returned bad status code: " + response.status);
-//           console.log(response.statusText);
-//           return;
-//         }
-//         createView("/posts");
-//       })
-// }
