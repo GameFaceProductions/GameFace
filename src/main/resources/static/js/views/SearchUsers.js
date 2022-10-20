@@ -61,7 +61,7 @@ export function searchUsersJS() {
   showSearchedUsers();
 
   function showSearchedUsers() {
-    searchUsersPageContainer.innerHTML = `${makeUserCards(user)}`;
+    searchUsersPageContainer.innerHTML = `${makeUserCards()}`;
 
     function makeUserCards() {
       let searchUserInput = document.getElementById("searchUserInput");
