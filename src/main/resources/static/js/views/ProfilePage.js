@@ -2,16 +2,16 @@ import {getUser} from "../auth.js";
 
 let posts;
 let friends;
+let user
 
 export default function ProfilePage(props) {
     let currentUser = getUser().userName;
-    let user = getUser();
+    user = getUser();
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     friends = props.friends;
-    console.log(friends);
-
-
+    console.log(posts);
+    posts = posts.reverse()
     return `
             <div class="main">
                 <!-- This is the div for the cover photo -->
@@ -28,14 +28,13 @@ export default function ProfilePage(props) {
                     </div>
                 </div>
                 <!-- Modal containing lists of current users friends starts here -->
-                      <section class="modal hidden">
+                      <section id="modal-1" class="modal hidden">
                           <div class="flex">
-                            <img src="${user.avatar_url}" width="50px" height="50px" alt="user" />
+                            <h3 class="text-white">Friends List</h3>
                             <button class="btn-close">⨉</button>
                           </div>
                           <div>
                             <div id="friends-list">
-                                Users list of friends will go here
                             </div>
                           </div>
                       </section>
@@ -45,7 +44,7 @@ export default function ProfilePage(props) {
                 <div class="p-4 text-black">
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
-                            <a class="friends-display" href="">
+                            <a class="friends-display text-white" href="">
                                 <p>${friends.userFriends.length}</p>
                                 <p class="small text-muted mb-0">Friends</p>
                             </a>
@@ -61,7 +60,7 @@ export default function ProfilePage(props) {
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
                           <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
-                          <p class="bio-text text-black">Web Developer</p>
+                          <p class="bio-text text-white">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
                       </div>
@@ -87,8 +86,9 @@ export default function ProfilePage(props) {
 }
 
 export function profileSetup() {
-    setupModalFunction()
-    getFriends()
+    setupModalFunction();
+    getFriends();
+    postIsLiked();
 }
 
 
@@ -119,8 +119,8 @@ function generateUserPosts(posts) {
                             <a href="" class="post-footer-btn">
                               <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
                             </a>
-                            <a href="" class="post-footer-btn">
-                              <i id="like-button" class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            <a id="like-button" href="" data-id="${post.id}" class="post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
                             </a>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ function getFriends() {
     for (let j = 0; j < friendArray.length; j++) {
         html += `
                 <a href="">
-                    <div class="mb-2">
+                    <div class="mb-2 ml-5 text-white">
                         <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
@@ -166,7 +166,7 @@ function getFriends() {
 
 
 function setupModalFunction() {
-    const modal = document.querySelector(".modal");
+    const modal = document.querySelector("#modal-1");
     const overlay = document.querySelector(".overlay");
     const openModalBtn = document.querySelector(".friends-display");
     const closeModalBtn = document.querySelector(".btn-close");
@@ -198,3 +198,27 @@ function setupModalFunction() {
     openModalBtn.addEventListener('click', getFriends)
 }
 
+function postIsLiked() {
+    // 1)Set up the eventListener to listen for a click on the thumbs up
+
+    // 2)Loop through the user_likes table and check if the ID that clicked has already liked this posts ID
+    // 3)ELSE IF the like button is clicked push in the another like by the current users ID into the posts_likes table
+
+    // 4)IF the post is not liked by the current user change the color of the like button to BLUE
+    // 5)ELSE the post is confirmed to be liked by the current user change the color of the like button to GREY
+
+    let likes;
+    let likeBtn = document.querySelectorAll("#like-button")
+    for (let i = 0; i < likeBtn.length; i++) {
+        likeBtn[i].addEventListener("click", function (event) {
+            console.log("The button was clicked")
+            const postId = this.getAttribute("data-id")
+            for (let i = 0; i < posts.likes; i++) {
+                likes = posts[i].likes
+                // if (likes.posts.id === postId) {
+                //
+                // }
+            }
+        })
+    }
+}
