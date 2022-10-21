@@ -9,9 +9,8 @@ body{
     margin: 0;
     padding:0;
     background: black;
-    /*background: linear-gradient(to right, #111111, #232526);*/
-    color: ghostwhite;
-    font-family: "Source Code Pro", sans-serif;
+    color: #E4F1FF;
+    font-family: 'Fira Mono', monospace;
 }
 
 /*logo image alignment*/
@@ -23,9 +22,9 @@ body{
     margin: auto;
 }
 
-h2{
+.logo h2{
     font-family: 'Press Start 2P', serif;
-    font-size: 25px;
+    font-size: 1.5rem;
 }
 
 /*Styling for statement cards:*/
@@ -40,8 +39,8 @@ h2{
 
 
 
-/*Styling for developer cards:*/
 
+/*Styling for developer cards:*/
 .developer .container{
     margin:20px;
     padding:20px;
@@ -69,6 +68,11 @@ h2{
     position: relative;
     /*backdrop-filter: blur(4px);*/
     border: 1px #ED90CC solid;
+}
+
+.dev-card h2{
+    font-size:1.3rem;
+    font-family: 'Press Start 2P', serif;
 }
 
 .dev-card::before{
