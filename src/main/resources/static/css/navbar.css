@@ -53,15 +53,18 @@ nav{
 .nav-item:hover, .nav-logo:hover{
     cursor: pointer;
 }
-.nav-item{
-    margin-left: 3.5rem;
+.nav-item{ 
     color: #E4F1FF;
+    margin-left: 2.8rem;
 }
+
 .dropdown-menu{
     background-color: currentColor;
 }
 .navbar-avatar{
     width: 4rem;
     border: solid #78ffd6 0.1rem;
-
+}
+.search-dropdown-text{
+    font-size: 0.6rem;
 }

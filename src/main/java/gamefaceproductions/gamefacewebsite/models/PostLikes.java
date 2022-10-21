@@ -25,8 +25,4 @@ public class PostLikes {
     @ManyToOne
     @JsonIgnoreProperties({"title", "author", "postComments", "user", "posts", "liked", "createdAt", "gameMedia", "content", "likes"})
     private Post posts;
-
-//    @Column(nullable = false, length = 100)
-//    @JsonIgnoreProperties("posts")
-//    private Boolean liked;
 }
