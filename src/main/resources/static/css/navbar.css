@@ -37,10 +37,26 @@ nav{
     margin: 0.3rem;
 }
 
+.navbar-nav{
+    align-items: center;
+
+}
+
 .no-italic{
     font-style: normal;
 }
 
 .nav-item:hover, .nav-logo:hover{
     cursor: pointer;
+}
+.nav-item{
+    margin-left: 3.5rem;
+}
+.dropdown-menu{
+    background-color: currentColor;
+}
+.navbar-avatar{
+    width: 4rem;
+    border: solid #78ffd6 0.1rem;
+
 }
