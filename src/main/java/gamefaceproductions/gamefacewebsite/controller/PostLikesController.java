@@ -1,16 +1,18 @@
 package gamefaceproductions.gamefacewebsite.controller;
 
 import gamefaceproductions.gamefacewebsite.models.MediaLikes;
+import gamefaceproductions.gamefacewebsite.models.Post;
 import gamefaceproductions.gamefacewebsite.models.PostLikes;
+import gamefaceproductions.gamefacewebsite.models.User;
 import gamefaceproductions.gamefacewebsite.repository.PostLikesRepository;
+import gamefaceproductions.gamefacewebsite.services.AuthBuddy;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api/postlikes", produces = "application/json")
 public class PostLikesController {
+    private AuthBuddy authBuddy;
     PostLikesRepository postLikesRepository;
     @GetMapping("")
 ////    @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -35,4 +38,11 @@ public class PostLikesController {
         return optionalPostLike;
 //        return postRepository.findById(id);
     }
+
+    @PostMapping("/{postsId}/{userId}")
+    public void addLike(@PathVariable long postsId, @PathVariable long userId, @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+        User loggedInUser = authBuddy.getUserFromAuthHeader(authHeader);
+        postLikesRepository.addLiketoPost(postsId, userId);
+    }
+
 }
