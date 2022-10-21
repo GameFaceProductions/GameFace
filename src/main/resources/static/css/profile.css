@@ -10,9 +10,9 @@ body{
 
 .post-card {
     padding: 1rem 1.5rem;
-    border: 1px solid #ee9ca7;
+    border: 1px solid #4CA2CD;
     border-radius: 0.5rem;
-    box-shadow: 4px 4px 20px 0 #fc00ff;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
     background-color: rgba(171, 171, 171, 0.1);
     min-height: 52px;
     margin-bottom: 1rem;
@@ -260,7 +260,6 @@ body{
 .modal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 0.4rem;
     width: 450px;
     left: 38%;
@@ -269,8 +268,9 @@ body{
     position: absolute;
     z-index: 2;
     top: 20%;
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: black;
+    border: 1px solid #4CA2CD;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
     border-radius: 15px;
 }
 
@@ -322,7 +322,7 @@ button {
 }
 
 .btn-close {
-    transform: translate(10px, -20px);
+    transform: translate(5px);
     padding: 0.5rem 0.7rem;
     background: #eee;
     border-radius: 50%;
@@ -347,13 +347,4 @@ button {
 
 .friends-list{
 
-}
-
-a {
-    color: black;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #00CACE;
 }

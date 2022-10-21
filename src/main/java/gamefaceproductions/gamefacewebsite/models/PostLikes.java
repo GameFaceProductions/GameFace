@@ -19,7 +19,7 @@ public class PostLikes {
     private long id;
 
     @ManyToOne
-    @JsonIgnoreProperties({"userFriends", "likes", "posts", "games", "gameMedia", "gamerTag", "region", "blocked", "email", "createdAt", "role", "platforms"})
+    @JsonIgnoreProperties({"userFriends", "likes", "posts", "games", "userName", "backdrop_url", "avatar_url", "postComments", "gameMedia", "gamerTag", "region", "blocked", "email", "createdAt", "role", "platforms"})
     private User user;
 
     @ManyToOne

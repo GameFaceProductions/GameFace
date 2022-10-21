@@ -1,25 +1,12 @@
 /*General styling:*/
-
-*{
-    box-sizing: border-box;
-}
-
-body{
-    margin: 0;
-    padding:0;
-    background: black;
-    color: ghostwhite;
-    font-family: "Source Code Pro", sans-serif;
-}
-
 nav{
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     font-size: 1.3rem;
 }
 
-h1{
-    margin: 25px;
-}
+/*small{*/
+/*    margin: 0.8rem;*/
+/*}*/
 
 .navbar{
     background: linear-gradient(to bottom, #434343, #000000);
@@ -27,16 +14,27 @@ h1{
 
 .nav-text{
     background: #007991;  /* fallback for old browsers */
-    background: linear-gradient(to right, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #78ffd6, #007991);
     background-size: 100%;
     background-repeat: repeat;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family: 'Press Start 2P', serif;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+}
 
+/*navbar avatar animation*/
+.navbar-avatar {
+    width: 3.2rem;
+    position: relative;
+    border: solid #E8FEFA .1rem ;
+    overflow: hidden;
+    border-radius: 50%;
 }
 
 .navbar a{
-    margin: 5px;
+    margin: 0.3rem;
 }
 
 .navbar-nav{
@@ -48,9 +46,6 @@ h1{
     font-style: normal;
 }
 
-small{
-    margin: 10px;
-}
 .nav-item:hover, .nav-logo:hover{
     cursor: pointer;
 }
