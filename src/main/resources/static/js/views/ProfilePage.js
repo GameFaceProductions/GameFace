@@ -1,21 +1,25 @@
-import {getUser} from "../auth.js";
+import { getHeaders, getUser } from "../auth.js";
 
 let posts;
 let friends;
-let user
+let user;
 
 export default function ProfilePage(props) {
-    let currentUser = getUser().userName;
-    user = getUser();
-    let postHTML = generateUserPosts(props.posts);
-    posts = props.posts;
-    friends = props.friends;
-    console.log(posts);
-    posts = posts.reverse()
-    return `
+  //USE FOR SPECIFIC USER ID FETCHING
+  user = getUser();
+  console.log(user);
+  let postHTML = generateUserPosts(props.posts);
+  posts = props.posts;
+  friends = props.friends;
+  console.log(posts);
+  posts = posts.reverse();
+  return `
             <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${friends.backdrop_url}); height:200px">
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
+<!--                MY CHANGES-->
+       
+<!--                MY CHANGES-->
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
@@ -42,6 +46,7 @@ export default function ProfilePage(props) {
                 <div class="overlay hidden"></div>
                 <!-- Start of followers/following div -->
                 <div class="p-4 text-black">
+                    <button id="uploadBtn" type="submit" class="uploadBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
                             <a class="friends-display text-white" href="">
@@ -82,28 +87,83 @@ export default function ProfilePage(props) {
                       <!-- End of the right column -->
                     </div>
                 </div>
-            </div>`
+            </div>`;
 }
 
 export function profileSetup() {
-    setupModalFunction();
-    getFriends();
-    postIsLiked();
+  setupModalFunction();
+  getFriends();
+  postIsLiked();
+  uploadNewBackdrop();
 }
 
+function uploadNewBackdrop() {
+  let backdrop_url = "";
+  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const options = {
+    onFileSelected: (file) => {
+      //LIMIT FILE SIZE (something like 40-50mb)
+      // If you throw any error in this function it will reject the file selection.
+      // The error message will be displayed to the user as an alert.
+      // if (file.size > 1000 * 1000) {
+      //   throw new Error("File too big, select something smaller than 1MB");
+      // }
+    },
+    maxFiles: 1,
+    onUploadDone: async function (res) {
+      backdrop_url = res.filesUploaded[0].url;
+      console.log(backdrop_url);
+      console.log(res);
 
+      const newBackdropUrlBody = {
+        backdrop_url: backdrop_url,
+      };
+
+      const newBackdropRequestOptions = {
+        method: "PUT",
+        headers: getHeaders(),
+        body: JSON.stringify(newBackdropUrlBody),
+      };
+      await fetch(
+        `http://localhost:8080/api/users/${getUser().id}`,
+        newBackdropRequestOptions
+      ).then(async function (response) {
+        if (!response.ok) {
+          console.log("add backdrop error: " + response.status);
+        } else {
+          console.log("add backdrop ok");
+          let data = window.localStorage.getItem("user");
+          if (data != null) {
+            let newUserWithBackdrop = JSON.parse(data);
+            newUserWithBackdrop.backdrop_url = backdrop_url;
+            window.localStorage.setItem(
+              "user",
+              JSON.stringify(newUserWithBackdrop)
+            );
+            location.reload();
+          }
+        }
+      });
+    },
+    supportEmail: "gamefaceproductions210@gmail.com",
+    hideModalWhenUploading: true,
+  };
+  let uploadBtn = document.getElementById("uploadBtn");
+  uploadBtn.addEventListener("click", function () {
+    client.picker(options).open();
+  });
+}
 
 function generateUserPosts(posts) {
-    let userPosts = ``
-    let currentUser = getUser();
-    console.log(currentUser);
+  let userPosts = ``;
+  let currentUser = getUser();
+  console.log(currentUser);
 
-    for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i];
 
-        if (post.author.userName === currentUser.userName) {
-
-            userPosts += `
+    if (post.author.userName === currentUser.userName) {
+      userPosts += `
                 <li class="post-card">
                     <div class="post-content">
                         <div class="post-header">
@@ -126,99 +186,95 @@ function generateUserPosts(posts) {
                     </div>
                 </li>
                 `;
-        }
     }
-    return userPosts
+  }
+  return userPosts;
 }
 
-
-
 function getFriends() {
-    let html =``
-    let friendList = document.querySelector("#friends-list")
-    let currentUser = getUser().userName;
-    let friendArray = [];
+  let html = ``;
+  let friendList = document.querySelector("#friends-list");
+  let currentUser = getUser().userName;
+  let friendArray = [];
 
-    // for (let i = 0; i < friends.length; i++) {
-        const user = friends;
-        const friend = friends.userFriends
+  // for (let i = 0; i < friends.length; i++) {
+  const user = friends;
+  const friend = friends.userFriends;
 
-        if (user.userName === currentUser) {
-            for (let j = 0; j < friend.length; j++) {
-                let friendObj = {name: friend[j].userName, url: friend[j].avatar_url}
-                friendArray.push(friendObj)
-            }
-        }
-    // }
-    for (let j = 0; j < friendArray.length; j++) {
-        html += `
+  if (user.userName === currentUser) {
+    for (let j = 0; j < friend.length; j++) {
+      let friendObj = { name: friend[j].userName, url: friend[j].avatar_url };
+      friendArray.push(friendObj);
+    }
+  }
+  // }
+  for (let j = 0; j < friendArray.length; j++) {
+    html += `
                 <a href="">
                     <div class="mb-2 ml-5 text-white">
                         <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
                 </a>
-            `
-    }
-    friendList.innerHTML = html;
+            `;
+  }
+  friendList.innerHTML = html;
 }
 
-
-
 function setupModalFunction() {
-    const modal = document.querySelector("#modal-1");
-    const overlay = document.querySelector(".overlay");
-    const openModalBtn = document.querySelector(".friends-display");
-    const closeModalBtn = document.querySelector(".btn-close");
+  const modal = document.querySelector("#modal-1");
+  const overlay = document.querySelector(".overlay");
+  const openModalBtn = document.querySelector(".friends-display");
+  const closeModalBtn = document.querySelector(".btn-close");
 
-// close modal function
-    const closeModal = function() {
-        modal.classList.add("hidden");
-        overlay.classList.add("hidden");
-    };
+  // close modal function
+  const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+  };
 
-// close the modal when the close button and overlay is clicked
-    closeModalBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", closeModal);
+  // close the modal when the close button and overlay is clicked
+  closeModalBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
 
-// close modal when the Esc key is pressed
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-            closeModal();
-        }
-    });
+  // close modal when the Esc key is pressed
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
 
-// open modal function
-    const openModal = function () {
-        modal.classList.remove("hidden");
-        overlay.classList.remove("hidden");
-    };
-// open modal event
-    openModalBtn.addEventListener("click", openModal);
-    openModalBtn.addEventListener('click', getFriends)
+  // open modal function
+  const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  };
+  // open modal event
+  openModalBtn.addEventListener("click", openModal);
+  openModalBtn.addEventListener("click", getFriends);
 }
 
 function postIsLiked() {
-    // 1)Set up the eventListener to listen for a click on the thumbs up
+  // 1)Set up the eventListener to listen for a click on the thumbs up
 
-    // 2)Loop through the user_likes table and check if the ID that clicked has already liked this posts ID
-    // 3)ELSE IF the like button is clicked push in the another like by the current users ID into the posts_likes table
+  // 2)Loop through the user_likes table and check if the ID that clicked has already liked this posts ID
+  // 3)ELSE IF the like button is clicked push in the another like by the current users ID into the posts_likes table
 
-    // 4)IF the post is not liked by the current user change the color of the like button to BLUE
-    // 5)ELSE the post is confirmed to be liked by the current user change the color of the like button to GREY
+  // 4)IF the post is not liked by the current user change the color of the like button to BLUE
+  // 5)ELSE the post is confirmed to be liked by the current user change the color of the like button to GREY
 
-    let likes;
-    let likeBtn = document.querySelectorAll("#like-button")
-    for (let i = 0; i < likeBtn.length; i++) {
-        likeBtn[i].addEventListener("click", function (event) {
-            console.log("The button was clicked")
-            const postId = this.getAttribute("data-id")
-            for (let i = 0; i < posts.likes; i++) {
-                likes = posts[i].likes
-                // if (likes.posts.id === postId) {
-                //
-                // }
-            }
-        })
-    }
+  let likes;
+  let likeBtn = document.querySelectorAll("#like-button");
+  for (let i = 0; i < likeBtn.length; i++) {
+    likeBtn[i].addEventListener("click", function (event) {
+      console.log("The button was clicked");
+      const postId = this.getAttribute("data-id");
+      for (let i = 0; i < posts.likes; i++) {
+        likes = posts[i].likes;
+        // if (likes.posts.id === postId) {
+        //
+        // }
+      }
+    });
+  }
 }
