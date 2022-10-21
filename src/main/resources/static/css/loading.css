@@ -1,0 +1,61 @@
+.load{
+    margin: 6rem;
+    width: 80%;
+}
+.loading{
+    color: #78ffd6;
+    border: 0.2rem #78ffd6 solid;
+    margin: auto;
+    padding: 0;
+    width: 26rem;
+    top: 5rem;
+}
+
+.loadTip{
+    background: #78ffd6;
+    color: black;
+    padding: 0;
+}
+
+.loadHeader{
+    padding: 1rem;
+    margin: 1rem;
+}
+.loadBar{
+    color: #78ffd6;
+    margin: 1.5rem;
+}
+
+.progress-bar {
+    background: rgba(171, 171, 171, 0.2);
+    height: 1.8rem;
+    width: 28rem;
+    margin: auto;
+    overflow: hidden;
+    border: 0.2rem #78ffd6 solid;
+}
+
+.progress-bar__inner {
+    position: relative;
+    display: block;
+    height: 100%;
+    background-color: #78ffd6;
+    animation: run-progress 5s linear infinite;
+    border: 0.2rem black solid;
+
+}
+
+.progress-bar__inner:after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: #78ffd6;
+    background-size: 4.6rem, 4.6rem;
+
+}
+
+@keyframes run-progress {
+    0% {
+        width: 0;
+    }
+}

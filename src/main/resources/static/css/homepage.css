@@ -38,9 +38,7 @@
 }
 
 /*styling for add comment box:*/
-.comment{
 
-}
 .add-post{
     margin: 1rem;
     padding: 0.5rem;
@@ -51,7 +49,7 @@
 
 
 .form-control{
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 0;
     border-radius: 0.8rem;
     /*box-shadow: 0 0 0.6rem rgba(124, 179, 197, 0.6);*/
@@ -75,11 +73,11 @@
 
 }
 
-button {
-    margin-top: 0.5rem;
-    color: #fff;
-    cursor: pointer;
-}
+/*.my-button {*/
+/*    margin-top: 0.5rem;*/
+/*    color: #fff;*/
+/*    cursor: pointer;*/
+/*}*/
 
 #comment-comment {
     margin: 0.5rem 0 0 0;

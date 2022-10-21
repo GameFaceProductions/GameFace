@@ -3,13 +3,16 @@ import createView from "../createView.js";
 
 let posts;
 let loggedInUser;
+let postFetch;
 
 
 export default function HomePage(props) {
   loggedInUser = getUser();
-  posts = props.posts;
+  postFetch = props.posts;
+   posts = postFetch.reverse();
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
+
 
   return `
     <div class="container home">
@@ -20,11 +23,13 @@ export default function HomePage(props) {
       <div class="col add-post">
           ${addPostHTML}
       </div>
+      <h3 style="text-align: center">Newsfeed</h3>
       <div class="row"><br>
           <div class="col profile-col">
           <!-- Left column -->
           <div class="profile-header">
             <!-- Bio -->
+            <img src="${loggedInUser.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer" style="text-align: center;">
             <h3 class="bio"><a>Bio<a></h3>
             <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
             <p class="profile-element profile-website">Web Developer</p>
@@ -53,19 +58,12 @@ function generateAddPostHTML() {
   let addHTML = ``;
 
   addHTML = `
-    <div class="add-form">
+    <div class="highlights">
       <form>
-          <div>
+          <div class="add-form">
             <label for="content"></label>
-            <textarea id="content" class="form-control" name="content" rows="5" cols="50" placeholder="What's on your mind"></textarea>
-            <div class="invalid-feedback">
-                Content cannot be blank.
-            </div>
-            <div class="valid-feedback">
-                Content is ok!
-            </div>
-          </div>
-          <button data-id="0" id="savePost" name="savePost" type="button" class="my-button button btn-primary">Share Post</button>
+            <textarea id="content" class="form-control" name="content" rows="5" cols="48" placeholder="  What's on your mind"></textarea>
+          <button data-id="0" id="savePost" name="savePost" type="button" class="my-button btn btn-primary">Post</button>
       </form>
     </div>`;
 
@@ -152,32 +150,10 @@ export function postSetup() {
   setupEditHandlers();
   setupDeleteHandlers();
   postCommentValue();
-  setupValidationHandlers();
-  validateFields();
 }
 
 
 // Post FETCH/functionality
-function setupValidationHandlers() {
-  let input = document.querySelector("#content");
-  input.addEventListener("keyup", validateFields);
-}
-
-function validateFields() {
-  let isValid = true;
-
-  let input = document.querySelector("#content");
-  if (input.value.trim().length < 1) {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    isValid = false;
-  } else {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  }
-  return isValid;
-}
-
 function setupEditHandlers() {
   // target all delete buttons
   const editButtons = document.querySelectorAll(".editPost");
@@ -201,7 +177,6 @@ function loadPostIntoForm(postId) {
 
   const contentField = document.querySelector("#content");
   contentField.value = post.content;
-  validateFields();
   const saveButton = document.querySelector("#savePost");
   saveButton.setAttribute("data-id", postId);
 }
@@ -252,10 +227,6 @@ function setupSaveHandler() {
 
 function savePost(postId) {
   const contentField = document.querySelector("#content");
-
-  if (!validateFields()) {
-    return;
-  }
   const post = {
     content: contentField.value
   };
@@ -301,6 +272,7 @@ function postCommentValue () {
           })
           .catch(error => console.error('Error:', error)
           )
+      createView("/home");
     });
 
   }
