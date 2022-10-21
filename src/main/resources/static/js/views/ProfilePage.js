@@ -1,4 +1,5 @@
-import {getUser} from "../auth.js";
+import {getHeaders, getUser, setLoggedInUserInfo} from "../auth.js";
+import createView from "../createView.js";
 
 let posts;
 let friends;
@@ -10,7 +11,7 @@ export default function ProfilePage(props) {
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
     friends = props.friends;
-    console.log(posts);
+    // console.log(user);
     posts = posts.reverse()
     return `
             <div class="main">
@@ -20,7 +21,7 @@ export default function ProfilePage(props) {
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button type="button" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button type="button" data-id="${currentUser}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -62,6 +63,9 @@ export default function ProfilePage(props) {
                           <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
                           <p class="bio-text text-white">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+                          <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+                            <i>Loading chat...</i>
+                          </div>
                         </div>
                       </div>
                       <!-- End of the left column -->
@@ -89,6 +93,8 @@ export function profileSetup() {
     setupModalFunction();
     getFriends();
     postIsLiked();
+    editDeets();
+    chatExport();
 }
 
 
@@ -96,12 +102,12 @@ export function profileSetup() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
-    console.log(currentUser);
+    // console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
 
-        if (post.author.userName === currentUser.userName) {
+        if (post.author.id === currentUser.id) {
 
             userPosts += `
                 <li class="post-card">
@@ -221,4 +227,84 @@ function postIsLiked() {
             }
         })
     }
+}
+
+
+
+//Edit Profile/Account Details:
+function editDeets() {
+    let editBtn = document.querySelectorAll('.account-btn');
+    for (let i = 0; i < editBtn.length; i++) {
+        editBtn[i].addEventListener('click', (event) => {
+            let modal = document.createElement("div");
+            document.body.appendChild(modal);
+            modal.innerHTML = `     
+     <div>       
+     <h1>Edit Deets</h1>
+        <label for="editName" class="form-label">Edit UserName</label>
+        <input class="form-control" id="editName" placeholder="${user.userName}">
+        <label for="editTag" class="form-label">Edit GamerTag</label>
+        <input class="form-control" id="editTag" placeholder="${user.gamerTag}">
+        <button data-id="${user.id}" class="form-control" id="edit-btn">Save Changes</button>
+     </div>
+ `;
+            let editName = document.getElementById("editName");
+            editName.addEventListener("input", () => console.log(editName.value));
+            let editTag = document.getElementById("editTag");
+            editTag.addEventListener("input", () => console.log(editTag.value));
+            let editDeets = document.getElementById("edit-btn")
+           editDeets.addEventListener("click", function (event) {
+                event.preventDefault();
+                let data = {
+                    userName: editName.value,
+                    gamerTag: editTag.value
+                }
+                console.log(data);
+                const request = {
+                    method: "PUT",
+                    headers: getHeaders(),
+                    body: JSON.stringify(data)
+                }
+                const url = `http://localhost:8080/api/users/${editDeets.dataset.id}`;
+                fetch(url, request)
+                    .then(async response => {
+                        console.log(response.status);
+                        await setLoggedInUserInfo();
+                        location.reload();
+                        // createView('/profile');
+                    });
+            });
+        })}}
+
+function chatExport (){
+    Talk.ready.then(function () {
+        var me = new Talk.User({
+            id: '6',
+            name: 'Val',
+            email: 'valeriareveles12@gmail.com',
+            photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
+            welcomeMessage: 'Hey there!',
+        });
+        window.talkSession = new Talk.Session({
+            appId: 'teXlD9fo',
+            me: me,
+        });
+        let other = new Talk.User({
+            id: '5',
+            name: 'brek',
+            email: 'brekken.jackson5@gmail.com',
+            photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+            role: 'USER',
+        });
+
+        var conversation = talkSession.getOrCreateConversation(
+            Talk.oneOnOneId(me, other)
+        );
+        conversation.setParticipant(me);
+        conversation.setParticipant(other);
+
+        let inbox = talkSession.createInbox({ selected: conversation });
+        inbox.mount(document.getElementById('talkjs-container'));
+    });
+
 }
