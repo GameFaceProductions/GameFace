@@ -40,19 +40,23 @@
 .storeLink {
     background-color: #00CACE;
     border: solid #ab2fbf .1rem;
+    margin-top: 0;
 }
 
 .addGameBtn {
     color: whitesmoke;
     background-color: #00CACE;
     border: solid #ab2fbf .1rem;
-    margin-top: .5rem;
-    height: 2em;
-    margin-left: 1em;
+    height: 1.8rem;
+    margin-top: 0;
 }
 
 .addGameBtn:hover {
     border: solid #ab2fbf .2rem;
+}
+
+.notFavoriteStar:hover {
+   color: gold;
 }
 
 .storeLink:hover {
@@ -64,6 +68,12 @@
     color: whitesmoke;
     background-color: #ce0037;
     border: solid #ab2fbf .1rem;
-    margin-top: .5rem;
-    height: 2.5em;
+    height: 1.8rem;
+    margin-top: 0;
+}
+.removeGameBtn:hover {
+    border: solid #ab2fbf .2rem;
+}
+.favoriteStar{
+    color: gold;
 }

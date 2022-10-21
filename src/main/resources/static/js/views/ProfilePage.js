@@ -1,24 +1,21 @@
 import {getUser} from "../auth.js";
 
 let posts;
-let users;
+let friends;
 
 export default function ProfilePage(props) {
     let currentUser = getUser().userName;
     let user = getUser();
     let postHTML = generateUserPosts(props.posts);
     posts = props.posts;
-    users = props.users;
-
-    for (let i = 0; i < users.length; i++) {
-        const user2 = users[i];
+    friends = props.friends;
+    console.log(friends);
 
 
-        if (user2.userName === currentUser) {
-            return `
+    return `
             <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user2.backdrop_url}); height:200px">
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${friends.backdrop_url}); height:200px">
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
@@ -49,7 +46,7 @@ export default function ProfilePage(props) {
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
                             <a class="friends-display" href="">
-                                <p>${user2.userFriends.length}</p>
+                                <p>${friends.userFriends.length}</p>
                                 <p class="small text-muted mb-0">Friends</p>
                             </a>
                         </div>
@@ -63,7 +60,7 @@ export default function ProfilePage(props) {
                         <div class="profile-header">
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
-                          <h2 class="profile-element"><a>@${user2.gamer_tag}</a></h2>
+                          <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
                           <p class="bio-text text-black">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                         </div>
@@ -87,8 +84,6 @@ export default function ProfilePage(props) {
                     </div>
                 </div>
             </div>`
-        }
-    }
 }
 
 export function profileSetup() {
@@ -101,6 +96,7 @@ export function profileSetup() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
+    console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
@@ -143,17 +139,17 @@ function getFriends() {
     let currentUser = getUser().userName;
     let friendArray = [];
 
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i];
-        const friends = users[i].userFriends
+    // for (let i = 0; i < friends.length; i++) {
+        const user = friends;
+        const friend = friends.userFriends
 
         if (user.userName === currentUser) {
-            for (let j = 0; j < friends.length; j++) {
-                let friendObj = {name: friends[j].userName, url: friends[j].avatar_url}
+            for (let j = 0; j < friend.length; j++) {
+                let friendObj = {name: friend[j].userName, url: friend[j].avatar_url}
                 friendArray.push(friendObj)
             }
         }
-    }
+    // }
     for (let j = 0; j < friendArray.length; j++) {
         html += `
                 <a href="">
