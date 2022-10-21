@@ -4,6 +4,10 @@ nav{
     font-size: 1.3rem;
 }
 
+/*.navbar a{*/
+/*    color: #E4F1FF;*/
+/*}*/
+
 /*small{*/
 /*    margin: 0.8rem;*/
 /*}*/
@@ -49,9 +53,11 @@ nav{
 .nav-item:hover, .nav-logo:hover{
     cursor: pointer;
 }
-.nav-item{
+.nav-item{ 
+    color: #E4F1FF;
     margin-left: 2.8rem;
 }
+
 .dropdown-menu{
     background-color: currentColor;
 }
