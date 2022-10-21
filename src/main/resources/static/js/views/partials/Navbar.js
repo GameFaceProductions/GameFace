@@ -32,9 +32,9 @@ export default function Navbar(props) {
           </a>
           <ul class="dropdown-menu">
 <i onClick="window.location.href='/searchusers';" class="bi bi-search no-italic"><small
-        class="nav-text">Search Users</small></i>            <li><hr class="dropdown-divider"></li>
+        class="nav-text search-dropdown-text">Search Users</small></i>            <li><hr class="dropdown-divider"></li>
 <i onClick="window.location.href='/searchgames';" class="bi bi-search no-italic"><small
-        class="nav-text">Search Games</small></i>          </ul>
+        class="nav-text search-dropdown-text">Search Games</small></i>          </ul>
         </li>
         <li><i onClick="window.location.href='/logout';" class="bi bi-box-arrow-in-right nav-item no-italic"><small
         class="nav-text">Logout</small></i></li>
