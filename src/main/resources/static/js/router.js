@@ -34,6 +34,7 @@ export default function router(URI) {
       state: {
         posts: "/api/posts",
         friends: `/api/friends/${getUser().id}`,
+        likes: `/api/postlikes`,
       },
       uri: "/profile",
       title: "ProfilePage",

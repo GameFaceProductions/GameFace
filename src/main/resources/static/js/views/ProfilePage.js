@@ -1,20 +1,20 @@
-
 import { getHeaders, getUser } from "../auth.js";
 import {getHeaders, getUser, setLoggedInUserInfo} from "../auth.js";
 import createView from "../createView.js";
 
 let posts;
 let friends;
-let user;
+let user
+let likes
+let theHomiesLikes = []
 
 export default function ProfilePage(props) {
   //USE FOR SPECIFIC USER ID FETCHING
   user = getUser();
-  console.log(user);
   let postHTML = generateUserPosts(props.posts);
   posts = props.posts;
   friends = props.friends;
-  console.log(posts);
+  likes = props.likes
   posts = posts.reverse();
   return `           <div class="main">
                 <!-- This is the div for the cover photo -->
@@ -96,13 +96,24 @@ export default function ProfilePage(props) {
 }
 
 export function profileSetup() {
-  setupModalFunction();
-  getFriends();
-  postIsLiked();
-  uploadNewBackdrop();
+    setupModalFunction();
+    getFriends();
+    postIsLiked();
+    uploadNewBackdrop();
     editDeets();
     chatExport();
-
+    if (likes.length === null) {
+        return;
+    } else {
+        for (let i = 0; i < likes.length; i++) {
+            let userId = likes[i].user.id
+            let postsId = likes[i].posts.id
+            if (user.id === userId) {
+                theHomiesLikes.push(postsId)
+            }
+        }
+        console.log(theHomiesLikes);
+    }
 }
 
 function uploadNewBackdrop() {
@@ -165,12 +176,27 @@ function uploadNewBackdrop() {
 function generateUserPosts(posts) {
     let userPosts = ``
     let currentUser = getUser();
-    // console.log(currentUser);
+    let post;
+    let likeBtn = document.querySelector("#like-button")
+    let newLikeBtn;
 
-  for (let i = 0; i < posts.length; i++) {
-    const post = posts[i];
-        if (post.author.id === currentUser.id) {
-      userPosts += `
+    for (let i = 0; i < posts.length; i++) {
+
+        post = posts[i];
+
+        if (theHomiesLikes.includes(post.id)) {
+            newLikeBtn = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            </a>`
+        } else {
+            newLikeBtn = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            </a>`
+        }
+
+    if (post.author.id === currentUser.id) {
+
+        userPosts += `
                 <li class="post-card">
                     <div class="post-content">
                         <div class="post-header">
@@ -186,9 +212,7 @@ function generateUserPosts(posts) {
                             <a href="" class="post-footer-btn">
                               <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
                             </a>
-                            <a id="like-button" href="" data-id="${post.id}" class="post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
-                            </a>
+                            ${newLikeBtn}
                         </div>
                     </div>
                 </li>
@@ -261,27 +285,46 @@ function setupModalFunction() {
   openModalBtn.addEventListener("click", getFriends);
 }
 
-function postIsLiked() {
-    // 1)Set up the eventListener to listen for a click on the thumbs up
+async function postIsLiked() {
+    // TODO: Use a query selector to grab the like button
+    // TODO: Loop through the buttons to be able to select them all
+    // TODO: Add an event listener to the like button
+    // TODO: Grab the PostsId and the current user Id
+    // TODO: Make the POST request and fetch the data
 
-    // 2)Loop through the user_likes table and check if the ID that clicked has already liked this posts ID
-    // 3)ELSE IF the like button is clicked push in the another like by the current users ID into the posts_likes table
-
-    // 4)IF the post is not liked by the current user change the color of the like button to BLUE
-    // 5)ELSE the post is confirmed to be liked by the current user change the color of the like button to GREY
+    let post;
+    for (let i = 0; i < posts.length; i++) {
+        post = posts[i]
+    }
 
     let likes;
-    let likeBtn = document.querySelectorAll("#like-button")
+    let likeBtn = document.querySelectorAll(".like-button")
     for (let i = 0; i < likeBtn.length; i++) {
-        likeBtn[i].addEventListener("click", function (event) {
+        likeBtn[i].addEventListener("click", async function (event) {
             console.log("The button was clicked")
             const postId = this.getAttribute("data-id")
-            for (let i = 0; i < posts.likes; i++) {
-                likes = posts[i].likes
-                // if (likes.posts.id === postId) {
-                //
-                // }
-            }
+            const userId = getUser().id
+
+            const addLikeRequest = {
+                method: "POST",
+                headers: getHeaders(),
+            };
+            await fetch(
+                `http://localhost:8080/api/postlikes/${postId}/${userId}`,
+                addLikeRequest
+            ).then(async function (response) {
+                if (!response.ok) {
+                    console.log("like post failed")
+                } else {
+                    console.log("post liked")
+                    theHomiesLikes.push(postId)
+                    console.log(theHomiesLikes);
+                    let likeIcon = document.querySelector(".like-button");
+                    likeIcon.innerHTML = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            </a>`
+                }
+            })
         })
     }
 }
