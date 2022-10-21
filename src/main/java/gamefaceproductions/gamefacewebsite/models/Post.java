@@ -39,7 +39,7 @@ public class Post {
 //    private Collection<PostComments> posts;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"posts", "user"})
+    @JsonIgnoreProperties({})
     @ToString.Exclude
     private Collection<PostLikes> likes;
 
