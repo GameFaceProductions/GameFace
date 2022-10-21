@@ -63,6 +63,9 @@ export default function ProfilePage(props) {
                           <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
                           <p class="bio-text text-white">Web Developer</p>
                           <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+                          <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+                            <i>Loading chat...</i>
+                          </div>
                         </div>
                       </div>
                       <!-- End of the left column -->
@@ -91,6 +94,7 @@ export function profileSetup() {
     getFriends();
     postIsLiked();
     editDeets();
+    chatExport();
 }
 
 
@@ -271,3 +275,36 @@ function editDeets() {
                     });
             });
         })}}
+
+function chatExport (){
+    Talk.ready.then(function () {
+        var me = new Talk.User({
+            id: '6',
+            name: 'Val',
+            email: 'valeriareveles12@gmail.com',
+            photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
+            welcomeMessage: 'Hey there!',
+        });
+        window.talkSession = new Talk.Session({
+            appId: 'teXlD9fo',
+            me: me,
+        });
+        let other = new Talk.User({
+            id: '5',
+            name: 'brek',
+            email: 'brekken.jackson5@gmail.com',
+            photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+            role: 'USER',
+        });
+
+        var conversation = talkSession.getOrCreateConversation(
+            Talk.oneOnOneId(me, other)
+        );
+        conversation.setParticipant(me);
+        conversation.setParticipant(other);
+
+        let inbox = talkSession.createInbox({ selected: conversation });
+        inbox.mount(document.getElementById('talkjs-container'));
+    });
+
+}

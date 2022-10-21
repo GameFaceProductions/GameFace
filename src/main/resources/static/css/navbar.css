@@ -4,6 +4,10 @@ nav{
     font-size: 1.3rem;
 }
 
+/*.navbar a{*/
+/*    color: #E4F1FF;*/
+/*}*/
+
 /*small{*/
 /*    margin: 0.8rem;*/
 /*}*/
@@ -51,6 +55,7 @@ nav{
 }
 .nav-item{
     margin-left: 3.5rem;
+    color: #E4F1FF;
 }
 .dropdown-menu{
     background-color: currentColor;
