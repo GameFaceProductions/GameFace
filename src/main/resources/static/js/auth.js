@@ -1,18 +1,19 @@
 import createView from "./createView.js";
 
-export function setLoggedInUserInfo() {
+export async function setLoggedInUserInfo() {
   const request = {
     method: "GET",
     headers: getHeaders(),
   };
   const url = "/api/users/authinfo";
-  fetch(url, request)
+  return await fetch(url, request)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       window.localStorage.setItem("user", JSON.stringify(data));
       createView("/");
+      return Promise.resolve();
     });
 }
 

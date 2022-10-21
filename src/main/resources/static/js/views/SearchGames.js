@@ -34,8 +34,6 @@ export function searchGamesJS() {
   let searchGamesPageContainer = document.getElementById("gameListContainer");
   let searchGamesInput = document.getElementById("searchGamesInput");
 
-  searchGamesBtn.addEventListener("click", fetchRawgGames);
-
   for (let i = 0; i < user.games.length; i++) {
     if (user.games[i] == null) {
       return;
@@ -43,6 +41,8 @@ export function searchGamesJS() {
       theHomiesGames.push(user.games[i].gameId);
     }
   }
+
+  searchGamesBtn.addEventListener("click", fetchRawgGames);
 
   async function fetchRawgGamesStoreLink() {
     let gameId = this.getAttribute("data-id");
@@ -153,7 +153,7 @@ export function searchGamesJS() {
          </div>
          <div id="${gameData.id}">
         ${gameBtn}
-        </div>
+        </div>3
         ${storeBtn}
      </div>
      </div>

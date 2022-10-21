@@ -348,3 +348,18 @@ button {
 .friends-list{
 
 }
+
+
+/*MY CHANGES*/
+.uploadBtn{
+    float: right;
+    position: relative;
+    bottom: 3.5rem;
+    width: 4rem;
+    height: 1.5rem;
+    line-height: 0;
+}
+.uploadBtnImage{
+    line-height: 0;
+}
+/*MY CHANGES*/
