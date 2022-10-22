@@ -31,7 +31,7 @@ export default function HomePage(props) {
             <!-- Bio -->
             <img src="${loggedInUser.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer" style="text-align: center;">
             <h3 class="bio"><a>Bio<a></h3>
-            <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
+            <h2 class="profile-element"><a>@${loggedInUser.gamerTag}</a></h2>
             <p class="profile-element profile-website">Web Developer</p>
             <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
           </div>
@@ -62,7 +62,7 @@ function generateAddPostHTML() {
       <form>
           <div class="add-form">
             <label for="content"></label>
-            <textarea id="content" class="form-control" name="content" rows="5" cols="48" placeholder="  What's on your mind"></textarea>
+            <textarea id="content" class="form-control" name="content" rows="5" cols="40" placeholder="  What's on your mind"></textarea>
           <button data-id="0" id="savePost" name="savePost" type="button" class="my-button btn btn-primary">Post</button>
       </form>
     </div>`;

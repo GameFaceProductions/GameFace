@@ -4,28 +4,24 @@ import createView from "../createView.js";
 let posts;
 let friends;
 let user
-let likes
-let theHomiesLikes = []
-let post;
-
+let currentUser;
 export default function ProfilePage(props) {
-  //USE FOR SPECIFIC USER ID FETCHING
-  user = getUser();
-  posts = props.posts;
-  friends = props.friends;
-  likes = props.likes
-    console.log(props);
-    return `           <div class="main">
+    currentUser = getUser().userName;
+    user = getUser();
+    let postHTML = generateUserPosts(props.posts);
+    posts = props.posts;
+    friends = props.friends;
+    // console.log(user);
+    posts = posts.reverse()
+    return `
+            <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
-<!--                MY CHANGES-->
-       
-<!--                MY CHANGES-->
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${friends.backdrop_url}); height:200px">
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button type="button" data-id="${getUser().id}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button type="button" data-id="${currentUser}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -47,7 +43,6 @@ export default function ProfilePage(props) {
                 <div class="overlay hidden"></div>
                 <!-- Start of followers/following div -->
                 <div class="p-4 text-black">
-                    <button id="uploadBtn" type="submit" class="uploadBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
                     <div class="d-flex justify-content-end text-center py-1">
                         <div class="px-3">
                             <a class="friends-display text-white" href="">
@@ -77,7 +72,7 @@ export default function ProfilePage(props) {
                       <!-- The posts/middle-col start here -->
                       <div class="col-6">
                         <ol class="post-list">
-                          <div id="postHTML"></div>
+                          ${postHTML}
                         </ol>
                       </div>
                       <!-- The right column will start here -->
@@ -91,255 +86,145 @@ export default function ProfilePage(props) {
                       <!-- End of the right column -->
                     </div>
                 </div>
-            </div>`;
+            </div>`
 }
 
 export function profileSetup() {
-    generateUserPosts();
     setupModalFunction();
     getFriends();
     postIsLiked();
-    uploadNewBackdrop();
     editDeets();
     chatExport();
-
-    if (likes.length === null) {
-        return;
-    } else {
-        for (let i = 0; i < likes.length; i++) {
-            let userId = likes[i].user.id
-            let postsId = likes[i].posts.id
-            if (user.id === userId) {
-                theHomiesLikes.push(postsId)
-            }
-        }
-        console.log(theHomiesLikes);
-    }
 }
 
 
-function generateUserPosts() {
+
+function generateUserPosts(posts) {
+    let userPosts = ``
     let currentUser = getUser();
-    let userPosts = document.getElementById("postHTML")
+    // console.log(currentUser);
 
     for (let i = 0; i < posts.length; i++) {
+        const post = posts[i];
 
-        post = posts;
+        if (post.author.id === currentUser.id) {
 
-        if (post[i].author.id === currentUser.id) {
-
-            userPosts.innerHTML += `
+            userPosts += `
                 <li class="post-card">
                     <div class="post-content">
                         <div class="post-header">
-                            <span class="fullname"><strong>${post[i].author.userName}</strong></span>
+                            <span class="fullname"><strong>${post.author.userName}</strong></span>
                             <span class="username">@${currentUser.gamerTag}</span>
-                            <span class="post-time">- ${post[i].createdAt}</span>
+                            <span class="post-time">- ${post.createdAt}</span>
                         </div>
-                            <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post[i].author.avatar_url}" alt="profile pic"></a>
+                            <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
                         <div class="post-text">
-                            <p class="" lang="es" data-aria-label-part="0"><br>${post[i].content}</p>
+                            <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
                         </div>
                         <div class="post-footer">
                             <a href="" class="post-footer-btn">
-                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post[i].postComments.length}</span>
+                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
                             </a>
-                            <div id="${post[i].id}" class="like-button"></div>
+                            <a id="like-button" href="" data-id="${post.id}" class="post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            </a>
                         </div>
                     </div>
                 </li>
                 `;
-
         }
     }
-    let newLikeBtn="";
-
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i].author.id === currentUser.id) {
-            let likeDiv = document.getElementById(posts[i].id);
-            console.log(posts[i].id);
-            // post = posts[i]
-            if (theHomiesLikes.includes(posts[i].id)) {
-                newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
-                            </a>`
-            } else {
-                newLikeBtn = `<a href="" data-id="${posts[i].id}" id="${posts[i].id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>x${posts[i].likes.length}</span>
-                            </a>`
-            }
-                likeDiv.innerHTML = newLikeBtn
-            }
-        }
-
+    return userPosts
 }
 
-function uploadNewBackdrop() {
-    let backdrop_url = "";
-    const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
-    const options = {
-        onFileSelected: (file) => {
-            //LIMIT FILE SIZE (something like 40-50mb)
-            // If you throw any error in this function it will reject the file selection.
-            // The error message will be displayed to the user as an alert.
-            // if (file.size > 1000 * 1000) {
-            //   throw new Error("File too big, select something smaller than 1MB");
-            // }
-        },
-        maxFiles: 1,
-        onUploadDone: async function (res) {
-            backdrop_url = res.filesUploaded[0].url;
-            console.log(backdrop_url);
-            console.log(res);
 
-            const newBackdropUrlBody = {
-                backdrop_url: backdrop_url,
-            };
-
-            const newBackdropRequestOptions = {
-                method: "PUT",
-                headers: getHeaders(),
-                body: JSON.stringify(newBackdropUrlBody),
-            };
-            await fetch(
-                `http://localhost:8080/api/users/${getUser().id}`,
-                newBackdropRequestOptions
-            ).then(async function (response) {
-                if (!response.ok) {
-                    console.log("add backdrop error: " + response.status);
-                } else {
-                    console.log("add backdrop ok");
-                    let data = window.localStorage.getItem("user");
-                    if (data != null) {
-                        let newUserWithBackdrop = JSON.parse(data);
-                        newUserWithBackdrop.backdrop_url = backdrop_url;
-                        window.localStorage.setItem(
-                            "user",
-                            JSON.stringify(newUserWithBackdrop)
-                        );
-                        location.reload();
-                    }
-                }
-            });
-        },
-        supportEmail: "gamefaceproductions210@gmail.com",
-        hideModalWhenUploading: true,
-    };
-    let uploadBtn = document.getElementById("uploadBtn");
-    uploadBtn.addEventListener("click", function () {
-        client.picker(options).open();
-    });
-}
 
 function getFriends() {
-  let html = ``;
-  let friendList = document.querySelector("#friends-list");
-  let currentUser = getUser().userName;
-  let friendArray = [];
+    let html =``
+    let friendList = document.querySelector("#friends-list")
+    let currentUser = getUser().userName;
+    let friendArray = [];
 
-  // for (let i = 0; i < friends.length; i++) {
-  const user = friends;
-  const friend = friends.userFriends;
+    // for (let i = 0; i < friends.length; i++) {
+    const user = friends;
+    const friend = friends.userFriends
 
-  if (user.userName === currentUser) {
-    for (let j = 0; j < friend.length; j++) {
-      let friendObj = { name: friend[j].userName, url: friend[j].avatar_url };
-      friendArray.push(friendObj);
+    if (user.userName === currentUser) {
+        for (let j = 0; j < friend.length; j++) {
+            let friendObj = {name: friend[j].userName, url: friend[j].avatar_url}
+            friendArray.push(friendObj)
+        }
     }
-  }
-  // }
-  for (let j = 0; j < friendArray.length; j++) {
-    html += `
+    // }
+    for (let j = 0; j < friendArray.length; j++) {
+        html += `
                 <a href="">
                     <div class="mb-2 ml-5 text-white">
                         <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
                 </a>
-            `;
-  }
-  friendList.innerHTML = html;
+            `
+    }
+    friendList.innerHTML = html;
 }
+
+
 
 function setupModalFunction() {
-  const modal = document.querySelector("#modal-1");
-  const overlay = document.querySelector(".overlay");
-  const openModalBtn = document.querySelector(".friends-display");
-  const closeModalBtn = document.querySelector(".btn-close");
+    const modal = document.querySelector("#modal-1");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".friends-display");
+    const closeModalBtn = document.querySelector(".btn-close");
 
-  // close modal function
-  const closeModal = function () {
-    modal.classList.add("hidden");
-    overlay.classList.add("hidden");
-  };
+// close modal function
+    const closeModal = function() {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
 
-  // close the modal when the close button and overlay is clicked
-  closeModalBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+// close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
 
-  // close modal when the Esc key is pressed
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-      closeModal();
-    }
-  });
+// close modal when the Esc key is pressed
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
 
-  // open modal function
-  const openModal = function () {
-    modal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-  };
-  // open modal event
-  openModalBtn.addEventListener("click", openModal);
-  openModalBtn.addEventListener("click", getFriends);
+// open modal function
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+// open modal event
+    openModalBtn.addEventListener("click", openModal);
+    openModalBtn.addEventListener('click', getFriends)
 }
 
-async function postIsLiked() {
-    // TODO: Use a query selector to grab the like button
-    // TODO: Loop through the buttons to be able to select them all
-    // TODO: Add an event listener to the like button
-    // TODO: Grab the PostsId and the current user Id
-    // TODO: Make the POST request and fetch the data
+function postIsLiked() {
+    // 1)Set up the eventListener to listen for a click on the thumbs up
 
-    let post;
-    for (let i = 0; i < posts.length; i++) {
-        post = posts[i]
-    }
+    // 2)Loop through the user_likes table and check if the ID that clicked has already liked this posts ID
+    // 3)ELSE IF the like button is clicked push in the another like by the current users ID into the posts_likes table
+
+    // 4)IF the post is not liked by the current user change the color of the like button to BLUE
+    // 5)ELSE the post is confirmed to be liked by the current user change the color of the like button to GREY
 
     let likes;
-    let likeBtn = document.getElementsByClassName("like-buttons")
+    let likeBtn = document.querySelectorAll("#like-button")
     for (let i = 0; i < likeBtn.length; i++) {
-        likeBtn[i].addEventListener("click", async function (event) {
+        likeBtn[i].addEventListener("click", function (event) {
             console.log("The button was clicked")
             const postId = this.getAttribute("data-id")
-            console.log(postId);
-            const userId = getUser().id
-
-            const addLikeRequest = {
-                method: "POST",
-                headers: getHeaders(),
-            };
-            await fetch(
-                `http://localhost:8080/api/postlikes/${postId}/${userId}`,
-                addLikeRequest
-            ).then(async function (response) {
-                if (!response.ok) {
-                    console.log("like post failed")
-                } else {
-                    console.log("post liked")
-                    theHomiesLikes.push(postId)
-                    console.log(theHomiesLikes);
-                    let likeIcon = document.getElementsByClassName("like-buttons");
-                    for (let j = 0; j < likeIcon.length; j++) {
-                        if (likeIcon[j].getAttribute("data-id")=== postId) {
-                            console.log("yes");
-                            likeIcon[j].innerHTML = `<a href="" data-id="${post.id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
-                            </a>`
-                        } else{ console.log("DNE") }
-                    }
-                }
-            })
+            for (let i = 0; i < posts.likes; i++) {
+                likes = posts[i].likes
+                // if (likes.posts.id === postId) {
+                //
+                // }
+            }
         })
     }
 }
@@ -368,7 +253,7 @@ function editDeets() {
             let editTag = document.getElementById("editTag");
             editTag.addEventListener("input", () => console.log(editTag.value));
             let editDeets = document.getElementById("edit-btn")
-           editDeets.addEventListener("click", function (event) {
+            editDeets.addEventListener("click", function (event) {
                 event.preventDefault();
                 let data = {
                     userName: editName.value,
@@ -393,32 +278,39 @@ function editDeets() {
 
 function chatExport (){
     Talk.ready.then(function () {
-        var me = new Talk.User({
-            id: '6',
-            name: 'Val',
-            email: 'valeriareveles12@gmail.com',
-            photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
-            welcomeMessage: 'Hey there!',
+        let me = new Talk.User({
+            id: currentUser.id,
+            name: currentUser.userName,
+            email: currentUser.email,
+            photoUrl: currentUser.avatar_url,
+            welcomeMessage: 'Hey there!'
         });
         window.talkSession = new Talk.Session({
             appId: 'teXlD9fo',
             me: me,
         });
-        let other = new Talk.User({
-            id: '5',
-            name: 'brek',
-            email: 'brekken.jackson5@gmail.com',
-            photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-            role: 'USER',
-        });
 
-        var conversation = talkSession.getOrCreateConversation(
-            Talk.oneOnOneId(me, other)
+        let model = {
+            id: user.id,
+            name: user.userName,
+            email: user.email,
+            photoUrl: user.avatar_url,
+            role: user.role
+        }
+
+        let conversation = talkSession.getOrCreateConversation(
+            Talk.oneOnOneId(me, model)
         );
         conversation.setParticipant(me);
-        conversation.setParticipant(other);
+        conversation.setParticipant(model);
 
+        // inbox and chatbox
         let inbox = talkSession.createInbox({ selected: conversation });
         inbox.mount(document.getElementById('talkjs-container'));
+
+        // let chatbox = window.talkSession.createChatbox();
+        // chatbox.select(conversation);
+        // chatbox.mount(document.getElementById('talkjs-container'));
     });
+
 }
