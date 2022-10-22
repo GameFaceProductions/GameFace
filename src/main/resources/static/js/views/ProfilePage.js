@@ -7,14 +7,15 @@ let user
 let likes
 let theHomiesLikes = []
 let post;
+let homies = []
 
 export default function ProfilePage(props) {
-  //USE FOR SPECIFIC USER ID FETCHING
-  user = getUser();
-  posts = props.posts;
-  friends = props.friends;
-  likes = props.likes
-    console.log(props);
+    //USE FOR SPECIFIC USER ID FETCHING
+    user = getUser();
+    posts = props.posts;
+    friends = props.friends;
+    console.log(friends);
+    likes = props.likes
     return `           <div class="main">
                 <!-- This is the div for the cover photo -->
                 <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
@@ -96,13 +97,6 @@ export default function ProfilePage(props) {
 
 export function profileSetup() {
     generateUserPosts();
-    setupModalFunction();
-    getFriends();
-    postIsLiked();
-    uploadNewBackdrop();
-    editDeets();
-    chatExport();
-
     if (likes.length === null) {
         return;
     } else {
@@ -115,6 +109,15 @@ export function profileSetup() {
         }
         console.log(theHomiesLikes);
     }
+    gethomies();
+    setupModalFunction();
+    getFriends();
+    postIsLiked();
+    uploadNewBackdrop();
+    editDeets();
+    chatExport();
+
+
 }
 
 
@@ -144,7 +147,7 @@ function generateUserPosts() {
                             <a href="" class="post-footer-btn">
                               <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post[i].postComments.length}</span>
                             </a>
-                            <div id="${post[i].id}" class="like-button"></div>
+                            <div id="${post[i].id}" class="like-button-div"></div>
                         </div>
                     </div>
                 </li>
@@ -154,24 +157,31 @@ function generateUserPosts() {
     }
     let newLikeBtn="";
 
+    let newHomies = gethomies()
     for (let i = 0; i < posts.length; i++) {
+        console.log(newHomies);
         if (posts[i].author.id === currentUser.id) {
             let likeDiv = document.getElementById(posts[i].id);
-            console.log(posts[i].id);
             // post = posts[i]
-            if (theHomiesLikes.includes(posts[i].id)) {
+            if (newHomies.includes(posts[i].id)) {
                 newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
                               <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
                             </a>`
             } else {
-                newLikeBtn = `<a href="" data-id="${posts[i].id}" id="${posts[i].id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>x${posts[i].likes.length}</span>
+                newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
+                              <i class="testing fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
                             </a>`
             }
-                likeDiv.innerHTML = newLikeBtn
-            }
+            likeDiv.innerHTML = newLikeBtn
         }
+    }
+}
 
+function gethomies () {
+    for (let i = 0; i < theHomiesLikes.length; i++) {
+        homies.push(theHomiesLikes[i])
+    }
+    return homies
 }
 
 function uploadNewBackdrop() {
@@ -232,24 +242,24 @@ function uploadNewBackdrop() {
 }
 
 function getFriends() {
-  let html = ``;
-  let friendList = document.querySelector("#friends-list");
-  let currentUser = getUser().userName;
-  let friendArray = [];
+    let html = ``;
+    let friendList = document.querySelector("#friends-list");
+    let currentUser = getUser().userName;
+    let friendArray = [];
 
-  // for (let i = 0; i < friends.length; i++) {
-  const user = friends;
-  const friend = friends.userFriends;
+    // for (let i = 0; i < friends.length; i++) {
+    const user = friends;
+    const friend = friends.userFriends;
 
-  if (user.userName === currentUser) {
-    for (let j = 0; j < friend.length; j++) {
-      let friendObj = { name: friend[j].userName, url: friend[j].avatar_url };
-      friendArray.push(friendObj);
+    if (user.userName === currentUser) {
+        for (let j = 0; j < friend.length; j++) {
+            let friendObj = { name: friend[j].userName, url: friend[j].avatar_url };
+            friendArray.push(friendObj);
+        }
     }
-  }
-  // }
-  for (let j = 0; j < friendArray.length; j++) {
-    html += `
+    // }
+    for (let j = 0; j < friendArray.length; j++) {
+        html += `
                 <a href="">
                     <div class="mb-2 ml-5 text-white">
                         <img referrerpolicy="no-referrer" src="${friendArray[j].url}" width="50px" alt="user" />
@@ -257,41 +267,41 @@ function getFriends() {
                     </div>
                 </a>
             `;
-  }
-  friendList.innerHTML = html;
+    }
+    friendList.innerHTML = html;
 }
 
 function setupModalFunction() {
-  const modal = document.querySelector("#modal-1");
-  const overlay = document.querySelector(".overlay");
-  const openModalBtn = document.querySelector(".friends-display");
-  const closeModalBtn = document.querySelector(".btn-close");
+    const modal = document.querySelector("#modal-1");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".friends-display");
+    const closeModalBtn = document.querySelector(".btn-close");
 
-  // close modal function
-  const closeModal = function () {
-    modal.classList.add("hidden");
-    overlay.classList.add("hidden");
-  };
+    // close modal function
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
 
-  // close the modal when the close button and overlay is clicked
-  closeModalBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+    // close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
 
-  // close modal when the Esc key is pressed
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-      closeModal();
-    }
-  });
+    // close modal when the Esc key is pressed
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
 
-  // open modal function
-  const openModal = function () {
-    modal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-  };
-  // open modal event
-  openModalBtn.addEventListener("click", openModal);
-  openModalBtn.addEventListener("click", getFriends);
+    // open modal function
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+    // open modal event
+    openModalBtn.addEventListener("click", openModal);
+    openModalBtn.addEventListener("click", getFriends);
 }
 
 async function postIsLiked() {
@@ -329,12 +339,12 @@ async function postIsLiked() {
                     console.log("post liked")
                     theHomiesLikes.push(postId)
                     console.log(theHomiesLikes);
-                    let likeIcon = document.getElementsByClassName("like-buttons");
+                    let likeIcon = document.getElementsByClassName("like-button-div");
                     for (let j = 0; j < likeIcon.length; j++) {
-                        if (likeIcon[j].getAttribute("data-id")=== postId) {
+                        if (likeIcon[j].getAttribute("id") === postId) {
                             console.log("yes");
-                            likeIcon[j].innerHTML = `<a href="" data-id="${post.id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
+                            likeIcon[j].innerHTML = `<a href="" class="like-button post-footer-btn">
+                              <i class="test2 fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
                             </a>`
                         } else{ console.log("DNE") }
                     }
@@ -368,7 +378,7 @@ function editDeets() {
             let editTag = document.getElementById("editTag");
             editTag.addEventListener("input", () => console.log(editTag.value));
             let editDeets = document.getElementById("edit-btn")
-           editDeets.addEventListener("click", function (event) {
+            editDeets.addEventListener("click", function (event) {
                 event.preventDefault();
                 let data = {
                     userName: editName.value,
