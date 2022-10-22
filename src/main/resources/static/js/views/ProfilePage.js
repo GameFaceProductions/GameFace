@@ -1,4 +1,3 @@
-import { getHeaders, getUser } from "../auth.js";
 import {getHeaders, getUser, setLoggedInUserInfo} from "../auth.js";
 import createView from "../createView.js";
 
@@ -7,16 +6,16 @@ let friends;
 let user
 let likes
 let theHomiesLikes = []
+let post;
 
 export default function ProfilePage(props) {
   //USE FOR SPECIFIC USER ID FETCHING
   user = getUser();
-  let postHTML = generateUserPosts(props.posts);
   posts = props.posts;
   friends = props.friends;
   likes = props.likes
-  posts = posts.reverse();
-  return `           <div class="main">
+    console.log(props);
+    return `           <div class="main">
                 <!-- This is the div for the cover photo -->
                 <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
 <!--                MY CHANGES-->
@@ -26,7 +25,7 @@ export default function ProfilePage(props) {
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
                         <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button type="button" data-id="${currentUser}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button type="button" data-id="${getUser().id}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -78,7 +77,7 @@ export default function ProfilePage(props) {
                       <!-- The posts/middle-col start here -->
                       <div class="col-6">
                         <ol class="post-list">
-                          ${postHTML}
+                          <div id="postHTML"></div>
                         </ol>
                       </div>
                       <!-- The right column will start here -->
@@ -96,12 +95,14 @@ export default function ProfilePage(props) {
 }
 
 export function profileSetup() {
+    generateUserPosts();
     setupModalFunction();
     getFriends();
     postIsLiked();
     uploadNewBackdrop();
     editDeets();
     chatExport();
+
     if (likes.length === null) {
         return;
     } else {
@@ -116,110 +117,118 @@ export function profileSetup() {
     }
 }
 
-function uploadNewBackdrop() {
-  let backdrop_url = "";
-  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
-  const options = {
-    onFileSelected: (file) => {
-      //LIMIT FILE SIZE (something like 40-50mb)
-      // If you throw any error in this function it will reject the file selection.
-      // The error message will be displayed to the user as an alert.
-      // if (file.size > 1000 * 1000) {
-      //   throw new Error("File too big, select something smaller than 1MB");
-      // }
-    },
-    maxFiles: 1,
-    onUploadDone: async function (res) {
-      backdrop_url = res.filesUploaded[0].url;
-      console.log(backdrop_url);
-      console.log(res);
 
-      const newBackdropUrlBody = {
-        backdrop_url: backdrop_url,
-      };
-
-      const newBackdropRequestOptions = {
-        method: "PUT",
-        headers: getHeaders(),
-        body: JSON.stringify(newBackdropUrlBody),
-      };
-      await fetch(
-        `http://localhost:8080/api/users/${getUser().id}`,
-        newBackdropRequestOptions
-      ).then(async function (response) {
-        if (!response.ok) {
-          console.log("add backdrop error: " + response.status);
-        } else {
-          console.log("add backdrop ok");
-          let data = window.localStorage.getItem("user");
-          if (data != null) {
-            let newUserWithBackdrop = JSON.parse(data);
-            newUserWithBackdrop.backdrop_url = backdrop_url;
-            window.localStorage.setItem(
-              "user",
-              JSON.stringify(newUserWithBackdrop)
-            );
-            location.reload();
-          }
-        }
-      });
-    },
-    supportEmail: "gamefaceproductions210@gmail.com",
-    hideModalWhenUploading: true,
-  };
-  let uploadBtn = document.getElementById("uploadBtn");
-  uploadBtn.addEventListener("click", function () {
-    client.picker(options).open();
-  });
-}
-=======
-function generateUserPosts(posts) {
-    let userPosts = ``
+function generateUserPosts() {
     let currentUser = getUser();
-    let post;
-    let likeBtn = document.querySelector("#like-button")
-    let newLikeBtn;
+    let userPosts = document.getElementById("postHTML")
 
     for (let i = 0; i < posts.length; i++) {
 
-        post = posts[i];
+        post = posts;
 
-        if (theHomiesLikes.includes(post.id)) {
-            newLikeBtn = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
-                            </a>`
-        } else {
-            newLikeBtn = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
-                            </a>`
-        }
+        if (post[i].author.id === currentUser.id) {
 
-    if (post.author.id === currentUser.id) {
-
-        userPosts += `
+            userPosts.innerHTML += `
                 <li class="post-card">
                     <div class="post-content">
                         <div class="post-header">
-                            <span class="fullname"><strong>${post.author.userName}</strong></span>
+                            <span class="fullname"><strong>${post[i].author.userName}</strong></span>
                             <span class="username">@${currentUser.gamerTag}</span>
-                            <span class="post-time">- ${post.createdAt}</span>
+                            <span class="post-time">- ${post[i].createdAt}</span>
                         </div>
-                            <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
+                            <a href=""><img referrerpolicy="no-referrer" class="post-picture" src="${post[i].author.avatar_url}" alt="profile pic"></a>
                         <div class="post-text">
-                            <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
+                            <p class="" lang="es" data-aria-label-part="0"><br>${post[i].content}</p>
                         </div>
                         <div class="post-footer">
                             <a href="" class="post-footer-btn">
-                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
+                              <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post[i].postComments.length}</span>
                             </a>
-                            ${newLikeBtn}
+                            <div id="${post[i].id}" class="like-button"></div>
                         </div>
                     </div>
                 </li>
                 `;
+
+        }
     }
-  }
-  return userPosts;
+    let newLikeBtn="";
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].author.id === currentUser.id) {
+            let likeDiv = document.getElementById(posts[i].id);
+            console.log(posts[i].id);
+            // post = posts[i]
+            if (theHomiesLikes.includes(posts[i].id)) {
+                newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
+                            </a>`
+            } else {
+                newLikeBtn = `<a href="" data-id="${posts[i].id}" id="${posts[i].id}" class="like-buttons post-footer-btn">
+                              <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>x${posts[i].likes.length}</span>
+                            </a>`
+            }
+                likeDiv.innerHTML = newLikeBtn
+            }
+        }
+
+}
+
+function uploadNewBackdrop() {
+    let backdrop_url = "";
+    const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+    const options = {
+        onFileSelected: (file) => {
+            //LIMIT FILE SIZE (something like 40-50mb)
+            // If you throw any error in this function it will reject the file selection.
+            // The error message will be displayed to the user as an alert.
+            // if (file.size > 1000 * 1000) {
+            //   throw new Error("File too big, select something smaller than 1MB");
+            // }
+        },
+        maxFiles: 1,
+        onUploadDone: async function (res) {
+            backdrop_url = res.filesUploaded[0].url;
+            console.log(backdrop_url);
+            console.log(res);
+
+            const newBackdropUrlBody = {
+                backdrop_url: backdrop_url,
+            };
+
+            const newBackdropRequestOptions = {
+                method: "PUT",
+                headers: getHeaders(),
+                body: JSON.stringify(newBackdropUrlBody),
+            };
+            await fetch(
+                `http://localhost:8080/api/users/${getUser().id}`,
+                newBackdropRequestOptions
+            ).then(async function (response) {
+                if (!response.ok) {
+                    console.log("add backdrop error: " + response.status);
+                } else {
+                    console.log("add backdrop ok");
+                    let data = window.localStorage.getItem("user");
+                    if (data != null) {
+                        let newUserWithBackdrop = JSON.parse(data);
+                        newUserWithBackdrop.backdrop_url = backdrop_url;
+                        window.localStorage.setItem(
+                            "user",
+                            JSON.stringify(newUserWithBackdrop)
+                        );
+                        location.reload();
+                    }
+                }
+            });
+        },
+        supportEmail: "gamefaceproductions210@gmail.com",
+        hideModalWhenUploading: true,
+    };
+    let uploadBtn = document.getElementById("uploadBtn");
+    uploadBtn.addEventListener("click", function () {
+        client.picker(options).open();
+    });
 }
 
 function getFriends() {
@@ -298,11 +307,12 @@ async function postIsLiked() {
     }
 
     let likes;
-    let likeBtn = document.querySelectorAll(".like-button")
+    let likeBtn = document.getElementsByClassName("like-buttons")
     for (let i = 0; i < likeBtn.length; i++) {
         likeBtn[i].addEventListener("click", async function (event) {
             console.log("The button was clicked")
             const postId = this.getAttribute("data-id")
+            console.log(postId);
             const userId = getUser().id
 
             const addLikeRequest = {
@@ -319,10 +329,15 @@ async function postIsLiked() {
                     console.log("post liked")
                     theHomiesLikes.push(postId)
                     console.log(theHomiesLikes);
-                    let likeIcon = document.querySelector(".like-button");
-                    likeIcon.innerHTML = `<a href="" data-id="${post.id}" class="like-button post-footer-btn">
+                    let likeIcon = document.getElementsByClassName("like-buttons");
+                    for (let j = 0; j < likeIcon.length; j++) {
+                        if (likeIcon[j].getAttribute("data-id")=== postId) {
+                            console.log("yes");
+                            likeIcon[j].innerHTML = `<a href="" data-id="${post.id}" class="like-buttons post-footer-btn">
                               <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
                             </a>`
+                        } else{ console.log("DNE") }
+                    }
                 }
             })
         })
