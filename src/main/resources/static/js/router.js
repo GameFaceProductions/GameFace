@@ -29,15 +29,16 @@ export default function router(URI) {
       title: "Home",
       viewEvent: postSetup,
     },
-    "/profile": {
+    "/profile/:id": {
       returnView: ProfilePage,
       state: {
+        user: "api/users/:id",
         posts: "/api/posts",
-        friends: `/api/friends/${getUser().id}`,
-        likes: `/api/postlikes`,
+        friends: "/api/friends/:id",
+        likes: "/api/postlikes",
       },
-      uri: "/profile",
-      title: "ProfilePage",
+      uri: "/profile/:id",
+      title: "Profile",
       viewEvent: profileSetup,
     },
     "/login": {
@@ -111,5 +112,25 @@ export default function router(URI) {
     },
   };
 
+  if (!routes[URI]) {
+    for (const routeKey in routes) {
+      let keyPieces = routeKey.split("/");
+      if (keyPieces.length > 2) {
+        let pathVar = keyPieces[2];
+        let pathInput = URI.split("/")[2];
+        let baseURI = new RegExp(keyPieces[1]);
+        if (baseURI.test(BACKEND_HOST + URI)) {
+          let foundRoute = routes[routeKey];
+          foundRoute.uri = URI;
+          for (let statePiece in foundRoute.state) {
+            foundRoute.state[statePiece] = foundRoute.state[
+              statePiece
+            ].replaceAll(pathVar, pathInput);
+          }
+          return foundRoute;
+        }
+      }
+    }
+  }
   return routes[URI];
 }
