@@ -19,4 +19,5 @@ public class UserAuthInfoDTO {
     private String avatar_url;
     private String backdrop_url;
     private String gamerTag;
+    private String region;
 }
