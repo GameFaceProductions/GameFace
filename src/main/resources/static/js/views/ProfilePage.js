@@ -14,8 +14,8 @@ export default function ProfilePage(props) {
     user = getUser();
     posts = props.posts;
     friends = props.friends;
-    console.log(friends);
     likes = props.likes
+    console.log(user);
     return `           <div class="main">
                 <!-- This is the div for the cover photo -->
                 <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
@@ -30,7 +30,7 @@ export default function ProfilePage(props) {
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
-                        <p>Region</p>
+                        <p>${user.region}</p>
                     </div>
                 </div>
                 <!-- Modal containing lists of current users friends starts here -->
@@ -107,7 +107,6 @@ export function profileSetup() {
                 theHomiesLikes.push(postsId)
             }
         }
-        console.log(theHomiesLikes);
     }
     gethomies();
     setupModalFunction();
@@ -159,7 +158,6 @@ function generateUserPosts() {
 
     let newHomies = gethomies()
     for (let i = 0; i < posts.length; i++) {
-        console.log(newHomies);
         if (posts[i].author.id === currentUser.id) {
             let likeDiv = document.getElementById(posts[i].id);
             // post = posts[i]
@@ -168,7 +166,7 @@ function generateUserPosts() {
                               <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
                             </a>`
             } else {
-                newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
+                newLikeBtn = `<a href="" id="${posts[i].likes.length+1}" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
                               <i class="testing fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
                             </a>`
             }
@@ -311,19 +309,13 @@ async function postIsLiked() {
     // TODO: Grab the PostsId and the current user Id
     // TODO: Make the POST request and fetch the data
 
-    let post;
-    for (let i = 0; i < posts.length; i++) {
-        post = posts[i]
-    }
-
-    let likes;
     let likeBtn = document.getElementsByClassName("like-buttons")
     for (let i = 0; i < likeBtn.length; i++) {
         likeBtn[i].addEventListener("click", async function (event) {
             console.log("The button was clicked")
             const postId = this.getAttribute("data-id")
-            console.log(postId);
             const userId = getUser().id
+            const btnLength = this.getAttribute("id")
 
             const addLikeRequest = {
                 method: "POST",
@@ -343,9 +335,9 @@ async function postIsLiked() {
                     for (let j = 0; j < likeIcon.length; j++) {
                         if (likeIcon[j].getAttribute("id") === postId) {
                             console.log("yes");
-                            likeIcon[j].innerHTML = `<a href="" class="like-button post-footer-btn">
-                              <i class="test2 fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${post.likes.length}</span>
-                            </a>`
+                            likeIcon[j].innerHTML = `<a href="" id=${btnLength} data-id="${postId}" class="like-buttons post-footer-btn">
+                         <i class="testing fa-regular fa-thumbs-up text-primary" aria-hidden="true"></i><span>${btnLength}</span>
+                         </a>`;
                         } else{ console.log("DNE") }
                     }
                 }
@@ -370,6 +362,8 @@ function editDeets() {
         <input class="form-control" id="editName" placeholder="${user.userName}">
         <label for="editTag" class="form-label">Edit GamerTag</label>
         <input class="form-control" id="editTag" placeholder="${user.gamerTag}">
+        <label for="editRegion" class="form-label">Edit Region</label>
+        <input class="form-control" id="editRegion" placeholder="${user.region}">
         <button data-id="${user.id}" class="form-control" id="edit-btn">Save Changes</button>
      </div>
  `;
@@ -377,12 +371,15 @@ function editDeets() {
             editName.addEventListener("input", () => console.log(editName.value));
             let editTag = document.getElementById("editTag");
             editTag.addEventListener("input", () => console.log(editTag.value));
+            let editRegion = document.getElementById("editRegion");
+            editRegion.addEventListener("input", () => console.log(editRegion.value));
             let editDeets = document.getElementById("edit-btn")
             editDeets.addEventListener("click", function (event) {
                 event.preventDefault();
                 let data = {
                     userName: editName.value,
-                    gamerTag: editTag.value
+                    gamerTag: editTag.value,
+                    region: editRegion.value
                 }
                 console.log(data);
                 const request = {
