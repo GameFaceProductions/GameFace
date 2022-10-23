@@ -23,7 +23,7 @@ export default function Navbar(props) {
     <i onClick="window.location.href='/home';" class="bi bi-house-fill nav-item no-italic"><small
         class="nav-text">Home</small></i>        </li>
         <li>
-         <i onClick="window.location.href='/profile';" class="bi bi-person-circle nav-item no-italic"><small
+         <i title="${user.id}" id="profileNavBar" class=" bi bi-person-circle nav-item no-italic"><small
         class="nav-text">Profile</small></i>
 </li>
         <li class="nav-item dropdown">
@@ -39,7 +39,7 @@ export default function Navbar(props) {
         <li><i onClick="window.location.href='/logout';" class="bi bi-box-arrow-in-right nav-item no-italic"><small
         class="nav-text">Logout</small></i></li>
       </ul>
-      <img src="${user.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer">
+      <img title="${user.id}" id="navbar-avatar" src="${user.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer">
     </div>
 `;
   } else {
