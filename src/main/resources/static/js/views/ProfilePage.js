@@ -398,7 +398,7 @@ function editDeets() {
         let modal = document.createElement("div");
         document.body.appendChild(modal);
         modal.innerHTML = `     
-     <div>       
+     <div class="deets">       
      <h1>Edit Deets</h1>
         <label for="editName" class="form-label">Edit UserName</label>
         <input class="form-control" id="editName" placeholder="${user.userName}">
@@ -406,7 +406,7 @@ function editDeets() {
         <input class="form-control" id="editTag" placeholder="${user.gamerTag}">
         <label for="editRegion" class="form-label">Edit Region</label>
         <input class="form-control" id="editRegion" placeholder="${user.region}">
-        <button data-id="${user.id}" class="form-control" id="edit-btn">Save Changes</button>
+        <button data-id="${user.id}" class="form-control btn" id="edit-btn">Save Changes</button>
      </div>
  `;
         let editName = document.getElementById("editName");
@@ -434,6 +434,7 @@ function editDeets() {
           const url = `http://localhost:8080/api/users/${editDeets.dataset.id}`;
           fetch(url, request).then(async (response) => {
             console.log(response.status);
+            // editDeets.addEventListener("click")
             await setLoggedInUserInfo();
             createView(`/profile/${userUser.id}`);
           });

@@ -15,8 +15,10 @@ export default function HomePage(props) {
   return `
     <div class="container home">
       <h3 style="text-align: center">Featured Highlights</h3>
-      <div class="highlights">
-        <div class="highlights">Highlights</div>
+      <div class="container highlights">
+        <div id="highlightVideoDiv" class="highlights"></div>
+                            <button id="uploadHighlightBtn" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
+
       </div>
       <div class="col add-post">
           ${addPostHTML}
@@ -102,23 +104,29 @@ function generatePostsHTML(posts) {
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if (
-        loggedInUser.role === "ADMIN" ||
-        loggedInUser.userName === post.author.userName
+      loggedInUser.role === "ADMIN" ||
+      loggedInUser.userName === post.author.userName
     ) {
       postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
               <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
     //Closes posts/home divs and concat collapsable comment form:
     postsHTML += `</div></li>
-            <div class="row collapse highlights" id="collapseComment-${post.id}">
+            <div class="row collapse highlights" id="collapseComment-${
+              post.id
+            }">
               <div class="col-10 comment">
                 <form>
                   <div class="add-form">
                     <label for="comment"></label>
-                    <input class="input-comments add-form form-control" type="text" placeholder=" Say Something!" id="comment-box-${post.id}">
+                    <input class="input-comments add-form form-control" type="text" placeholder=" Say Something!" id="comment-box-${
+                      post.id
+                    }">
                   </div>
                 <!--This button is for saving/pushing comment to backend-->
-                  <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                  <button data-id=${
+                    post.id
+                  } name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
                 </form>
                 ${createPostCommentHTML(post)}
               </div><!--End col -->
@@ -148,8 +156,54 @@ export function postSetup() {
   setupDeleteHandlers();
   postCommentValue();
   showDevFavorites();
+  showDevHighlights();
 }
 
+function showDevHighlights() {
+  let highlightVideoDiv = document.getElementById("highlightVideoDiv");
+  let uploadHighlightBtn = document.getElementById("uploadHighlightBtn");
+  //FILESTACK
+  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const options = {
+    maxFiles: 1,
+    onUploadDone: function (res) {
+      const url = res.filesUploaded[0].url;
+      console.log(url);
+      console.log(res);
+    },
+    supportEmail: "gamefaceproductions210@gmail.com",
+    hideModalWhenUploading: true,
+  };
+  uploadHighlightBtn.addEventListener("click", function () {
+    client.picker(options).open();
+  });
+  let devHighlights = [
+    {
+      game: "League of Legends",
+      url: "https://cdn.filestackcontent.com/sBSFbnQR1eJpXkjHQof2",
+    },
+    {
+      game: "League of Legends",
+      url: "https://cdn.filestackcontent.com/BKLhB2I0ROGZcIbTttf6",
+    },
+    {
+      game: "WoW",
+      url: "https://cdn.filestackcontent.com/mtPcT3zoQfuZUSxEbfQo",
+    },
+    {
+      game: "ArmA",
+      url: "https://cdn.filestackcontent.com/gfv2bPJoTm97VlfdrMSm",
+    },
+  ];
+  let featuredHighlight =
+    devHighlights[Math.floor(Math.random() * devHighlights.length)];
+  let featuredHighlightTitle = featuredHighlight.game;
+  featuredHighlight = featuredHighlight.url;
+  highlightVideoDiv.innerHTML = `<video controls id="featuredHighlightVideo">
+<source src="${featuredHighlight}" type="video/mp4">
+</video>
+<div id="featuredHighlightVideoTitle" class="text-center">${featuredHighlightTitle}</div>`;
+}
 function showDevFavorites() {
   let devFavorites = [
     {
@@ -291,20 +345,20 @@ function postCommentValue() {
     commentBtns[i].addEventListener("click", function (event) {
       const postId = this.getAttribute("data-id");
       const commentTests = document.querySelector(
-          `#comment-box-${postId}`
+        `#comment-box-${postId}`
       ).value;
       fetch("http://localhost:8080/api/postcomments/postcomment/" + postId, {
         method: "POST",
         headers: getHeaders(),
         body: commentTests,
       })
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-          })
-          .catch((error) => console.error("Error:", error));
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .catch((error) => console.error("Error:", error));
       createView("/home");
     });
   }

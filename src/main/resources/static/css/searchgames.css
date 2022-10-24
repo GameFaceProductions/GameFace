@@ -6,6 +6,7 @@
 
 #searchGamesBtn {
     border: solid #ab2fbf .1rem;
+    margin:0.5rem;
     background-color: #00CACE;
 }
 #searchGamesBtn:hover{
@@ -17,13 +18,14 @@
 }
 
 .gameInfo {
-    background-color: rgba(171, 47, 191, 0.48);
-    border: solid #ab2fbf .1rem;
+    background: #06beb6;
     border-top: none;
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
     border-top: none;
     height: 10em;
+    /*border: 1px #06BEB6 solid;*/
+
 }
 .gameInfoText{
     padding-top: 0.5rem;
@@ -35,6 +37,7 @@
     background-position: center;
     border-radius: 10% 10% 0 0;
     border-bottom: none;
+
 }
 
 .storeLink {
@@ -53,6 +56,7 @@
 
 .addGameBtn:hover {
     border: solid #ab2fbf .2rem;
+    background-color: #ab2fbf;
 }
 
 .notFavoriteStar:hover {
@@ -61,6 +65,7 @@
 
 .storeLink:hover {
     border: solid #ab2fbf .2rem;
+    background-color: #ab2fbf;
 
 }
 
