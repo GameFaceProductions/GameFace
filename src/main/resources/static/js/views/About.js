@@ -35,7 +35,7 @@ export default function About(props) {
             </div>
              <br><br><br><br>
             <div class="developer container">
-                <h2 class="devs"  style="text-align: center">Meet our developers:</h2>   
+                <h2 class="devs" style="text-align: center">Meet our developers:</h2>   
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="dev-card">
@@ -45,7 +45,7 @@ export default function About(props) {
                         <h2>Scrimm</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>They call me the Michael Angelo of coding, but I am humble, so I just reply with "big facts". With that out of the way, welcome to GameFace! Join GameFace now and bring up your gaming skills to my level.</p>
+                        <p>They call me the Michael Angelo of gaming, but I am humble, so I just reply with "big facts". With that out of the way, welcome to GameFace! Join GameFace now and bring up your gaming skills to my level.</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
                     </div>
                     <div class="dev-card">
@@ -75,7 +75,7 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Fork Nite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the premiere and most entertaining gaming social media platform today!</p>
+                        <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the most premiere and entertaining gaming social media platform today!</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export default function About(props) {
             </div>
                 <br>
             <div class="developer container">
-                <h2 style="text-align: center">Meet our developers:</h2>   
+                <h2 class="devs"  style="text-align: center">Meet our developers:</h2><br><br>
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="dev-card">
@@ -120,7 +120,7 @@ export default function About(props) {
                         <h2>Scrimm</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>They call me the Michael Angelo of gaming, but I am humble, so I just reply with "big facts". With that out of the way, welcome to GameFace! Join GameFace now and bring up your gaming skills to my level.</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
                     </div>
                     <div class="dev-card">
@@ -140,7 +140,7 @@ export default function About(props) {
                         <h2>B0derChola</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>Game recognize game, and you are looking a little unfamiliar right now. But don't worry, we can fix that! Join GameFace today and discover a whole new side to your gaming experience, so put your GameFace on and leggo!</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/valeriareveles/';">Connect!</button>
                     </div>
                     <div class="dev-card">
@@ -150,7 +150,7 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the most premiere and entertaining gaming social media platform today!</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>
