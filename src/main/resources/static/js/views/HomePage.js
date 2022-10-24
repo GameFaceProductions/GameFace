@@ -31,7 +31,7 @@ export default function HomePage(props) {
             <!-- Bio -->
             <img src="${loggedInUser.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer" style="text-align: center;">
             <h3 class="bio"><a>Bio<a></h3>
-            <h2 class="profile-element"><a>@${loggedInUser.gamer_tag}</a></h2>
+            <h2 class="profile-element"><a>@${loggedInUser.gamerTag}</a></h2>
             <p class="profile-element profile-website">Web Developer</p>
             <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>
           </div>
@@ -89,19 +89,20 @@ function generatePostsHTML(posts) {
                 <span class="fullname"><strong>${post.author.userName}</strong></span>
                 <span class="username"><strong>${post.createdAt}</strong></span>
             </div>
-            <a><img class="post-picture" src="https://picsum.photos/80/80" alt="profile pic"></a>
+            <a><img class="post-picture" src="${post.author.avatar_url}" alt="profile pic"></a>
             <div class="post-text">
                 <p class="" lang="es" data-aria-label-part="0"><br>${post.content}</p>
             </div>
             <div class="post-footer">
               <a class="post-footer-btn">
-                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span> 18</span>
+                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
               </a>
               <a class="post-footer-btn">
-                  <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span> 202</span>
+                  <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
               </a>
                <!--This button is for collapsable comment input-->
               <button data-id="${post.id}" class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment</button>
+              <br>
             `;
         //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
             if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
