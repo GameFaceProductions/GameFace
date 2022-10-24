@@ -86,8 +86,8 @@
 
 .devFavoritesDiv{
     height: fit-content;
-    box-shadow: 1px 1px 10px 0 #CAF7FF;
     margin-right: 1rem;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
 .gameCardsDiv{
     margin-bottom: 1rem;
@@ -95,6 +95,7 @@
 .profile-col{
     height: fit-content;
     margin-left: 1rem;
+    box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
 #featuredHighlightVideo{
     height: 30vw;
