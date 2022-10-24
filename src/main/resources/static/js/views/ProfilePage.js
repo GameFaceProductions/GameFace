@@ -22,15 +22,21 @@ export default function ProfilePage(props) {
   console.log(user);
   return `           <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${
+                  user.backdrop_url
+                }); height:200px">
 <!--                MY CHANGES-->
        
 <!--                MY CHANGES-->
                     <!-- End of the cover photo/ Start of the profile picture -->
-                    <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
-                        <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                    <div class="colorTransparent ms-4 mt-5 d-flex flex-column" style="width: 150px">
+                        <img referrerpolicy="no-referrer" src="${
+                          user.avatar_url
+                        }" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button id="editUserInfoBtn" type="button" data-id="${user.id}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button id="editUserInfoBtn" type="button" data-id="${
+                          user.id
+                        }" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -70,9 +76,13 @@ export default function ProfilePage(props) {
                         <div class="profile-header">
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
-                          <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
+                          <h2 class="profile-element"><a>@${
+                            friends.gamerTag
+                          }</a></h2>
                           <p class="bio-text text-white">Web Developer</p>
-                          <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
+                          <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${
+                            user.userName
+                          }</button>
                           <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
                             <i>Loading chat...</i>
                           </div>
@@ -102,14 +112,14 @@ export default function ProfilePage(props) {
 
 function getGames() {
   let getGamesHtml = "";
-  console.log("This is executing")
+  console.log("This is executing");
   for (let i = 0; i < user.games.length; i++) {
-    let games = user.games[i].game
+    let games = user.games[i].game;
     getGamesHtml += `<div>
     <div class="text-center devFavoritesTitle">${games}</div>
 </div>`;
   }
-  return getGamesHtml
+  return getGamesHtml;
 }
 
 export function profileSetup() {

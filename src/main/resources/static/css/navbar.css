@@ -71,3 +71,6 @@ nav{
 .search-dropdown-text{
     font-size: 0.6rem;
 }
+#navbarSupportedContent{
+    border-radius: 1rem;
+}
