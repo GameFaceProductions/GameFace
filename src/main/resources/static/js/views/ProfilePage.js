@@ -184,7 +184,7 @@ function generateUserPosts() {
       // post = posts[i]
       if (newHomies.includes(posts[i].id)) {
         newLikeBtn = `<a href="" data-id="${posts[i].id}" class="like-buttons post-footer-btn">
-                              <i class="fa-regular fa-thumbs-up bg-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
+                              <i class="fa-regular fa-thumbs-up text-primary" aria-hidden="true"></i><span>${posts[i].likes.length}</span>
                             </a>`;
       } else {
         newLikeBtn = `<a href="" id="${posts[i].likes.length + 1}" data-id="${

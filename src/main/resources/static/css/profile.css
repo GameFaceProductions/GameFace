@@ -363,3 +363,10 @@ button {
     line-height: 0;
 }
 /*MY CHANGES*/
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #B6FFCD;
+}
