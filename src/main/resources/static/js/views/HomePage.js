@@ -5,14 +5,12 @@ let posts;
 let loggedInUser;
 let postFetch;
 
-
 export default function HomePage(props) {
   loggedInUser = getUser();
   postFetch = props.posts;
-   posts = postFetch.reverse();
+  posts = postFetch.reverse();
   const postsHTML = generatePostsHTML(props.posts);
   const addPostHTML = generateAddPostHTML();
-
 
   return `
     <div class="container home">
@@ -43,10 +41,10 @@ export default function HomePage(props) {
           </ol>
         </div>
     <!-- The right column will start here -->
-        <div class="col right-col">
-          <div class="content-panel">
-            <div class="panel-header">
-              <h4>Favorite Games</h4>
+        <div class="col devFavoritesDiv right-col">
+          <div class="content-panel gameCardsDiv">
+            <div id="devFavoritesList" class="panel-header">
+              <h4 class="text-center">Favorite Games</h4>
             </div>
           </div>
         </div>
@@ -70,9 +68,8 @@ function generateAddPostHTML() {
   return addHTML;
 }
 
-
 function generatePostsHTML(posts) {
-  let postsHTML = ``
+  let postsHTML = ``;
 
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
@@ -82,7 +79,7 @@ function generatePostsHTML(posts) {
       authorName = post.author.userName;
     }
 
-    postsHTML +=`
+    postsHTML += `
     <li class="home-card">
         <div class="post-content">
             <div class="post-header">
@@ -104,55 +101,95 @@ function generatePostsHTML(posts) {
               <button data-id="${post.id}" class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment</button>
               <br>
             `;
-        //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
-            if(loggedInUser.role === "ADMIN" || loggedInUser.userName === post.author.userName) {
-              postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
+    //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
+    if (
+      loggedInUser.role === "ADMIN" ||
+      loggedInUser.userName === post.author.userName
+    ) {
+      postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
               <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
-            }
-        //Closes posts/home divs and concat collapsable comment form:
-            postsHTML += `</div></li>
+    }
+    //Closes posts/home divs and concat collapsable comment form:
+    postsHTML += `</div></li>
             <div class="row collapse" id="collapseComment-${post.id}">
               <div class="col-10 comment">
                 <form>
                   <div>
                     <label for="comment"></label>
-                    <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${post.id}">
+                    <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${
+                      post.id
+                    }">
                   </div>
                 <!--This button is for saving/pushing comment to backend-->
-                  <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                  <button data-id=${
+                    post.id
+                  } name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
                 </form>
                 ${createPostCommentHTML(post)}
               </div><!--End col -->
             </div>`;
-    }
+  }
   return postsHTML;
 }
 
-function createPostCommentHTML(posts){
+function createPostCommentHTML(posts) {
   return `
     <div class="comment-section home-card">
         ${commentsSection(posts)}
     </div>`;
 }
 
-function commentsSection(posts){
-  let html =``;
+function commentsSection(posts) {
+  let html = ``;
   for (let i = 0; i < posts.postComments.length; i++) {
-  html +=
-    `<div>${posts.postComments[i].content}</div>`
+    html += `<div>${posts.postComments[i].content}</div>`;
   }
   return html;
-
 }
-
 
 export function postSetup() {
   setupSaveHandler();
   setupEditHandlers();
   setupDeleteHandlers();
   postCommentValue();
+  showDevFavorites();
 }
 
+function showDevFavorites() {
+  let devFavorites = [
+    {
+      name: "DayZ",
+      url: "https://cdn.cloudflare.steamstatic.com/steam/apps/221100/header.jpg?t=1664545942",
+    },
+    {
+      name: "Portal",
+      url: "https://cdn.cloudflare.steamstatic.com/steam/apps/400/header.jpg?t=1663691797",
+    },
+    {
+      name: "Black Ops 3",
+      url: "https://cdn.cloudflare.steamstatic.com/steam/apps/311210/header.jpg?t=1646763462",
+    },
+    {
+      name: "Luigi's Mansion",
+      url: "https://upload.wikimedia.org/wikipedia/en/5/5e/Lmbox.jpg",
+    },
+    {
+      name: "WoW",
+      url: "https://upload.wikimedia.org/wikipedia/en/6/65/World_of_Warcraft.png",
+    },
+    {
+      name: "Mx Bikes",
+      url: "https://cdn.akamai.steamstatic.com/steam/apps/655500/capsule_616x353.jpg?t=1645550702",
+    },
+  ];
+  let favoritesList = document.getElementById("devFavoritesList");
+  for (let i = 0; i < devFavorites.length; i++) {
+    favoritesList.innerHTML += `<div>
+<div class="card devFavoritesPoster" style="background-image: url(${devFavorites[i].url})"></div>
+    <div class="text-center devFavoritesTitle">${devFavorites[i].name}</div>
+</div>`;
+  }
+}
 
 // Post FETCH/functionality
 function setupEditHandlers() {
@@ -229,7 +266,7 @@ function setupSaveHandler() {
 function savePost(postId) {
   const contentField = document.querySelector("#content");
   const post = {
-    content: contentField.value
+    content: contentField.value,
   };
   const request = {
     method: "POST",
@@ -252,34 +289,28 @@ function savePost(postId) {
   });
 }
 
-
 //Comments FETCH/Functionality:
-function postCommentValue () {
+function postCommentValue() {
   const commentBtns = document.querySelectorAll(".save-comment");
   for (let i = 0; i < commentBtns.length; i++) {
     commentBtns[i].addEventListener("click", function (event) {
       const postId = this.getAttribute("data-id");
-      const commentTests = document.querySelector(`#comment-box-${postId}`).value;
-      fetch('http://localhost:8080/api/postcomments/postcomment/' + postId, {
-        method: 'POST',
+      const commentTests = document.querySelector(
+        `#comment-box-${postId}`
+      ).value;
+      fetch("http://localhost:8080/api/postcomments/postcomment/" + postId, {
+        method: "POST",
         headers: getHeaders(),
         body: commentTests,
       })
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (data) {
-            console.log(data)
-          })
-          .catch(error => console.error('Error:', error)
-          )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .catch((error) => console.error("Error:", error));
       createView("/home");
     });
-
   }
-
 }
-
-
-
-
