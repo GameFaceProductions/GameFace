@@ -145,7 +145,8 @@ function createPostCommentHTML(posts) {
 function commentsSection(posts) {
   let html = ``;
   for (let i = 0; i < posts.postComments.length; i++) {
-    html += `<div>${posts.postComments[i].content}</div>`;
+    console.log(posts.postComments[i]);
+    html += `<div class="card" style="color: black">${posts.postComments[i].content}</div><div class="" style="color: black;" >- ${posts.postComments[i].author.userName}<img class="commentUserAvatar" src="${posts.postComments[i].author.avatar_url}"></div>`;
   }
   return html;
 }
