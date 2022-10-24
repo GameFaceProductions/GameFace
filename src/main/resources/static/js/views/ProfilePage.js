@@ -9,12 +9,14 @@ let theHomiesLikes = [];
 let post;
 let homies = [];
 let userUser;
+let postFetch;
 
 export default function ProfilePage(props) {
   //USE FOR SPECIFIC USER ID FETCHING
   user = props.user;
   userUser = props.user;
-  posts = props.posts;
+  postFetch = props.posts;
+  posts = postFetch.reverse()
   friends = props.friends;
   likes = props.likes;
   console.log(user);
