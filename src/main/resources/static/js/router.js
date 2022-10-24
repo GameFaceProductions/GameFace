@@ -32,7 +32,7 @@ export default function router(URI) {
     "/profile/:id": {
       returnView: ProfilePage,
       state: {
-        user: "api/users/:id",
+        user: "/api/users/:id",
         posts: "/api/posts",
         friends: "/api/friends/:id",
         likes: "/api/postlikes",

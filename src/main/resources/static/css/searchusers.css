@@ -18,6 +18,9 @@
     position: relative;
     top: 5.5rem;
 }
+.searchUsersUsername:hover{
+    cursor: pointer;
+}
 
 .userBackdrop {
     height: 65%

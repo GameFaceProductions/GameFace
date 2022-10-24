@@ -20,21 +20,15 @@ export default function ProfilePage(props) {
   console.log(user);
   return `           <div class="main">
                 <!-- This is the div for the cover photo -->
-                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${
-                  user.backdrop_url
-                }); height:200px">
+                <div class="cover-photo text-white d-flex flex-row" style=" background-image: url(${user.backdrop_url}); height:200px">
 <!--                MY CHANGES-->
        
 <!--                MY CHANGES-->
                     <!-- End of the cover photo/ Start of the profile picture -->
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px">
-                        <img referrerpolicy="no-referrer" src="${
-                          user.avatar_url
-                        }" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
+                        <img referrerpolicy="no-referrer" src="${user.avatar_url}" alt="Img placeholder" class="img-fluid img-thumbnail mt-4 mb-2" style="width:150px; z-index:1">
                         <!-- End of the profile pic/ start of the account details button -->
-                        <button type="button" data-id="${
-                          getUser().id
-                        }" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
+                        <button id="editUserInfoBtn" type="button" data-id="${user.id}" class="btn btn-outline-dark account-btn" style="z-index: 1" data-mdb-ripple-color="dark">Edit Profile</button>
                     </div>
                     <div class="ms-3" style="margin-top: 130px">
                         <h5>${user.userName}</h5>
@@ -74,13 +68,9 @@ export default function ProfilePage(props) {
                         <div class="profile-header">
                           <!-- Bio -->
                           <h3 class="bio"><a>Bio<a></h3>
-                          <h2 class="profile-element"><a>@${
-                            friends.gamerTag
-                          }</a></h2>
+                          <h2 class="profile-element"><a>@${friends.gamerTag}</a></h2>
                           <p class="bio-text text-white">Web Developer</p>
-                          <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${
-                            user.userName
-                          }</button>
+                          <button class="btn btn-outline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${user.userName}</button>
                           <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
                             <i>Loading chat...</i>
                           </div>
@@ -127,6 +117,31 @@ export function profileSetup() {
   uploadNewBackdrop();
   editDeets();
   chatExport();
+  hideEdit();
+  // handleRefresh();
+}
+//DOES NOT WORK
+// function handleRefresh() {
+//   window.onbeforeunload = function () {
+//     createView(`/profile/${user.id}`);
+//   };
+// }
+function hideEdit() {
+  let editBtn = document.getElementById("editUserInfoBtn");
+  let backdropBtn = document.getElementById("uploadBtn");
+  if (getUser().id !== user.id) {
+    editBtn.classList.add("hidden");
+    backdropBtn.classList.add("hidden");
+  }
+  if (window.performance) {
+    console.info("window.performance works fine on this browser");
+  }
+  console.info(performance.navigation.type);
+  if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    console.info("This page is reloaded");
+  } else {
+    console.info("This page is not reloaded");
+  }
 }
 
 function generateUserPosts() {
@@ -274,13 +289,20 @@ function getFriends() {
     html += `
                 <a href="">
                     <div class="mb-2 ml-5 text-white">
-                        <img referrerpolicy="no-referrer" class="friends-list" src="${friendArray[j].url}" width="50px" alt="user" />
+                        <img referrerpolicy="no-referrer" data-id="${friendArray[j].id}" class="friends-list" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
                 </a>
             `;
   }
   friendList.innerHTML = html;
+  let friendProfileCreateView = document.getElementsByClassName("friends-list");
+  for (let i = 0; i < friendProfileCreateView.length; i++) {
+    let userID = friendProfileCreateView[i].getAttribute("data-id");
+    friendProfileCreateView[i].addEventListener("click", () => {
+      createView(`/profile/${userID}`);
+    });
+  }
 }
 
 function setupModalFunction() {
@@ -366,12 +388,14 @@ async function postIsLiked() {
 
 //Edit Profile/Account Details:
 function editDeets() {
-  let editBtn = document.querySelectorAll(".account-btn");
-  for (let i = 0; i < editBtn.length; i++) {
-    editBtn[i].addEventListener("click", (event) => {
-      let modal = document.createElement("div");
-      document.body.appendChild(modal);
-      modal.innerHTML = `     
+  if (getUser().id !== user.id) {
+  } else {
+    let editBtn = document.querySelectorAll(".account-btn");
+    for (let i = 0; i < editBtn.length; i++) {
+      editBtn[i].addEventListener("click", (event) => {
+        let modal = document.createElement("div");
+        document.body.appendChild(modal);
+        modal.innerHTML = `     
      <div>       
      <h1>Edit Deets</h1>
         <label for="editName" class="form-label">Edit UserName</label>
@@ -383,35 +407,37 @@ function editDeets() {
         <button data-id="${user.id}" class="form-control" id="edit-btn">Save Changes</button>
      </div>
  `;
-      let editName = document.getElementById("editName");
-      editName.addEventListener("input", () => console.log(editName.value));
-      let editTag = document.getElementById("editTag");
-      editTag.addEventListener("input", () => console.log(editTag.value));
-      let editRegion = document.getElementById("editRegion");
-      editRegion.addEventListener("input", () => console.log(editRegion.value));
-      let editDeets = document.getElementById("edit-btn");
-      editDeets.addEventListener("click", function (event) {
-        event.preventDefault();
-        let data = {
-          userName: editName.value,
-          gamerTag: editTag.value,
-          region: editRegion.value,
-        };
-        console.log(data);
-        const request = {
-          method: "PUT",
-          headers: getHeaders(),
-          body: JSON.stringify(data),
-        };
-        const url = `http://localhost:8080/api/users/${editDeets.dataset.id}`;
-        fetch(url, request).then(async (response) => {
-          console.log(response.status);
-          await setLoggedInUserInfo();
-          location.reload();
-          // createView('/profile');
+        let editName = document.getElementById("editName");
+        editName.addEventListener("input", () => console.log(editName.value));
+        let editTag = document.getElementById("editTag");
+        editTag.addEventListener("input", () => console.log(editTag.value));
+        let editRegion = document.getElementById("editRegion");
+        editRegion.addEventListener("input", () =>
+          console.log(editRegion.value)
+        );
+        let editDeets = document.getElementById("edit-btn");
+        editDeets.addEventListener("click", function (event) {
+          event.preventDefault();
+          let data = {
+            userName: editName.value,
+            gamerTag: editTag.value,
+            region: editRegion.value,
+          };
+          console.log(data);
+          const request = {
+            method: "PUT",
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+          };
+          const url = `http://localhost:8080/api/users/${editDeets.dataset.id}`;
+          fetch(url, request).then(async (response) => {
+            console.log(response.status);
+            await setLoggedInUserInfo();
+            createView(`/profile/${userUser.id}`);
+          });
         });
       });
-    });
+    }
   }
 }
 
