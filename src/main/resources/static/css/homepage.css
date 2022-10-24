@@ -24,7 +24,6 @@
 }
 
 .home-card button{
-    height: 20px;
     width: 90px;
     margin:0;
     padding:0;
@@ -135,4 +134,9 @@
     display: flex;
     gap: 0.3rem;
     align-items: center;
+}
+
+#comment-button {
+    background: none;
+    border: none;
 }
