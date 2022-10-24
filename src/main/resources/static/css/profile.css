@@ -381,3 +381,18 @@ a {
 a:hover {
     color: #B6FFCD;
 }
+
+.text-white{
+    padding: 1em;
+}
+
+#close-friends-list{
+    padding: 1em;
+    margin-top: 0;
+    margin-right: 1em;
+    height: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
