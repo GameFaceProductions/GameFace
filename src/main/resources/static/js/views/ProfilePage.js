@@ -47,7 +47,7 @@ export default function ProfilePage(props) {
                       <section id="modal-1" class="modal hidden">
                           <div class="flex">
                             <h3 class="text-white">Friends List</h3>
-                            <button class="btn-close">⨉</button>
+                            <button class="btn-close" id="close-friends-list">⨉</button>
                           </div>
                           <div>
                             <div id="friends-list">
