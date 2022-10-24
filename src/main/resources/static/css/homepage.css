@@ -67,6 +67,19 @@
     padding: 0;
 }
 
+.devFavoritesPoster{
+    height: 5rem;
+    background-size: cover;
+}
+
+.devFavoritesDiv{
+    height: fit-content;
+    box-shadow: 1px 1px 10px 0 #CAF7FF;
+    margin-right: 1rem;
+}
+.gameCardsDiv{
+    margin-bottom: 1rem;
+}
 #comment-box {
     width: 75%;
     height: 50px;
