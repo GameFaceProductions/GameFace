@@ -153,7 +153,7 @@ export function searchGamesJS() {
          </div>
          <div id="${gameData.id}">
         ${gameBtn}
-        </div>3
+        </div>
         ${storeBtn}
      </div>
      </div>
