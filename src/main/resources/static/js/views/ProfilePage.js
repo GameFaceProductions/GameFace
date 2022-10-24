@@ -16,7 +16,7 @@ export default function ProfilePage(props) {
   user = props.user;
   userUser = props.user;
   postFetch = props.posts;
-  posts = postFetch.reverse()
+  posts = postFetch.reverse();
   friends = props.friends;
   likes = props.likes;
   console.log(user);
@@ -398,14 +398,14 @@ function editDeets() {
         let modal = document.createElement("div");
         document.body.appendChild(modal);
         modal.innerHTML = `     
-     <div class="deets">       
+     <div id="editDeets" class="deets">       
      <h1>Edit Deets</h1>
         <label for="editName" class="form-label">Edit UserName</label>
-        <input class="form-control" id="editName" placeholder="${user.userName}">
+        <input class="form-control" id="editName" value="${user.userName}">
         <label for="editTag" class="form-label">Edit GamerTag</label>
-        <input class="form-control" id="editTag" placeholder="${user.gamerTag}">
+        <input class="form-control" id="editTag" value="${user.gamerTag}">
         <label for="editRegion" class="form-label">Edit Region</label>
-        <input class="form-control" id="editRegion" placeholder="${user.region}">
+        <input class="form-control" id="editRegion" value="${user.region}">
         <button data-id="${user.id}" class="form-control btn" id="edit-btn">Save Changes</button>
      </div>
  `;
@@ -417,9 +417,10 @@ function editDeets() {
         editRegion.addEventListener("input", () =>
           console.log(editRegion.value)
         );
+        let editDeetsDiv = document.getElementById("editDeets");
         let editDeets = document.getElementById("edit-btn");
         editDeets.addEventListener("click", function (event) {
-          event.preventDefault();
+          editDeetsDiv.classList.add("hidden");
           let data = {
             userName: editName.value,
             gamerTag: editTag.value,
