@@ -75,11 +75,7 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-<<<<<<< HEAD
-                        <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the most premiere and entertaining gaming social media platform today!</p>
-=======
                         <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the premiere and most entertaining gaming social media platform today!</p>
->>>>>>> f10bc2f3ec94f37495253eb5c1437d971c1ac0a3
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>
@@ -114,11 +110,7 @@ export default function About(props) {
             </div>
                 <br>
             <div class="developer container">
-<<<<<<< HEAD
                 <h2 class="devs" style="text-align: center">Meet our developers:</h2><br><br>
-=======
-                <h2 class="devs" style="text-align: center">Meet our developers:</h2>   
->>>>>>> f10bc2f3ec94f37495253eb5c1437d971c1ac0a3
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="dev-card">
@@ -158,11 +150,8 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-<<<<<<< HEAD
+
                         <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the most premiere and entertaining gaming social media platform today!</p>
-=======
-                        <p>FortNite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the premiere and most entertaining gaming social media platform today!</p>
->>>>>>> f10bc2f3ec94f37495253eb5c1437d971c1ac0a3
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>
