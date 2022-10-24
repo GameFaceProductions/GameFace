@@ -44,7 +44,7 @@ export default function HomePage(props) {
         <div class="col devFavoritesDiv right-col">
           <div class="content-panel gameCardsDiv">
             <div id="devFavoritesList" class="panel-header">
-              <h4 class="text-center">Favorite Games</h4>
+              <h4 style="text-align: center">Favorite Games</h4>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ function generateAddPostHTML() {
           <div class="add-form">
             <label for="content"></label>
             <textarea id="content" class="form-control" name="content" rows="5" cols="40" placeholder="  What's on your mind"></textarea>
-          <button data-id="0" id="savePost" name="savePost" type="button" class="my-button btn btn-primary">Post</button>
+          <button data-id="0" id="savePost" name="savePost" type="button" class="post-btn btn btn-primary">Post</button>
       </form>
     </div>`;
 
@@ -111,19 +111,15 @@ function generatePostsHTML(posts) {
     }
     //Closes posts/home divs and concat collapsable comment form:
     postsHTML += `</div></li>
-            <div class="row collapse" id="collapseComment-${post.id}">
+            <div class="row collapse highlights" id="collapseComment-${post.id}">
               <div class="col-10 comment">
                 <form>
-                  <div>
+                  <div class="add-form">
                     <label for="comment"></label>
-                    <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${
-                      post.id
-                    }">
+                    <input class="input-comments add-form form-control" type="text" placeholder=" Say Something!" id="comment-box-${post.id}">
                   </div>
                 <!--This button is for saving/pushing comment to backend-->
-                  <button data-id=${
-                    post.id
-                  } name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                  <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
                 </form>
                 ${createPostCommentHTML(post)}
               </div><!--End col -->

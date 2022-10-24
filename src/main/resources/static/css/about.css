@@ -86,8 +86,8 @@ body{
 
 /*Styling for developer cards:*/
 .developer .container{
-    margin:20px;
-    padding:20px;
+    margin:5rem;
+    padding:1rem;
 }
 
 .developer h2{

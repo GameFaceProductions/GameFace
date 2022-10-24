@@ -89,7 +89,7 @@ export default function About(props) {
                 <div class="image">
                     <img src="/images/1.jpg" alt="logo">
                 </div>
-                <h2 style="text-align: center">Connect &nbsp;&nbsp;• &nbsp;&nbsp;Create&nbsp;&nbsp; •&nbsp;&nbsp; Grow</h2>
+                <h2 class="vision" style="text-align: center">Connect &nbsp;&nbsp;• &nbsp;&nbsp;Create&nbsp;&nbsp; •&nbsp;&nbsp; Grow</h2>
             </div>
             <br><br><br><br><br>
             <div class="statement container">
@@ -110,7 +110,7 @@ export default function About(props) {
             </div>
                 <br>
             <div class="developer container">
-                <h2 class="devs"  style="text-align: center">Meet our developers:</h2><br><br>
+                <h2 class="devs" style="text-align: center">Meet our developers:</h2><br><br>
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="dev-card">
