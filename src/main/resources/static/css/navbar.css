@@ -61,10 +61,6 @@ nav{
 .dropdown-menu{
     background-color: currentColor;
 }
-.navbar-avatar{
-    width: 4rem;
-    border: solid #78ffd6 0.1rem;
-}
 .navbar-avatar:hover{
     cursor: pointer;
 }

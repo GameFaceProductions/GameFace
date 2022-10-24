@@ -276,7 +276,7 @@ function uploadNewBackdrop() {
               "user",
               JSON.stringify(newUserWithBackdrop)
             );
-            location.reload();
+            await createView(`/profile/${getUser().id}`);
           }
         }
       });
