@@ -103,8 +103,8 @@ function generatePostsHTML(posts) {
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
+        loggedInUser.role === "ADMIN" ||
+        loggedInUser.userName === post.author.userName
     ) {
       postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
               <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
@@ -292,20 +292,20 @@ function postCommentValue() {
     commentBtns[i].addEventListener("click", function (event) {
       const postId = this.getAttribute("data-id");
       const commentTests = document.querySelector(
-        `#comment-box-${postId}`
+          `#comment-box-${postId}`
       ).value;
       fetch("http://localhost:8080/api/postcomments/postcomment/" + postId, {
         method: "POST",
         headers: getHeaders(),
         body: commentTests,
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(data);
-        })
-        .catch((error) => console.error("Error:", error));
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+          })
+          .catch((error) => console.error("Error:", error));
       createView("/home");
     });
   }
