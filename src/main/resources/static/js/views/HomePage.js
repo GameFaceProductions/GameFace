@@ -92,13 +92,12 @@ function generatePostsHTML(posts) {
             </div>
             <div class="post-footer">
               <a class="post-footer-btn">
-                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
+                  <button id="comment-button" data-id="${post.id}" class="btn collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment"><i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span></button>
               </a>
               <a class="post-footer-btn">
                   <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
               </a>
                <!--This button is for collapsable comment input-->
-              <button data-id="${post.id}" class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment</button>
               <br>
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
