@@ -29,7 +29,16 @@
     padding:0;
     letter-spacing: 0;
 }
+#highlightVideoDiv{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: solid;
+    width: fit-content;
+    box-shadow: 0px 0px 8px 4px #ffcafa;
+    margin-top: 1rem;
 
+}
 /*//highlight clip styling*/
 .highlights{
     margin: 1rem;
@@ -85,13 +94,15 @@
 }
 .profile-col{
     height: fit-content;
+    margin-left: 1rem;
 }
-.featuredHighlightVideo{
-    height: 40vw;
+#featuredHighlightVideo{
+    height: 30vw;
     margin-left: auto;
     margin-right: auto;
     display: block;
     border-radius: 1rem;
+    box-shadow: 0 0 8px 4px #caf7ff;
 }
 #comment-box {
     width: 75%;
@@ -125,6 +136,21 @@
 
 }
 
+.highlights{
+    margin: 0;
+}
+
+#featuredHighlightVideoTitle{
+    margin-top: 1rem;
+    border: solid;
+    box-shadow: 0 0 8px 4px #ffcafa;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+}
+.uploadHighlightBtn{
+    display: flex;
+
+}
 #comment-comment {
     margin: 0.5rem 0 0 0;
 }
