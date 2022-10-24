@@ -22,6 +22,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+
+
+
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "api/friends", produces = "application/json")

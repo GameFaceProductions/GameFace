@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api/gamemedia", produces = "application/json")

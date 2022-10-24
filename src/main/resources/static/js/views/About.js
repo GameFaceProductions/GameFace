@@ -65,7 +65,7 @@ export default function About(props) {
                         <h2>B0derChola</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>Game recognize game, and you are looking a little unfamiliar right now. But don't worry, we can fix that! Join GameFace today and discover a whole new side to your gaming experience, so put your GameFace on and leggo!</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/valeriareveles/';">Connect!</button>
                     </div>
                     <div class="dev-card">
@@ -75,7 +75,7 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Fork Night, The Dark Night, All Night...come get </p>
+                        <p>Fork Nite, The Dark Night, All Night...don't matter! Join us now and come get wrecked in the premiere and most entertaining gaming social media platform today!</p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>

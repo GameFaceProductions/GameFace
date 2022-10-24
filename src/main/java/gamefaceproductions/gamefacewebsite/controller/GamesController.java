@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "api/games", produces = "application/json")

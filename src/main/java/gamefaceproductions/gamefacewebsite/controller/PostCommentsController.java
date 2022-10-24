@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api/postcomments", produces = "application/json")

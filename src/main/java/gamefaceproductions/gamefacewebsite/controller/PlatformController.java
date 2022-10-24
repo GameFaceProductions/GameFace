@@ -3,13 +3,11 @@ package gamefaceproductions.gamefacewebsite.controller;
 import gamefaceproductions.gamefacewebsite.models.Platform;
 import gamefaceproductions.gamefacewebsite.repository.PlatformRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "api/platform", produces = "application/json")
