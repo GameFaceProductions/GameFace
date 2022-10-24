@@ -75,6 +75,7 @@ public class UsersController {
         userDTO.setBackdrop_url(loggedInUser.getBackdrop_url());
         userDTO.setId(loggedInUser.getId());
         userDTO.setGamerTag(loggedInUser.getGamerTag());
+        userDTO.setRegion(loggedInUser.getRegion());
 
         return userDTO;
     }

@@ -59,6 +59,7 @@ export function searchUsersJS() {
 
   searchUsersInput.addEventListener("keyup", showSearchedUsers);
   showSearchedUsers();
+  profileCreateView();
 
   function showSearchedUsers() {
     searchUsersPageContainer.innerHTML = `${makeUserCards()}`;
@@ -89,7 +90,7 @@ export function searchUsersJS() {
     <div class="searchCards card">
       <div class="card-body rounded" style="background-image: url('${url}'); background-size: cover; background-position: center;">
         <img src="${user.avatar_url}" class="userAvatar rounded-circle" referrerpolicy="no-referrer">
-        <h5 class="card-title searchUsersUsername">${user.userName}</h5>
+        <h5 data-id="${user.id}" class="card-title searchUsersUsername">${user.userName}</h5>
       </div>
       <div id="${user.id}">
         ${friendBtn}
@@ -163,5 +164,17 @@ export function searchUsersJS() {
         }
       }
     });
+  }
+
+  function profileCreateView() {
+    let searchUsersUsernames = document.getElementsByClassName(
+      "searchUsersUsername"
+    );
+    for (let i = 0; i < searchUsersUsernames.length; i++) {
+      let userID = searchUsersUsernames[i].getAttribute("data-id");
+      searchUsersUsernames[i].addEventListener("click", function () {
+        createView(`/profile/${userID}`);
+      });
+    }
   }
 }

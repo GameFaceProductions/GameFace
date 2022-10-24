@@ -29,7 +29,7 @@ public class User {
     @Column(unique = true, length = 50)
     private String gamerTag;
 
-    @Column(length = 25)
+    @Column(nullable = false, length = 25)
     private String region;
 
     @Column(nullable = false, length = 10)
