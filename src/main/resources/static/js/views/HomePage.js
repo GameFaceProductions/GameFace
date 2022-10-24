@@ -17,7 +17,7 @@ export default function HomePage(props) {
       <h3 style="text-align: center">Featured Highlights</h3>
       <div class="container highlights">
         <div id="highlightVideoDiv" class="highlights"></div>
-                            <button id="uploadHighlightBtn" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
+        <button id="uploadHighlightBtn" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
 
       </div>
       <div class="col add-post">
