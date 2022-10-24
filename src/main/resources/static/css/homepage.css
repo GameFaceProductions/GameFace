@@ -9,6 +9,10 @@
     margin: 1rem;
 }
 
+/*.text-center{*/
+/*    text-align: center;*/
+/*}*/
+
 .home-card{
     margin: 2rem;
     list-style-type: none;
@@ -20,6 +24,7 @@
 }
 
 .home-card button{
+    height: 20px;
     width: 90px;
     margin:0;
     padding:0;
@@ -85,11 +90,31 @@
 
 }
 
-/*.my-button {*/
-/*    margin-top: 0.5rem;*/
-/*    color: #fff;*/
-/*    cursor: pointer;*/
-/*}*/
+.my-button {
+    margin: 0.4rem;
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    font-weight: 700;
+    background-color: black;
+    color: #C4FCF0;
+    border: 1px #C4FCF0 solid;
+    border-radius: 2.9rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.post-btn{
+    margin: 0.4rem;
+    display: inline-block;
+    padding: 0.8rem 1.2rem;
+    font-weight: 700;
+    background-color: black;
+    color: #C4FCF0;
+    border: 1px #C4FCF0 solid;
+    border-radius: 2.9rem;
+    text-align: center;
+    font-size: 1rem;
+
+}
 
 #comment-comment {
     margin: 0.5rem 0 0 0;
@@ -111,10 +136,3 @@
     gap: 0.3rem;
     align-items: center;
 }
-
-#comment-button {
-    background: none;
-    border: none;
-}
-
-

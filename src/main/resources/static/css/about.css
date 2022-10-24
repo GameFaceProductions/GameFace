@@ -65,28 +65,29 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
- .vision{
-     background: #007991;  /* fallback for old browsers */
-     background: linear-gradient(to right, #74ebd5, #ACB6E5);
-     background-size: 100%;
-     background-repeat: repeat;
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
- }
+.vision{
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #f2fcfe, #06beb6);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
- .devs{
-     background: #007991;  /* fallback for old browsers */
-     background: linear-gradient(to right, #74ebd5, #ACB6E5);
-     background-size: 100%;
-     background-repeat: repeat;
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
- }
+.devs{
+    background: #C9D6FF;  /* fallback for old browsers */
+    background: linear-gradient(to right, #f2fcfe, #06beb6);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Press Start 2P', serif;
+}
 
 /*Styling for developer cards:*/
 .developer .container{
-    margin:20px;
-    padding:20px;
+    margin:5rem;
+    padding:1rem;
 }
 
 .developer h2{
@@ -106,7 +107,7 @@ body{
 
 .dev-card{
     margin: 3.3rem 1.5rem 1.5rem 1.5rem;
-    width: 17rem;
+    width: 15rem;
     background: rgba(171, 171, 171, 0.1);
     padding: 1rem;
     text-align: center;
@@ -129,9 +130,9 @@ body{
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(
-        0deg,
-        #00CACE,
-        #ED90CC
+            0deg,
+            #00CACE,
+            #ED90CC
     );
     width: 0;
     height: 0;
@@ -145,9 +146,9 @@ body{
     margin: -4em auto 0 auto;
     border-radius: 50%;
     background: linear-gradient(
-        0deg,
-        #00CACE,
-        #ED90CC
+            0deg,
+            #00CACE,
+            #ED90CC
     );
     display: flex;
     justify-content: center;
@@ -219,9 +220,9 @@ body{
 .dev-card:nth-child(2) .profile-img,
 .dev-card:nth-child(2)::before{
     background: linear-gradient(
-    0deg,
-    #ab2fbf,
-    #f9e44f
+            0deg,
+            #ab2fbf,
+            #f9e44f
     );
 }
 
