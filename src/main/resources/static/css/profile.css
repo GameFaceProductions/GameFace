@@ -229,7 +229,6 @@ body{
     background: black;
     color: #fff;
 }
-
 .post-content {
     color: ghostwhite;
 }
@@ -293,6 +292,18 @@ body{
     margin: 0.4rem 0 0.2rem;
 }
 
+/*edit modal*/
+.deets{
+    position: relative;
+    bottom: 66.5rem;
+    z-index: 99999;
+    background: black;
+    margin: 3rem;
+    padding:2rem;
+    border-radius: 0.4rem;
+    width: 18rem;
+    /*right: 45rem;*/
+}
 button {
     cursor: pointer;
     /*border: none;*/
