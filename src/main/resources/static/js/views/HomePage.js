@@ -15,8 +15,10 @@ export default function HomePage(props) {
   return `
     <div class="container home">
       <h3 style="text-align: center">Featured Highlights</h3>
-      <div class="highlights">
-        <div class="highlights">Highlights</div>
+      <div class="container highlights">
+        <div id="highlightVideoDiv" class="highlights"></div>
+                            <button id="uploadHighlightBtn" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
+
       </div>
       <div class="col add-post">
           ${addPostHTML}
@@ -148,8 +150,52 @@ export function postSetup() {
   setupDeleteHandlers();
   postCommentValue();
   showDevFavorites();
+  showDevHighlights();
 }
 
+function showDevHighlights() {
+  let highlightVideoDiv = document.getElementById("highlightVideoDiv");
+  let uploadHighlightBtn = document.getElementById("uploadHighlightBtn");
+  //FILESTACK
+  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const options = {
+    maxFiles: 1,
+    onUploadDone: function (res) {
+      const url = res.filesUploaded[0].url;
+      console.log(url);
+      console.log(res);
+    },
+    supportEmail: "gamefaceproductions210@gmail.com",
+    hideModalWhenUploading: true,
+  };
+  uploadHighlightBtn.addEventListener("click", function () {
+    client.picker(options).open();
+  });
+  let devHighlights = [
+    {
+      game: "League of Legends",
+      url: "https://cdn.filestackcontent.com/sBSFbnQR1eJpXkjHQof2",
+    },
+    {
+      game: "League of Legends",
+      url: "https://cdn.filestackcontent.com/BKLhB2I0ROGZcIbTttf6",
+    },
+    {
+      game: "WoW",
+      url: "https://cdn.filestackcontent.com/mtPcT3zoQfuZUSxEbfQo",
+    },
+    {
+      game: "ArmA",
+      url: "https://cdn.filestackcontent.com/gfv2bPJoTm97VlfdrMSm",
+    },
+  ];
+  let featuredHighlight =
+    devHighlights[Math.floor(Math.random() * devHighlights.length)];
+  featuredHighlight = featuredHighlight.url;
+  highlightVideoDiv.innerHTML = `<video controls style="height: 40vw" id="featuredHighlightVideo">
+<source src="${featuredHighlight}" type="video/mp4">
+</video>`;
+}
 function showDevFavorites() {
   let devFavorites = [
     {
