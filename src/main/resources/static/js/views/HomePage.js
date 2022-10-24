@@ -44,7 +44,7 @@ export default function HomePage(props) {
         <div class="col devFavoritesDiv right-col">
           <div class="content-panel gameCardsDiv">
             <div id="devFavoritesList" class="panel-header">
-              <h4 class="text-center">Favorite Games</h4>
+              <h4 style="text-align: center">Favorite Games</h4>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ function generateAddPostHTML() {
           <div class="add-form">
             <label for="content"></label>
             <textarea id="content" class="form-control" name="content" rows="5" cols="40" placeholder="  What's on your mind"></textarea>
-          <button data-id="0" id="savePost" name="savePost" type="button" class="my-button btn btn-primary">Post</button>
+          <button data-id="0" id="savePost" name="savePost" type="button" class="post-btn btn btn-primary">Post</button>
       </form>
     </div>`;
 
@@ -92,37 +92,34 @@ function generatePostsHTML(posts) {
             </div>
             <div class="post-footer">
               <a class="post-footer-btn">
-                  <button id="comment-button" data-id="${post.id}" class="btn collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment"><i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span></button>
+                  <i class="fa-regular fa-comment" aria-hidden="true"></i><span>${post.postComments.length}</span>
               </a>
               <a class="post-footer-btn">
                   <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><span>${post.likes.length}</span>
               </a>
                <!--This button is for collapsable comment input-->
+              <button data-id="${post.id}" class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComment-${post.id}" aria-expanded="false" aria-controls="collapseComment">Comment</button>
               <br>
             `;
     //Conditional concats the edit/delete buttons to postsHTML and shows only for authors of post or admin:
     if (
-      loggedInUser.role === "ADMIN" ||
-      loggedInUser.userName === post.author.userName
+        loggedInUser.role === "ADMIN" ||
+        loggedInUser.userName === post.author.userName
     ) {
       postsHTML += `<button data-id=${post.id} class="btn btn-primary editPost">Edit</ion-icon>
               <button data-id=${post.id} class="btn btn-danger deletePost">Delete</button>`;
     }
     //Closes posts/home divs and concat collapsable comment form:
     postsHTML += `</div></li>
-            <div class="row collapse" id="collapseComment-${post.id}">
+            <div class="row collapse highlights" id="collapseComment-${post.id}">
               <div class="col-10 comment">
                 <form>
-                  <div>
+                  <div class="add-form">
                     <label for="comment"></label>
-                    <input class="input-comments add-form" type="text" placeholder="Say Something!" id="comment-box-${
-                      post.id
-                    }">
+                    <input class="input-comments add-form form-control" type="text" placeholder=" Say Something!" id="comment-box-${post.id}">
                   </div>
                 <!--This button is for saving/pushing comment to backend-->
-                  <button data-id=${
-                    post.id
-                  } name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
+                  <button data-id=${post.id} name="saveComment" type="button" class="my-button button btn-primary save-comment">Comment</button>
                 </form>
                 ${createPostCommentHTML(post)}
               </div><!--End col -->
@@ -295,20 +292,20 @@ function postCommentValue() {
     commentBtns[i].addEventListener("click", function (event) {
       const postId = this.getAttribute("data-id");
       const commentTests = document.querySelector(
-        `#comment-box-${postId}`
+          `#comment-box-${postId}`
       ).value;
       fetch("http://localhost:8080/api/postcomments/postcomment/" + postId, {
         method: "POST",
         headers: getHeaders(),
         body: commentTests,
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(data);
-        })
-        .catch((error) => console.error("Error:", error));
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+          })
+          .catch((error) => console.error("Error:", error));
       createView("/home");
     });
   }
