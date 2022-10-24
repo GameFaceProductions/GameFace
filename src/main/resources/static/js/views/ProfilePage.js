@@ -86,10 +86,11 @@ export default function ProfilePage(props) {
                         </ol>
                       </div>
                       <!-- The right column will start here -->
-                      <div class="col right-col">
-                        <div class="content-panel">
-                          <div class="panel-header">
-                            <h4>Favorite Games</h4>
+                      <div class="col userFavsDiv right-col">
+                        <div class="content-panel gameCardsDiv">
+                            <div id="userGames" class="panel-header">
+                                <h4 style="text-align: center">Favorite Games</h4>
+                                ${getGames()}
                           </div>
                         </div>
                       </div>
@@ -99,8 +100,21 @@ export default function ProfilePage(props) {
             </div>`;
 }
 
+function getGames() {
+  let getGamesHtml = "";
+  console.log("This is executing")
+  for (let i = 0; i < user.games.length; i++) {
+    let games = user.games[i].game
+    getGamesHtml += `<div>
+    <div class="text-center devFavoritesTitle">${games}</div>
+</div>`;
+  }
+  return getGamesHtml
+}
+
 export function profileSetup() {
   generateUserPosts();
+  getGames();
   if (likes.length === null) {
     return;
   } else {
