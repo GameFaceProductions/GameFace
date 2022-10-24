@@ -19,10 +19,10 @@ export default function Register(props) {
                 <h1 style="text-align: center">Register</h1>
                 <div class="container">
                     <div id="hgj" class="row">
-                        <form id="register-form">
+                        <form id="register-form highlights">
                             <div class="card border-dark mb-3">
-                                <div class="card-header">Register</div>
-                                <div class="card-body">
+                                <div class="card-header" style="color: black">Register</div>
+                                <div class="card-body highlights">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" id="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                     
@@ -31,7 +31,7 @@ export default function Register(props) {
         
                                     <label for="password">Password</label>
                                     <input type="text" class="form-control" id="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon3">
-                                    <button type="button" id="register-btn" class="btn btn-outline-dark">Register</button>
+                                    <button type="button" id="register-btn" class="btn btn-outline-dark" style="margin-top: 1rem">Register</button>
                                 </div>
                             </div>
                         </form>

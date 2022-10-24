@@ -14,7 +14,7 @@ export default function About(props) {
                 <div class="image">
                     <img src="/images/1.jpg" alt="logo">
                 </div>
-                <h2 style="text-align: center">Connect &nbsp;&nbsp;• &nbsp;&nbsp;Create&nbsp;&nbsp; •&nbsp;&nbsp; Grow</h2>
+                <h2 class="vision" style="text-align: center">Connect &nbsp;&nbsp;• &nbsp;Create&nbsp;&nbsp; •&nbsp;&nbsp; Grow</h2>
             </div>
             <br><br><br>
             <div class="statement container">
@@ -33,9 +33,9 @@ export default function About(props) {
                     <p style="text-align: center; max-width: 70%;">Connect with gamers from all places and levels to create a unique gaming experience and take your skills and brand to the next level!</p>
                 </div>
             </div>
-             <br><br><br>
+             <br><br><br><br>
             <div class="developer container">
-                <h2 style="text-align: center">Meet our developers:</h2>   
+                <h2 class="devs"  style="text-align: center">Meet our developers:</h2>   
 <!--                <h4 style="text-align: center">Meet our developers:</h4>-->
                 <div class="developer-cards" style="text-align: center">
                     <div class="dev-card">
@@ -45,7 +45,7 @@ export default function About(props) {
                         <h2>Scrimm</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>They call me the Michael Angelo of coding, but I am humble, so I just reply with "big facts". With that out of the way, welcome to GameFace! Join GameFace now and bring up your gaming skills to my level.</p>
                         <button onclick="window.location.href='https://www.linkedin.com/in/chase-forestello/';">Connect!</button>
                     </div>
                     <div class="dev-card">
@@ -75,7 +75,7 @@ export default function About(props) {
                         <h2>Mattdog00</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah Lorem ipsum blah blah</p>
+                        <p>Fork Night, The Dark Night, All Night...come get </p>
                         <button onclick="window.location.href='https://github.com/MatthewRMoreno';">Connect!</button>
                     </div>
                 </div>

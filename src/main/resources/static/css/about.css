@@ -38,12 +38,59 @@ body{
 }
 
 
+.connect h4{
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #78ffd6, #007991);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
+
+.create h4{
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #78ffd6, #007991);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.grow h4{
+    background: #007991;  /* fallback for old browsers */
+    background: linear-gradient(to right, #78ffd6, #007991);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ .vision{
+     background: #007991;  /* fallback for old browsers */
+     background: linear-gradient(to right, #74ebd5, #ACB6E5);
+     background-size: 100%;
+     background-repeat: repeat;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
+
+ .devs{
+     background: #007991;  /* fallback for old browsers */
+     background: linear-gradient(to right, #74ebd5, #ACB6E5);
+     background-size: 100%;
+     background-repeat: repeat;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
 
 /*Styling for developer cards:*/
 .developer .container{
     margin:20px;
     padding:20px;
+}
+
+.developer h2{
+    margin: 1rem;
 }
 
 .developer-cards{
@@ -58,7 +105,7 @@ body{
 }
 
 .dev-card{
-    margin: 2.5rem 1.5rem 1.5rem 1.5rem;
+    margin: 3.3rem 1.5rem 1.5rem 1.5rem;
     width: 17rem;
     background: rgba(171, 171, 171, 0.1);
     padding: 1rem;
@@ -149,6 +196,8 @@ body{
     color: #fff;
     cursor: pointer;
     text-transform: uppercase;
+    font-family: 'Press Start 2P', serif;
+    font-size: 0.8rem;
     transition: 0.1s;
 }
 
@@ -210,7 +259,8 @@ body{
     outline: none;
     background: rgba(171, 171, 171, 0.2);
     color: #ffffff;
-    font-size: 20px;
+    font-size: 17px;
+    font-family: 'Press Start 2P', serif;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
@@ -294,10 +344,10 @@ body{
     justify-content: center;
     margin: 0;
     background: black;
-    color: #fff;
     font-size: 28px;
-    font-family: 'Fira Mono', monospace;
+    font-family: 'Press Start 2P', monospace;
     letter-spacing: -2px;
+
 }
 
 .glitchy{
