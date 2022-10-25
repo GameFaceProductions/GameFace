@@ -17,7 +17,7 @@ export default function HomePage(props) {
       <h3 style="text-align: center">Featured Highlights</h3>
       <div class="container highlights">
         <div id="highlightVideoDiv" class="highlights"></div>
-        <button id="uploadHighlightBtn" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
+        <button id="uploadHighlightBtn" title="Submit a highlight" type="submit" class="uploadHighlightBtn btn"><i class="fa-regular uploadBtnImage fa-image"></i></button>
 
       </div>
       <div class="col add-post">
@@ -29,8 +29,8 @@ export default function HomePage(props) {
           <!-- Left column -->
           <div class="profile-header">
             <!-- Bio -->
-            <img src="${loggedInUser.avatar_url}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer" style="text-align: center;">
-            <h3 class="bio"><a>Bio<a></h3>
+            <img src="${loggedInUser.avatar_url}" id="homePageAvatar" data-id="${loggedInUser.id}" class="navbar-avatar rounded-circle" referrerpolicy="no-referrer" style="text-align: center;">
+<!--            <h3 class="bio"><a>Bio<a></h3>-->
             <h2 class="profile-element"><a>@${loggedInUser.gamerTag}</a></h2>
             <p class="profile-element profile-website">Web Developer</p>
 <!--            <button class="btn btn-oubdnb tline-dark chat-btn" data-mdb-ripple-color="dark">Chat with ${loggedInUser.userName}</button>-->
@@ -46,7 +46,7 @@ export default function HomePage(props) {
         <div class="col devFavoritesDiv right-col">
           <div class="content-panel gameCardsDiv">
             <div id="devFavoritesList" class="panel-header">
-              <h4 style="text-align: center">Favorite Games</h4>
+              <h4 class="text-center">Developer Favorites</h4>
             </div>
           </div>
         </div>
@@ -158,8 +158,17 @@ export function postSetup() {
   postCommentValue();
   showDevFavorites();
   showDevHighlights();
+  createViewUserAvatar();
 }
 
+function createViewUserAvatar() {
+  let userAvatar = document.getElementById("homePageAvatar");
+  let userID = userAvatar.getAttribute("data-id");
+  userAvatar.addEventListener("click", function () {
+    console.log("to user profile");
+    createView(`/profile/${userID}`);
+  });
+}
 function showDevHighlights() {
   let highlightVideoDiv = document.getElementById("highlightVideoDiv");
   let uploadHighlightBtn = document.getElementById("uploadHighlightBtn");

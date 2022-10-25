@@ -94,7 +94,6 @@
 }
 .profile-col{
     height: fit-content;
-    margin-left: 1rem;
     box-shadow: 4px 4px 20px 0 #CAF7FF;
 }
 #featuredHighlightVideo{
@@ -181,4 +180,7 @@
 #comment-button {
     background: none;
     border: none;
+}
+.tweet-list{
+    padding-left: 0;
 }

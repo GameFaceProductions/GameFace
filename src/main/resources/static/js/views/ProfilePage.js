@@ -46,7 +46,7 @@ export default function ProfilePage(props) {
                 <!-- Modal containing lists of current users friends starts here -->
                       <section id="modal-1" class="modal hidden">
                           <div class="flex">
-                            <h3 class="text-white">Friends List</h3>
+                            <h3 id="profileFriendsListTitle" class="text-white">Friends List</h3>
                             <button class="btn-close">⨉</button>
                           </div>
                           <div>
@@ -315,7 +315,7 @@ function getFriends() {
     html += `
                 <a href="">
                     <div class="mb-2 ml-5 text-white">
-                        <img referrerpolicy="no-referrer" data-id="${friendArray[j].id}" class="friends-list" src="${friendArray[j].url}" width="50px" alt="user" />
+                        <img referrerpolicy="no-referrer" data-id="${friendArray[j].id}" class="friends-list friendListAvatar" src="${friendArray[j].url}" width="50px" alt="user" />
                         ${friendArray[j].name}
                     </div>
                 </a>
