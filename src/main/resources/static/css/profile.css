@@ -379,6 +379,11 @@ button {
 .uploadBtnImage{
     line-height: 0;
 }
+.closeFriendsModal{
+    margin-right: 1rem;
+    height: 1.5rem;
+    margin-top: .5rem;
+}
 /*MY CHANGES*/
 a {
     text-decoration: none;

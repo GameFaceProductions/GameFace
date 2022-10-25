@@ -3,11 +3,11 @@
     border: solid #78ffd6 .1rem;
     box-shadow: 0 0 0.5em rgba(171, 171, 171, 1.5);
     background: rgba(159, 160, 160, 0.18);
-    height: 17rem;
+    height: 19rem;
 }
 
 .userAvatar {
-    margin-top: .3rem;
+    margin-top: 1rem;
     width: 6rem;
     position: relative;
     top: 5.0rem;
@@ -20,6 +20,8 @@
 }
 .searchUsersUsername:hover{
     cursor: pointer;
+    color: whitesmoke;
+    font-size: 1.5rem;
 }
 
 .userBackdrop {
