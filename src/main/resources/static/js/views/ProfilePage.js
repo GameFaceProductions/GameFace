@@ -384,7 +384,7 @@ async function postIsLiked() {
         headers: getHeaders(),
       };
       await fetch(
-        `http://localhost:8080/api/postlikes/${postId}/${userId}`,
+        `https://game-face.io:8080/api/postlikes/${postId}/${userId}`,
         addLikeRequest
       ).then(async function (response) {
         if (!response.ok) {
