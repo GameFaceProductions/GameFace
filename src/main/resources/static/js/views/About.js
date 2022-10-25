@@ -130,7 +130,7 @@ export default function About(props) {
                         <h2>BrekkyJ</h2>
                         <small>Web Developer</small>
                         <h3>About Me</h3>
-                        <p>Thanks for stopping by GameFace! I am a WebDev that enjoys problem-solving and team work. I can not wait until GameFace rises to the top to laugh at the other social medias, and no you can't have it Zuck.</p>
+                        <p>When you see the word "brek" in your game, run. I try hard for fun, I am the reason your child cries on Call of Duty. However, if they join GameFace, they are sure to never lose! Oh, and no you can't have it Zuck.</p>
                         <button onclick="window.location.href='https://github.com/brekkenjackson';">Connect!</button>
                     </div>
                     <div class="dev-card">
