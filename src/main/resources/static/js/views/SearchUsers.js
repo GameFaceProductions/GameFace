@@ -123,7 +123,7 @@ export function searchUsersJS() {
       headers: getHeaders(),
     };
     await fetch(
-      `http://localhost:8080/api/friends/${id}/${myd}`,
+      `https://game-face.io:8080/api/friends/${id}/${myd}`,
       addFriendRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
@@ -149,7 +149,7 @@ export function searchUsersJS() {
       headers: getHeaders(),
     };
     fetch(
-      `http://localhost:8080/api/friends/${id}/${myd}`,
+      `https://game-face.io:8080/api/friends/${id}/${myd}`,
       removeFriendRequestOptions
     ).then(async function (response) {
       if (!response.ok) {

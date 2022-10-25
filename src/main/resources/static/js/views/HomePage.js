@@ -348,11 +348,14 @@ function postCommentValue() {
       const commentTests = document.querySelector(
         `#comment-box-${postId}`
       ).value;
-      fetch("http://localhost:8080/api/postcomments/postcomment/" + postId, {
-        method: "POST",
-        headers: getHeaders(),
-        body: commentTests,
-      })
+      fetch(
+        "https://game-face.io:8080/api/postcomments/postcomment/" + postId,
+        {
+          method: "POST",
+          headers: getHeaders(),
+          body: commentTests,
+        }
+      )
         .then(function (response) {
           return response.json();
         })

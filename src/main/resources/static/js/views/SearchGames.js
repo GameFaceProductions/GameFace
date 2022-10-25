@@ -181,7 +181,7 @@ export function searchGamesJS() {
       headers: getHeaders(),
     };
     await fetch(
-      `http://localhost:8080/api/games/save/${gameName}/${gameId}`,
+      `https://game-face.io:8080/api/games/save/${gameName}/${gameId}`,
       addGameRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
@@ -193,7 +193,7 @@ export function searchGamesJS() {
 
     //Pushing game into user_games table
     await fetch(
-      `http://localhost:8080/api/games/add/${myd}/${gameId}`,
+      `https://game-face.io:8080/api/games/add/${myd}/${gameId}`,
       addGameRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
@@ -219,7 +219,7 @@ export function searchGamesJS() {
       headers: getHeaders(),
     };
     fetch(
-      `http://localhost:8080/api/games/${myd}/${gameId}`,
+      `https://game-face.io:8080/api/games/${myd}/${gameId}`,
       removeGameRequestOptions
     ).then(async function (response) {
       if (!response.ok) {
