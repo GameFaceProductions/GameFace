@@ -180,6 +180,7 @@ body{
     margin-top: 10px;
     border: 1px solid #4CA2CD;
     box-shadow: 4px 4px 20px 0 #CAF7FF;
+    height: fit-content;
 }
 
 .content-panel {
@@ -291,7 +292,9 @@ body{
     color: #777;
     margin: 0.4rem 0 0.2rem;
 }
-
+#editUserInfoBtn{
+    width: 11rem;
+}
 /*edit modal*/
 .deets{
     position: relative;
@@ -356,10 +359,13 @@ button {
     display: none;
 }
 
-.friends-list{
-
+.friendListAvatar{
+    border-radius: 2rem;
+    margin-left: 1rem;
 }
-
+#profileFriendsListTitle{
+    margin-left: 1rem;
+}
 
 /*MY CHANGES*/
 .uploadBtn{

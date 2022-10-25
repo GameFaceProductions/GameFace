@@ -15,10 +15,10 @@ export default function Navbar(props) {
     </button>
     <div class="collapse navbar navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li>
-          <i onClick="window.location.href='/';" class="bi bi-info-circle-fill nav-item no-italic"><span
-        class="nav-text">About Us</span></i>
-        </li>
+<!--        <li>-->
+<!--          <i onClick="window.location.href='/';" class="bi bi-info-circle-fill nav-item no-italic"><span-->
+<!--        class="nav-text">About Us</span></i>-->
+<!--        </li>-->
         <li>
     <i onClick="window.location.href='/home';" class="bi bi-house-fill nav-item no-italic"><span
         class="nav-text">Home</span></i>        </li>
@@ -27,7 +27,7 @@ export default function Navbar(props) {
         class="nav-text">Profile</span></i>
 </li>
         <li class="nav-item dropdown">
-          <a class="nav-link bi bi-search dropdown-toggle nav-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link bi bi-search dropdown-toggle nav-text" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Search
           </a>
           <ul class="dropdown-menu">
