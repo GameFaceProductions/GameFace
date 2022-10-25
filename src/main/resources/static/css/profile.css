@@ -336,10 +336,12 @@ button {
 }
 
 .btn-close {
-    transform: translate(5px);
-    padding: 0.5rem 0.7rem;
+    transform: translate(1px);
+    padding: 0.5rem 0.5rem;
+    margin-right: 0.6rem;
     background: #eee;
     border-radius: 50%;
+    height:1.1rem;
 }
 
 .overlay {
@@ -391,4 +393,21 @@ a {
 
 a:hover {
     color: #B6FFCD;
+}
+
+.text-white{
+    padding: 1rem;
+}
+
+.close-friends-list{
+    padding: 1rem;
+    margin-top: 0;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.ms-3 h5{
+    font-size: 2.3rem;
 }
