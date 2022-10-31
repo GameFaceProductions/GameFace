@@ -235,7 +235,7 @@ function gethomies() {
 
 function uploadNewBackdrop() {
   let backdrop_url = "";
-  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const client = filestack.init(FILESTACK);
   const options = {
     onFileSelected: (file) => {
       //LIMIT FILE SIZE (something like 40-50mb)

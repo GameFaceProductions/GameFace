@@ -173,7 +173,7 @@ function showDevHighlights() {
   let highlightVideoDiv = document.getElementById("highlightVideoDiv");
   let uploadHighlightBtn = document.getElementById("uploadHighlightBtn");
   //FILESTACK
-  const client = filestack.init("Aj4l9UFbrTTOmVjrVojEgz");
+  const client = filestack.init(FILESTACK);
   const options = {
     maxFiles: 1,
     onUploadDone: function (res) {
