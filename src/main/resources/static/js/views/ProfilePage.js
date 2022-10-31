@@ -479,7 +479,7 @@ function chatExport() {
       welcomeMessage: "Hey there!",
     });
     window.talkSession = new Talk.Session({
-      appId: "teXlD9fo",
+      appId: TALK_JS,
       me: me,
     });
     let other = new Talk.User({
